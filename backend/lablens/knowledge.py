@@ -66,7 +66,10 @@ def _read_any(path: Path) -> pd.DataFrame:
     if path.suffix == ".jsonl":
         return pd.read_json(path, lines=True)
     if path.suffix == ".json":
-        return pd.read_json(path)
+        try:
+            return pd.read_json(path)
+        except ValueError:  # JSON Lines saved under a .json name
+            return pd.read_json(path, lines=True)
     if path.suffix == ".parquet":
         return pd.read_parquet(path)
     return pd.read_csv(path)
@@ -96,14 +99,18 @@ def _lang_of(text: str) -> str | None:
 
 
 def _to_code(v) -> str:
-    v = str(v or "").strip().lower()
+    """Language code from an Adaption label: "mr-Deva-IN" -> "mr", "Hindi (India)" -> "hi", "original" -> "en"."""
+    v = str(v or "").strip().lower().replace("_", "-")
     if not v or v in ("nan", "none", "original", "source"):  # Adaption labels the un-translated rows "original"
         return "en"
-    v = v.replace("_", "-")
-    for code, name in LANG_NAMES.items():
-        if v == code or v.startswith(code + "-") or v.endswith("-" + code) or name.lower().startswith(v):
+    primary = v.split("-")[0]
+    if primary in LANG_NAMES:  # BCP-47 tag such as "mr-deva-in"
+        return primary
+    name = v.split(" (")[0]  # "marathi (india)" -> "marathi"
+    for code, label in LANG_NAMES.items():
+        if f"({name})" in label.lower() or label.lower().startswith(name):
             return code
-    return {"hindi": "hi", "marathi": "mr", "english": "en", "tamil": "ta", "telugu": "te"}.get(v, v[:2])
+    return primary[:2]
 
 
 def load_library() -> tuple[dict, dict]:
@@ -133,8 +140,8 @@ def load_library() -> tuple[dict, dict]:
     prompt_col = _pick(cols, ["enhanced_prompt", "adapted_prompt", "prompt", "original_prompt", "instruction"],
                        contains=("prompt",))
     id_col = _pick(cols, ["id", "row_id_source", "source_id"])
-    # Prefer the BCP-47 code ("mr-Deva-IN") over the display name ("Marathi (India)").
-    lang_col = _pick(cols, ["language", "target_language_code", "target_language", "locale", "lang"],
+    # Language from the BCP-47 code first ("mr-Deva-IN"), then a display name ("Marathi (India)").
+    lang_col = _pick(cols, ["target_language_code", "language_code", "language", "target_language", "locale", "lang"],
                      contains=("language", "locale"))
     if not text_col:
         info["error"] = "No completion column found in the adapted file."
