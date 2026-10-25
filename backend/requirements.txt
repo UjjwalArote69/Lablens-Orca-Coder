@@ -8,3 +8,4 @@ adaption>=0.15
 langfuse>=3.0
 fpdf2>=2.7
 pypdfium2>=4.0
+python-dotenv>=1.0

@@ -4,6 +4,10 @@ Run: uvicorn main:app --reload --port 8000
 """
 from __future__ import annotations
 
+from dotenv import load_dotenv
+
+load_dotenv()  # backend/.env -> environment before lablens.ai reads ADAPTION_*; real env vars (Render) win
+
 import base64
 import io
 import logging

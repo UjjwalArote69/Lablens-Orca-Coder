@@ -11,6 +11,10 @@ Needs ADAPTION_API_KEY in the environment.
 """
 from __future__ import annotations
 
+from dotenv import load_dotenv
+
+load_dotenv()  # backend/.env -> environment, where the Adaption SDK reads ADAPTION_API_KEY
+
 import argparse
 import json
 import sys
