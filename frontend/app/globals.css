@@ -1,40 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #ffffff;
-  --color-ink: #16181d;
-  --color-body: #3f444d;
-  --color-muted: #6b7079;
-  --color-line: #e6e6e3;
-  --color-subtle: #f6f6f4;
-  --color-ok: #1f7a5c;
-  --color-low: #2457c5;
-  --color-high: #a85a06;
-  --color-critical: #c0281c;
-  --color-band: #c4e3d4;
-  --color-track: #ececea;
+  --color-canvas: #e8ecf2;
+  --color-frame: #f3f5f9;
+  --color-surface: #ffffff;
+  --color-subtle: #f5f7fb;
+  --color-ink: #172033;
+  --color-body: #475467;
+  --color-muted: #667085;
+  --color-line: #e5e9f0;
+  --color-primary: #2f6fed;
+  --color-primary-soft: #eaf1fe;
+  --color-ok: #15805e;
+  --color-ok-dot: #22b07d;
+  --color-low: #2563eb;
+  --color-low-dot: #3b82f6;
+  --color-high: #b26200;
+  --color-high-dot: #f59e0b;
+  --color-critical: #d92d20;
+  --color-critical-dot: #ef4444;
+  --color-track: #e6eaf0;
 }
 
 @theme inline {
-  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
 body {
-  background: var(--color-paper);
+  background: var(--color-canvas);
   color: var(--color-ink);
-  font-family: var(--font-atkinson), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ink);
-  outline-offset: 3px;
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-md bg-ink px-4 py-2.5 text-sm font-bold text-white transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-40;
+  .card {
+    @apply rounded-[24px] bg-surface p-5 sm:p-6;
   }
-  .link {
-    @apply cursor-pointer font-bold underline decoration-[#c9c9c4] decoration-2 underline-offset-4 hover:decoration-ink;
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-linear-to-b from-[#4c8df6] to-[#2563eb] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_8px_18px_-8px_rgba(37,99,235,0.7)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none;
+  }
+  .btn-pill {
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-[#c9d3e3] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .tag {
+    @apply inline-flex items-center whitespace-nowrap rounded-full border border-[#d6e0f5] px-3 py-1 text-xs font-medium text-primary;
   }
 }

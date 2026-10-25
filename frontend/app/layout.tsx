@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible } from "next/font/google";
+import { Inter } from "next/font/google";
 import Header from "@/components/Header";
 import "./globals.css";
 
-const atkinson = Atkinson_Hyperlegible({
-  variable: "--font-atkinson",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -18,10 +17,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${atkinson.variable} antialiased`}>
-      <body className="min-h-screen bg-paper text-ink">
-        <Header />
-        <main className="mx-auto w-full max-w-[980px] px-5 pt-12 pb-20 sm:px-8 sm:pt-16">{children}</main>
+    <html lang="en" className={`${inter.variable} antialiased`}>
+      <body className="min-h-screen bg-canvas text-ink">
+        <div className="mx-auto w-full max-w-[1320px] sm:px-5 sm:py-6">
+          <div className="min-h-screen bg-frame px-3 py-3 sm:min-h-0 sm:rounded-[32px] sm:px-6 sm:py-6">
+            <Header />
+            <main className="pt-6 pb-8 sm:pt-8">{children}</main>
+          </div>
+        </div>
       </body>
     </html>
   );

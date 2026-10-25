@@ -1,8 +1,18 @@
 "use client";
 
+import { Info } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getMeta } from "@/lib/api";
 import type { Meta } from "@/lib/types";
+
+function Note({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mt-4 flex gap-2.5 rounded-[18px] bg-subtle p-4 text-sm leading-relaxed text-muted">
+      <Info className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
+      <span>{children}</span>
+    </p>
+  );
+}
 
 export default function AdaptionStats() {
   const [meta, setMeta] = useState<Meta | null>(null);
@@ -14,20 +24,21 @@ export default function AdaptionStats() {
       .catch(() => setFailed(true));
   }, []);
 
-  const note = (text: string) => <p className="mt-6 text-muted">{text}</p>;
-  if (failed) return note("Quality scores could not be loaded right now.");
-  if (!meta) return note("Loading quality scores…");
+  if (failed) return <Note>Quality scores could not be loaded right now.</Note>;
+  if (!meta) return <Note>Loading quality scores…</Note>;
 
   const { eval: ev, source, adapted_rows } = meta.adaption;
   if (!ev) {
-    return note(
-      source === "adaption"
-        ? `Adaption-adapted library loaded: ${adapted_rows} explanations. Quality scores are not available yet.`
-        : "Adaption-adapted explanations not loaded yet; showing the built-in drafts.",
+    return (
+      <Note>
+        {source === "adaption"
+          ? `Adaption-adapted library loaded: ${adapted_rows} explanations. Quality scores are not available yet.`
+          : "Adaption-adapted explanations not loaded yet; showing the built-in drafts."}
+      </Note>
     );
   }
 
-  const stats = [
+  const tiles = [
     { label: "Quality before", value: ev.score_before?.toFixed(1) ?? "–", sub: ev.grade_before },
     { label: "Quality after", value: ev.score_after?.toFixed(1) ?? "–", sub: ev.grade_after },
     {
@@ -37,12 +48,14 @@ export default function AdaptionStats() {
     },
   ];
   return (
-    <dl className="mt-8 grid grid-cols-3 gap-6">
-      {stats.map((s) => (
-        <div key={s.label}>
-          <dt className="text-sm text-muted">{s.label}</dt>
-          <dd className="mt-1 text-3xl font-bold tabular-nums">{s.value}</dd>
-          {s.sub && <dd className="text-sm text-muted">{s.sub}</dd>}
+    <dl className="mt-4 grid gap-2.5">
+      {tiles.map((t) => (
+        <div key={t.label} className="flex items-center justify-between gap-3 rounded-[18px] bg-subtle px-4 py-3">
+          <div>
+            <dt className="text-sm text-muted">{t.label}</dt>
+            {t.sub && <dd className="text-xs text-muted">{t.sub}</dd>}
+          </div>
+          <dd className="text-[1.75rem] font-semibold tracking-tight tabular-nums text-ink">{t.value}</dd>
         </div>
       ))}
     </dl>
