@@ -1,0 +1,9 @@
+{
+  "status": "succeeded",
+  "grade_before": "C",
+  "grade_after": "B",
+  "score_before": 6.0,
+  "score_after": 8.3,
+  "percentile_after": 31.5,
+  "improvement_percent": 38.3
+}

@@ -97,7 +97,7 @@ def _lang_of(text: str) -> str | None:
 
 def _to_code(v) -> str:
     v = str(v or "").strip().lower()
-    if not v or v in ("nan", "none"):
+    if not v or v in ("nan", "none", "original", "source"):  # Adaption labels the un-translated rows "original"
         return "en"
     v = v.replace("_", "-")
     for code, name in LANG_NAMES.items():
@@ -133,7 +133,9 @@ def load_library() -> tuple[dict, dict]:
     prompt_col = _pick(cols, ["enhanced_prompt", "adapted_prompt", "prompt", "original_prompt", "instruction"],
                        contains=("prompt",))
     id_col = _pick(cols, ["id", "row_id_source", "source_id"])
-    lang_col = _pick(cols, ["language", "target_language", "locale", "lang"], contains=("language", "locale"))
+    # Prefer the BCP-47 code ("mr-Deva-IN") over the display name ("Marathi (India)").
+    lang_col = _pick(cols, ["language", "target_language_code", "target_language", "locale", "lang"],
+                     contains=("language", "locale"))
     if not text_col:
         info["error"] = "No completion column found in the adapted file."
         return lib, info
