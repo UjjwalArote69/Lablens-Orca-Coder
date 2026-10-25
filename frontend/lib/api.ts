@@ -8,7 +8,8 @@ export class ApiError extends Error {
   }
 }
 
-async function request<T>(path: string, init?: RequestInit): Promise<T> {
+/** Fetch from the API; any failure becomes an ApiError carrying the server's plain-sentence `detail`. */
+async function send(path: string, init?: RequestInit): Promise<Response> {
   let res: Response;
   try {
     res = await fetch(`${API_URL}${path}`, init);
@@ -18,12 +19,16 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       0,
     );
   }
-  const body = await res.json().catch(() => null);
   if (!res.ok) {
+    const body = await res.json().catch(() => null);
     const detail = typeof body?.detail === "string" ? body.detail : null;
     throw new ApiError(detail ?? `The server returned an error (${res.status}). Please try again.`, res.status);
   }
-  return body as T;
+  return res;
+}
+
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  return (await send(path, init)).json() as Promise<T>;
 }
 
 export function errorMessage(e: unknown): string {
@@ -69,6 +74,16 @@ export function analyzeFile(file: File, opts: AnalyzeOptions = {}): Promise<Anal
   form.append("lang", opts.lang ?? "en");
   form.append("use_ai", String(opts.use_ai ?? false));
   return request<Analysis>("/api/analyze/file", { method: "POST", body: form });
+}
+
+/** One-page PDF of an analysis, for the patient to take to their doctor. */
+export async function summaryPdf(analysis: Analysis, source: string): Promise<Blob> {
+  const res = await send("/api/summary.pdf", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...analysis, source }),
+  });
+  return res.blob();
 }
 
 export function ask(question: string, reportSummary: string, lang: string): Promise<Answer> {

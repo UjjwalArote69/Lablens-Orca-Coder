@@ -6,6 +6,7 @@ import AskSection from "@/components/AskSection";
 import RangeBar from "@/components/RangeBar";
 import RangeMap from "@/components/RangeMap";
 import { CardHeader, ErrorMessage } from "@/components/ui";
+import { errorMessage, summaryPdf } from "@/lib/api";
 import {
   fmt,
   SEVERITY_BG,
@@ -42,6 +43,20 @@ export default function Results(props: Props) {
 
   const toggle = (key: string) => setOpen((keys) => (keys.includes(key) ? keys.filter((k) => k !== key) : [...keys, key]));
 
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+  async function downloadPdf() {
+    setPdfBusy(true);
+    setPdfError(null);
+    try {
+      saveFile(await summaryPdf(a, props.sourceLabel), "lablens-summary.pdf");
+    } catch (e) {
+      setPdfError(errorMessage(e));
+    } finally {
+      setPdfBusy(false);
+    }
+  }
+
   return (
     <div className={`transition-opacity ${busy ? "opacity-70" : ""}`} aria-busy={busy !== null}>
       {/* Toolbar */}
@@ -73,12 +88,13 @@ export default function Results(props: Props) {
               </select>
             </label>
           )}
-          <button type="button" onClick={() => download(a.summary_markdown)} className="btn-pill">
-            <Download className="size-4" aria-hidden="true" /> Download summary
+          <button type="button" onClick={downloadPdf} disabled={pdfBusy} className="btn-pill">
+            <Download className="size-4" aria-hidden="true" /> {pdfBusy ? "Preparing PDF…" : "Download PDF"}
           </button>
         </div>
       </div>
       {props.error && <ErrorMessage>{props.error}</ErrorMessage>}
+      {pdfError && <ErrorMessage>{pdfError}</ErrorMessage>}
 
       {/* 1. Verdict, with every result on one chart */}
       <section className="card mt-4 grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center" aria-live="polite">
@@ -163,10 +179,12 @@ export default function Results(props: Props) {
         {props.aiEnabled && <AskSection reportSummary={a.report_summary} lang={a.language} />}
         <section className="card flex flex-col" aria-labelledby="download">
           <CardHeader id="download" title="Take it to your doctor" />
-          <p className="mt-2 text-slate">The verdict, the patterns and every result in one short file.</p>
-          <button type="button" onClick={() => download(a.summary_markdown)} className="btn-primary mt-5 self-start">
-            <Download className="size-4" aria-hidden="true" /> Download summary for your doctor
+          <p className="mt-2 text-slate">A one-page PDF with the verdict, the patterns and every result.</p>
+          <button type="button" onClick={downloadPdf} disabled={pdfBusy} className="btn-primary mt-5 self-start">
+            <Download className="size-4" aria-hidden="true" />
+            {pdfBusy ? "Preparing PDF…" : "Download summary for your doctor"}
           </button>
+          {pdfError && <ErrorMessage>{pdfError}</ErrorMessage>}
         </section>
         <section className={`card ${props.aiEnabled ? "lg:col-span-3" : "lg:col-span-2"}`}>
           <p className="max-w-[78ch] text-sm leading-relaxed text-slate">{DISCLAIMER}</p>
@@ -316,11 +334,11 @@ function ResultCard({ r, open, onToggle }: { r: Result; open: boolean; onToggle:
   );
 }
 
-function download(markdown: string) {
-  const url = URL.createObjectURL(new Blob([markdown], { type: "text/markdown;charset=utf-8" }));
+function saveFile(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "lablens-summary.md";
+  link.download = filename;
   document.body.appendChild(link);
   link.click();
   link.remove();

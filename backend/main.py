@@ -14,10 +14,11 @@ from typing import Literal
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 
 from lablens import ai
+from pdf_summary import build_summary_pdf
 from lablens.knowledge import LANG_NAMES, explain, load_library
 from lablens.parser import parse_report, pdf_to_text
 from lablens.ranges import PANELS, TESTS
@@ -188,6 +189,56 @@ class AskIn(BaseModel):
     lang: str = "en"
 
 
+Status = Literal["normal", "low", "high", "critical_low", "critical_high"]
+
+
+class EvidenceIn(BaseModel):
+    name: str
+    value: float
+    unit: str
+    status: Status
+
+
+class PatternIn(BaseModel):
+    title: str
+    severity: Literal["urgent", "review", "watch"]
+    severity_label: str
+    note: str = ""
+    evidence: list[EvidenceIn] = []
+
+
+class ResultIn(BaseModel):
+    name: str
+    value: float
+    unit: str
+    panel: str
+    range_text: str
+    status: Status
+
+
+class VerdictIn(BaseModel):
+    level: Literal["urgent", "review", "watch", "ok"]
+    text: str
+
+
+class CountsIn(BaseModel):
+    read: int
+    abnormal: int
+    critical: int
+    patterns: int
+
+
+class SummaryIn(BaseModel):
+    """The analysis exactly as /api/analyze returned it (extra fields are ignored)."""
+    sex: Literal["F", "M"]
+    verdict: VerdictIn
+    counts: CountsIn
+    patterns: list[PatternIn]
+    results: list[ResultIn]
+    panels: list[str]
+    source: str = ""
+
+
 @app.get("/")
 def root():
     return {"ok": True, "service": "LabLens API", "health": "/api/health", "docs": "/docs"}
@@ -254,6 +305,15 @@ def analyze_file(file: UploadFile = File(...), sex: str | None = Form(None), lan
     else:
         raise HTTPException(415, "Upload a PDF or a .txt file, or paste the results as text.")
     return run_analysis(text, sex, lang, use_ai)
+
+
+@app.post("/api/summary.pdf")
+def summary_pdf(body: SummaryIn):
+    if not body.results:
+        raise HTTPException(422, "There are no results to put in the summary. Analyze a report first.")
+    pdf = build_summary_pdf(body.model_dump(), source=body.source[:120])
+    return Response(content=pdf, media_type="application/pdf",
+                    headers={"Content-Disposition": 'attachment; filename="lablens-summary.pdf"'})
 
 
 @app.post("/api/ask")
