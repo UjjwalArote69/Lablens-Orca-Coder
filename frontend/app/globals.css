@@ -40,6 +40,12 @@ body {
   outline-offset: 2px;
 }
 
+/* Selected text: white on the critical red (5.3:1 contrast). */
+::selection {
+  background-color: var(--color-critical);
+  color: #fff;
+}
+
 @layer components {
   /* Frosted glass: only top-level surfaces blur; inner panels are plain translucent white. */
   .glass,
