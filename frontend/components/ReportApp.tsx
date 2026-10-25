@@ -7,7 +7,7 @@ import { analyzeFile, analyzeText, errorMessage, getHealth, getMeta, getSample }
 import type { Analysis, Health, Meta, Sample, Sex } from "@/lib/types";
 
 // What the user gave us, kept so a sex or language change can re-run the same report.
-type Source = ({ kind: "text"; text: string } | { kind: "file"; file: File }) & { label: string; origin: string };
+type Source = ({ kind: "text"; text: string } | { kind: "file"; file: File }) & { label: string };
 
 export default function ReportApp() {
   const [health, setHealth] = useState<Health | null>(null);
@@ -58,15 +58,10 @@ export default function ReportApp() {
         onUseAiChange={setUseAi}
         onLocalError={setError}
         onSample={(s: Sample) =>
-          run(
-            s.id,
-            async () => ({ kind: "text", text: (await getSample(s.id)).text, label: s.label, origin: `Sample report · ${s.description}` }),
-            null,
-            lang,
-          )
+          run(s.id, async () => ({ kind: "text", text: (await getSample(s.id)).text, label: `Sample report · ${s.label}` }), null, lang)
         }
-        onFile={(file) => run("file", async () => ({ kind: "file", file, label: file.name, origin: "Uploaded file" }), null, lang)}
-        onPaste={(text) => run("paste", async () => ({ kind: "text", text, label: "your report", origin: "Pasted text" }), null, lang)}
+        onFile={(file) => run("file", async () => ({ kind: "file", file, label: `Uploaded file · ${file.name}` }), null, lang)}
+        onPaste={(text) => run("paste", async () => ({ kind: "text", text, label: "Pasted text" }), null, lang)}
       />
     );
   }
@@ -75,7 +70,6 @@ export default function ReportApp() {
     <Results
       analysis={analysis}
       sourceLabel={source.label}
-      sourceOrigin={source.origin}
       languages={meta?.languages ?? []}
       aiEnabled={!!health?.ai_enabled}
       busy={busy}
