@@ -52,6 +52,20 @@ TEST_ORDER = {k: i for i, k in enumerate(TESTS)}
 lib, info = load_library()
 
 app = FastAPI(title="LabLens API", version="1.0.0")
+
+
+# Registered before CORS so that CORS stays the outer layer and even a crash
+# reaches the browser as a readable JSON error instead of a blocked response.
+@app.middleware("http")
+async def _unexpected_errors(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception:  # noqa: BLE001
+        log.exception("Unhandled error on %s", request.url.path)
+        return JSONResponse(status_code=500, content={
+            "detail": "Something went wrong on our side. Please try again, or paste the results as text."})
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in os.environ.get("FRONTEND_ORIGIN", "http://localhost:3000").split(",") if o.strip()],
