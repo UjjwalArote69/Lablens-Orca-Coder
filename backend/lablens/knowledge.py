@@ -113,6 +113,29 @@ def _to_code(v) -> str:
     return primary[:2]
 
 
+def _adapted_file() -> Path | None:
+    files = sorted(p for p in ADAPTED_DIR.glob("*") if p.suffix in (".jsonl", ".json", ".csv", ".parquet"))
+    return files[0] if files else None
+
+
+def adaption_example(item_id: str = "combo:kidney_potassium") -> dict | None:
+    """One English explanation before and after Adaption, to show what adaptation changed."""
+    path = _adapted_file()
+    if path is None:
+        return None
+    try:
+        df = _read_any(path)
+        rows = df[(df["id"] == item_id) & (df["target_language_code"] == "original")]
+        if rows.empty:
+            return None
+        row = rows.iloc[0]
+        before, after = str(row["completion"]).strip(), str(row["enhanced_completion"]).strip()
+    except Exception:  # noqa: BLE001  (an unexpected file layout just hides the example)
+        return None
+    title = next((t for cid, t, *_ in COMBOS if f"combo:{cid}" == item_id), item_id)
+    return {"id": item_id, "title": title, "before": before, "after": after}
+
+
 def load_library() -> tuple[dict, dict]:
     """Returns ({id: {lang: text}}, info)."""
     seed = seed_rows()
@@ -124,13 +147,13 @@ def load_library() -> tuple[dict, dict]:
     if STATE_JSON.exists():
         info["state"] = json.loads(STATE_JSON.read_text())
 
-    files = sorted(p for p in ADAPTED_DIR.glob("*") if p.suffix in (".jsonl", ".json", ".csv", ".parquet"))
-    if not files:
+    path = _adapted_file()
+    if path is None:
         return lib, info
     try:
-        df = _read_any(files[0])
+        df = _read_any(path)
     except Exception as e:  # noqa: BLE001
-        info["error"] = f"Could not read {files[0].name}: {e}"
+        info["error"] = f"Could not read {path.name}: {e}"
         return lib, info
 
     cols = list(df.columns)

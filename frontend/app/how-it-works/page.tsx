@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AdaptionExample from "@/components/AdaptionExample";
 import AdaptionStats from "@/components/AdaptionStats";
 import { CardHeader } from "@/components/ui";
 
@@ -80,6 +81,8 @@ export default function HowItWorks() {
           <AdaptionStats />
         </section>
       </div>
+
+      <AdaptionExample />
 
       <p className="mt-8">
         <Link href="/" className="btn-primary">

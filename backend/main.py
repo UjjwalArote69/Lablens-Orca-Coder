@@ -26,7 +26,7 @@ from pydantic import BaseModel
 
 from lablens import ai
 from pdf_summary import build_summary_pdf
-from lablens.knowledge import LANG_NAMES, explain, load_library
+from lablens.knowledge import LANG_NAMES, adaption_example, explain, load_library
 from lablens.parser import parse_report, pdf_to_text
 from lablens.ranges import PANELS, TESTS
 from lablens.rules import COMBOS, analyze
@@ -59,6 +59,7 @@ PANEL_ORDER = {p: i for i, p in enumerate(PANELS)}
 TEST_ORDER = {k: i for i, k in enumerate(TESTS)}
 
 lib, info = load_library()
+example = adaption_example()  # one explanation before and after Adaption, for /how-it-works
 
 app = FastAPI(title="LabLens API", version="1.0.0")
 
@@ -268,7 +269,8 @@ def meta():
         languages=[dict(code=c, label=LANG_NAMES.get(c, c)) for c in info["languages"]],
         panels=PANELS, test_count=len(TESTS), rule_count=len(COMBOS),
         alias_count=sum(len(t["aliases"]) for t in TESTS.values()),
-        adaption=dict(source=info["source"], adapted_rows=info["adapted_rows"], eval=ev, error=info.get("error")),
+        adaption=dict(source=info["source"], adapted_rows=info["adapted_rows"], eval=ev, error=info.get("error"),
+                      example=example),
     )
 
 

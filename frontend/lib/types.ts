@@ -32,6 +32,7 @@ export interface Meta {
     adapted_rows: number;
     eval: AdaptionEval | null;
     error: string | null;
+    example: { id: string; title: string; before: string; after: string } | null;
   };
 }
 
