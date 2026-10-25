@@ -107,6 +107,13 @@ export default function Results(props: Props) {
           </h1>
           <Counts counts={a.counts} />
           {a.notice && <p className="mt-3 text-sm text-high">{a.notice}</p>}
+          {a.verdict.level === "urgent" && (
+            <p role="note" className="mt-5 rounded-2xl border border-[#f3c9c2] bg-[#fdf1ef] px-4 py-3 leading-relaxed text-critical">
+              <b>Feeling unwell right now?</b> Chest pain, a racing or irregular heartbeat, severe weakness, confusion or
+              fainting need care now: call <b>108</b> for an ambulance or <b>112</b> for emergencies. Do not wait for an
+              appointment.
+            </p>
+          )}
         </div>
         <div className="min-w-0 rounded-2xl bg-well p-4 sm:p-5">
           <RangeMap results={a.results} panels={a.panels} />
