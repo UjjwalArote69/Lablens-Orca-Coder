@@ -1,9 +1,13 @@
 import html
 import os
 import re
+import sys
 from pathlib import Path
 
 import streamlit as st
+
+ROOT = Path(__file__).parent / "backend"  # the engine, data and samples live in backend/
+sys.path.insert(0, str(ROOT))
 
 # Streamlit Cloud secrets -> environment variables (SDKs read env vars).
 try:
@@ -21,7 +25,6 @@ from lablens.rules import COMBOS, analyze  # noqa: E402
 
 st.set_page_config(page_title="LabLens: read your lab report", page_icon="🩸", layout="wide")
 
-ROOT = Path(__file__).parent
 SAMPLES = {
     "Anita, 34 F: tired all the time": "anita_anemia_thyroid.txt",
     "Rajesh, 52 M: routine check-up": "rajesh_metabolic.txt",
