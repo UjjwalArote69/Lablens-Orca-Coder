@@ -1,26 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-bg: #f2f5f7;
+  --color-surface: #ffffff;
+  --color-ink: #15212b;
+  --color-muted: #5a6b78;
+  --color-line: #d7e0e6;
+  --color-ok: #2e7d6b;
+  --color-low: #2f5da8;
+  --color-high: #a35f00;
+  --color-critical: #b42318;
+  --color-band: #dceee8;
+  --color-band-edge: #9cc9bb;
+  --color-track: #eef2f4;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-atkinson), system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-atkinson), system-ui, sans-serif;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-low);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary {
+    @apply bg-ink text-white hover:bg-[#2a3a47];
+  }
+  .btn-secondary {
+    @apply border border-line bg-surface text-ink hover:border-muted;
+  }
 }
