@@ -1,8 +1,51 @@
-import type { Severity, Status, VerdictLevel } from "./types";
+import type { Result, Severity, Status, VerdictLevel } from "./types";
 
 /** Like Python's `:g` format: up to 6 significant digits, no trailing zeros. */
 export function fmt(n: number): string {
   return String(Number(n.toPrecision(6)));
+}
+
+/** The short codes labs and doctors use for each test. */
+export const ABBR: Record<string, string> = {
+  hb: "Hb",
+  wbc: "WBC",
+  plt: "Plt",
+  mcv: "MCV",
+  fbs: "FBS",
+  hba1c: "A1c",
+  creat: "Cr",
+  urea: "Urea",
+  bun: "BUN",
+  na: "Na",
+  k: "K",
+  alt: "ALT",
+  ast: "AST",
+  bili: "Bili",
+  chol: "Chol",
+  ldl: "LDL",
+  hdl: "HDL",
+  tg: "TG",
+  tsh: "TSH",
+  ft4: "FT4",
+  ferritin: "Ferr",
+  b12: "B12",
+  vitd: "Vit D",
+  crp: "CRP",
+  uric: "Uric",
+};
+
+/**
+ * Where a value sits relative to its reference range, in "band units":
+ * 0 is the lower limit and 1 the upper one, so anything outside 0..1 is out of range.
+ */
+export function bandUnits(r: Pick<Result, "low" | "high" | "value" | "status">): number {
+  let u: number;
+  if (r.low !== null && r.high !== null) u = (r.value - r.low) / (r.high - r.low);
+  else if (r.high !== null) u = r.value / r.high;
+  else if (r.low !== null) u = (r.value - r.low) / r.low;
+  else u = 0.5;
+  // A normal value always sits inside the band, even when the range is open-ended.
+  return r.status === "normal" ? Math.min(Math.max(u, 0.06), 0.94) : u;
 }
 
 export const STATUS_LABEL: Record<Status, string> = {
@@ -24,54 +67,45 @@ export const STATUS_TEXT: Record<Status, string> = {
 
 export const STATUS_LABEL_TEXT: Record<Status, string> = { ...STATUS_TEXT, normal: "text-ok" };
 
-export const STATUS_DOT: Record<Status, string> = {
-  normal: "bg-ok-dot",
-  low: "bg-low-dot",
-  high: "bg-high-dot",
-  critical_low: "bg-critical-dot",
-  critical_high: "bg-critical-dot",
+export const STATUS_BG: Record<Status, string> = {
+  normal: "bg-ok",
+  low: "bg-low",
+  high: "bg-high",
+  critical_low: "bg-critical",
+  critical_high: "bg-critical",
 };
 
-// Colour of the triangle marker under the range bar.
 export const STATUS_MARKER: Record<Status, string> = {
-  normal: "border-b-ok-dot",
-  low: "border-b-low-dot",
-  high: "border-b-high-dot",
-  critical_low: "border-b-critical-dot",
-  critical_high: "border-b-critical-dot",
+  normal: "border-b-ok",
+  low: "border-b-low",
+  high: "border-b-high",
+  critical_low: "border-b-critical",
+  critical_high: "border-b-critical",
 };
 
 export const STATUS_CHIP: Record<Status, string> = {
-  normal: "border-line bg-surface text-ink",
-  low: "border-[#cfe0fd] bg-[#f3f7ff] text-low",
-  high: "border-[#f7ddb3] bg-[#fff8ec] text-high",
-  critical_low: "border-[#f8cfcb] bg-[#fff4f3] text-critical",
-  critical_high: "border-[#f8cfcb] bg-[#fff4f3] text-critical",
+  normal: "border-rule text-ink",
+  low: "border-[#c9d6f5] text-low",
+  high: "border-[#ecd3ad] text-high",
+  critical_low: "border-[#f0c3bb] text-critical",
+  critical_high: "border-[#f0c3bb] text-critical",
 };
 
-export const SEVERITY_PILL: Record<Severity, string> = {
-  urgent: "bg-[#fdecec] text-critical",
-  review: "bg-[#fff4e5] text-high",
-  watch: "bg-primary-soft text-low",
+export const SEVERITY_TEXT: Record<Severity, string> = {
+  urgent: "text-critical",
+  review: "text-high",
+  watch: "text-low",
 };
 
-export const SEVERITY_DOT: Record<Severity, string> = {
-  urgent: "bg-critical-dot",
-  review: "bg-high-dot",
-  watch: "bg-low-dot",
+export const SEVERITY_BG: Record<Severity, string> = {
+  urgent: "bg-critical",
+  review: "bg-high",
+  watch: "bg-low",
 };
 
-// The verdict card is red when urgent, green when all clear, brand blue otherwise.
-export const VERDICT_CARD: Record<VerdictLevel, string> = {
-  urgent: "from-[#f0645a] to-[#c62a20]",
-  review: "from-[#5b95f8] to-[#2560e6]",
-  watch: "from-[#5b95f8] to-[#2560e6]",
-  ok: "from-[#2fb488] to-[#137a5a]",
-};
-
-export const VERDICT_TAG: Record<VerdictLevel, { label: string; dot: string }> = {
-  urgent: { label: "See a doctor today", dot: "bg-critical-dot" },
-  review: { label: "Discuss with your doctor", dot: "bg-high-dot" },
-  watch: { label: "Keep an eye on", dot: "bg-low-dot" },
-  ok: { label: "All within range", dot: "bg-ok-dot" },
+export const VERDICT_TEXT: Record<VerdictLevel, string> = {
+  urgent: "text-critical",
+  review: "text-high",
+  watch: "text-ink",
+  ok: "text-ok",
 };

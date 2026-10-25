@@ -1,35 +1,18 @@
-import { CircleAlert } from "lucide-react";
-
-export function CardHeader({ title, id, tag, children }: { title: string; id?: string; tag?: string; children?: React.ReactNode }) {
+export function CardHeader({ title, id, aside }: { title: string; id?: string; aside?: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-2">
-      <h2 id={id} className="text-lg font-semibold tracking-tight">
+    <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+      <h2 id={id} className="text-[1.375rem] leading-tight font-bold tracking-tight">
         {title}
       </h2>
-      {children ?? (tag && <span className="tag">{tag}</span>)}
+      {aside}
     </div>
-  );
-}
-
-export function IconCircle({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={`flex size-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary ${className}`}
-    >
-      {children}
-    </span>
   );
 }
 
 export function ErrorMessage({ children }: { children: React.ReactNode }) {
   return (
-    <p
-      role="alert"
-      className="mt-4 flex items-start gap-2.5 rounded-2xl border border-[#f8cfcb] bg-[#fff4f3] px-4 py-3 text-sm font-medium text-critical"
-    >
-      <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-      <span>{children}</span>
+    <p role="alert" className="mt-4 rounded-2xl border border-[#f3c9c2] bg-[#fdf1ef] px-4 py-3 font-medium text-critical">
+      {children}
     </p>
   );
 }

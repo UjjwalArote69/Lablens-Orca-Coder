@@ -1,6 +1,5 @@
 "use client";
 
-import { MessageCircleQuestion } from "lucide-react";
 import { useState } from "react";
 import { CardHeader, ErrorMessage } from "@/components/ui";
 import { ask, errorMessage } from "@/lib/api";
@@ -28,31 +27,28 @@ export default function AskSection({ reportSummary, lang }: { reportSummary: str
 
   return (
     <section className="card lg:col-span-2" aria-labelledby="ask">
-      <CardHeader id="ask" title="Ask about this report" tag="Adaption inference" />
+      <CardHeader id="ask" title="Ask about this report" />
       <form onSubmit={submit} className="mt-4 flex flex-col gap-2 sm:flex-row">
         <label htmlFor="question" className="sr-only">
           Your question
         </label>
-        <div className="flex flex-1 items-center gap-2 rounded-full bg-subtle px-4">
-          <MessageCircleQuestion className="size-4 shrink-0 text-muted" aria-hidden="true" />
-          <input
-            id="question"
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            maxLength={500}
-            placeholder="Which result should I worry about first?"
-            className="w-full bg-transparent py-2.5 text-sm placeholder:text-[#98a2b3] focus:outline-none"
-          />
-        </div>
+        <input
+          id="question"
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          maxLength={500}
+          placeholder="Which result should I worry about first?"
+          className="flex-1 rounded-full border border-rule bg-[#f6f8fb] px-5 py-2.5 placeholder:text-[#93a0b2] focus:border-lab focus:outline-none"
+        />
         <button type="submit" disabled={busy || !question.trim()} className="btn-primary">
           {busy ? "Getting an answer…" : "Get an answer"}
         </button>
       </form>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       {answer && (
-        <div className="mt-4 rounded-[20px] bg-subtle p-4 sm:p-5" aria-live="polite">
-          <p className="whitespace-pre-line text-sm leading-relaxed">{answer.answer}</p>
-          <p className="mt-3 text-xs text-muted">
+        <div className="mt-4 rounded-2xl bg-well p-5" aria-live="polite">
+          <p className="max-w-[70ch] whitespace-pre-line leading-relaxed">{answer.answer}</p>
+          <p className="mt-3 text-sm text-slate">
             {answer.provider === "adaption"
               ? "Answered through Adaption's inference gateway, grounded in the adapted explanation library. "
               : "Answered by an AI model. "}

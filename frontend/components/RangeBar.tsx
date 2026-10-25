@@ -1,5 +1,5 @@
-import { fmt, STATUS_MARKER } from "@/lib/format";
-import type { Result } from "@/lib/types";
+import { fmt, STATUS_BG, STATUS_MARKER } from "@/lib/format";
+import type { Result, Status } from "@/lib/types";
 
 /** Positions (in %) of the reference band and the value marker on the track. */
 export function barGeometry(low: number | null, high: number | null, value: number) {
@@ -26,9 +26,9 @@ export function barGeometry(low: number | null, high: number | null, value: numb
 
 type Props = { r: Pick<Result, "low" | "high" | "value" | "unit" | "status" | "range_text"> };
 
+/** Full bar for a result card: band, a marker under the value, and the band's limits labelled. */
 export default function RangeBar({ r }: Props) {
   const { bandStart, bandEnd, marker } = barGeometry(r.low, r.high, r.value);
-  // Label the band edges; when the band is too narrow for two labels, show one in the middle.
   const labels: { at: number; text: string }[] =
     r.low !== null && r.high !== null && bandEnd - bandStart < 14
       ? [{ at: (bandStart + bandEnd) / 2, text: r.range_text }]
@@ -45,7 +45,7 @@ export default function RangeBar({ r }: Props) {
     >
       <span className="absolute inset-x-0 top-0 block h-2 rounded-full bg-track">
         <span
-          className="absolute inset-y-0 block rounded-full bg-linear-to-r from-[#a9e4d0] to-[#62c5a2]"
+          className="absolute inset-y-0 block bg-band"
           style={{ left: `${bandStart}%`, width: `${bandEnd - bandStart}%` }}
         />
       </span>
@@ -56,12 +56,30 @@ export default function RangeBar({ r }: Props) {
       {labels.map((l) => (
         <span
           key={l.text}
-          className="absolute top-[22px] block -translate-x-1/2 text-[11px] leading-none text-muted tabular-nums"
+          className="absolute top-[22px] block -translate-x-1/2 text-xs leading-none text-slate tabular-nums"
           style={{ left: `${l.at}%` }}
         >
           {l.text}
         </span>
       ))}
+    </span>
+  );
+}
+
+/** Compact bar used in the landing-page report excerpt. */
+export function MiniBar({ low, high, value, status }: { low: number; high: number; value: number; status: Status }) {
+  const { bandStart, bandEnd, marker } = barGeometry(low, high, value);
+  return (
+    <span aria-hidden="true" className="relative block h-2.5 w-full">
+      <span className="absolute inset-x-0 top-1/2 block h-1 -translate-y-1/2 rounded-full bg-track" />
+      <span
+        className="absolute top-1/2 block h-1 -translate-y-1/2 bg-band"
+        style={{ left: `${bandStart}%`, width: `${bandEnd - bandStart}%` }}
+      />
+      <span
+        className={`absolute top-1/2 block size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-paper ${STATUS_BG[status]}`}
+        style={{ left: `${marker}%` }}
+      />
     </span>
   );
 }
