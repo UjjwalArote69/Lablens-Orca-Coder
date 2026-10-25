@@ -76,10 +76,19 @@ async def _unexpected_errors(request: Request, call_next):
             "detail": "Something went wrong on our side. Please try again, or paste the results as text."})
 
 
+def _clean(value: str) -> str:
+    """Forgive common paste mistakes in dashboard settings: spaces, quotes, a trailing slash."""
+    return value.strip().strip("\"'").strip().rstrip("/")
+
+
+CORS_ORIGINS = [o for o in map(_clean, os.environ.get("FRONTEND_ORIGIN", "http://localhost:3000").split(",")) if o]
+CORS_ORIGIN_REGEX = _clean(os.environ.get("FRONTEND_ORIGIN_REGEX", "")) or None
+logging.getLogger("uvicorn.error").info("CORS origins=%s regex=%s", CORS_ORIGINS, CORS_ORIGIN_REGEX)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[o.strip() for o in os.environ.get("FRONTEND_ORIGIN", "http://localhost:3000").split(",") if o.strip()],
-    allow_origin_regex=os.environ.get("FRONTEND_ORIGIN_REGEX") or None,  # e.g. https://lablens-.*\.vercel\.app
+    allow_origins=CORS_ORIGINS,
+    allow_origin_regex=CORS_ORIGIN_REGEX,  # e.g. https://lablens-orca-coder[a-z0-9-]*[.]vercel[.]app
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -250,7 +259,8 @@ class SummaryIn(BaseModel):
 
 @app.get("/")
 def root():
-    return {"ok": True, "service": "LabLens API", "health": "/api/health", "docs": "/docs"}
+    return {"ok": True, "service": "LabLens API", "health": "/api/health", "docs": "/docs",
+            "cors": {"origins": CORS_ORIGINS, "origin_regex": CORS_ORIGIN_REGEX}}
 
 
 @app.get("/api/health")
