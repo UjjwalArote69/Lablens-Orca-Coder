@@ -1,43 +1,53 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f2f5f7;
+  --color-canvas: #e8ecf2;
+  --color-frame: #f3f5f9;
   --color-surface: #ffffff;
-  --color-ink: #15212b;
-  --color-muted: #5a6b78;
-  --color-line: #d7e0e6;
-  --color-ok: #2e7d6b;
-  --color-low: #2f5da8;
-  --color-high: #a35f00;
-  --color-critical: #b42318;
-  --color-band: #dceee8;
-  --color-band-edge: #9cc9bb;
-  --color-track: #eef2f4;
+  --color-subtle: #f5f7fb;
+  --color-ink: #172033;
+  --color-body: #475467;
+  --color-muted: #667085;
+  --color-line: #e5e9f0;
+  --color-primary: #2f6fed;
+  --color-primary-soft: #eaf1fe;
+  --color-ok: #15805e;
+  --color-ok-dot: #22b07d;
+  --color-low: #2563eb;
+  --color-low-dot: #3b82f6;
+  --color-high: #b26200;
+  --color-high-dot: #f59e0b;
+  --color-critical: #d92d20;
+  --color-critical-dot: #ef4444;
+  --color-track: #e6eaf0;
 }
 
 @theme inline {
-  --font-sans: var(--font-atkinson), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-canvas);
   color: var(--color-ink);
-  font-family: var(--font-atkinson), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-low);
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg px-4 py-2.5 font-bold transition-colors disabled:cursor-not-allowed disabled:opacity-60;
+  .card {
+    @apply rounded-[24px] bg-surface p-5 sm:p-6;
   }
   .btn-primary {
-    @apply bg-ink text-white hover:bg-[#2a3a47];
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-linear-to-b from-[#4c8df6] to-[#2563eb] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_8px_18px_-8px_rgba(37,99,235,0.7)] transition hover:brightness-105 disabled:cursor-not-allowed disabled:opacity-60 disabled:shadow-none;
   }
-  .btn-secondary {
-    @apply border border-line bg-surface text-ink hover:border-muted;
+  .btn-pill {
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-[#c9d3e3] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .tag {
+    @apply inline-flex items-center whitespace-nowrap rounded-full border border-[#d6e0f5] px-3 py-1 text-xs font-medium text-primary;
   }
 }

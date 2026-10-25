@@ -1,11 +1,20 @@
 "use client";
 
+import { ChevronRight, ScanSearch, Upload } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import ErrorMessage from "@/components/ErrorMessage";
+import { CardHeader, ErrorMessage, IconCircle } from "@/components/ui";
 import { errorMessage, getSamples } from "@/lib/api";
 import type { Sample } from "@/lib/types";
 
 const MAX_BYTES = 10 * 1024 * 1024;
+
+const AVATARS = [
+  "from-[#ffe1dc] to-[#ffbcb1] text-[#b42318]",
+  "from-[#dfe9ff] to-[#bcd2fd] text-primary",
+  "from-[#ffefcf] to-[#ffd98f] text-high",
+  "from-[#d9f5eb] to-[#a9e6d0] text-ok",
+];
 
 interface Props {
   busy: string | null;
@@ -18,8 +27,6 @@ interface Props {
   onFile: (file: File) => void;
   onPaste: (text: string) => void;
 }
-
-const card = "flex flex-col rounded-xl border border-line bg-surface p-5";
 
 export default function AddReport(props: Props) {
   const { busy } = props;
@@ -68,37 +75,68 @@ export default function AddReport(props: Props) {
   }
 
   return (
-    <div className="pt-6 sm:pt-10">
-      <h1 className="max-w-[22ch] text-3xl font-bold leading-tight sm:text-[2.6rem]">
-        Understand your lab report in a minute.
+    <div>
+      <h1 className="max-w-[24ch] text-[2rem] font-semibold leading-[1.15] tracking-tight sm:text-[2.6rem]">
+        Understand your <span className="text-primary">lab report</span> in a minute.
       </h1>
-      <p className="mt-3 max-w-[62ch] text-lg text-muted">
-        LabLens checks each result against adult reference ranges and points out the results that are worth
-        discussing with a doctor together.
+      <p className="mt-3 max-w-[62ch] text-muted sm:text-lg">
+        LabLens checks each result against adult reference ranges and points out the results that are worth discussing
+        with a doctor together.
       </p>
 
-      <h2 className="mt-10 text-sm font-bold text-muted">Add your report</h2>
-      <div className="mt-3 grid gap-4 md:grid-cols-3">
+      <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {/* Intro */}
+        <section className="relative flex flex-col overflow-hidden rounded-[24px] bg-linear-to-br from-[#5b95f8] to-[#2560e6] p-6 text-white">
+          <span aria-hidden="true" className="pointer-events-none absolute -top-20 -right-16 size-56 rounded-full bg-white/10 blur-2xl" />
+          <div className="flex items-center justify-between gap-2">
+            <span className="flex size-11 items-center justify-center rounded-full bg-white/20 ring-4 ring-white/10">
+              <ScanSearch className="size-5" aria-hidden="true" />
+            </span>
+            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-primary">25 tests · 18 rules</span>
+          </div>
+          <h2 className="mt-6 text-xl font-semibold leading-snug">Ranges first. AI never decides what is abnormal.</h2>
+          <p className="mt-2 text-sm leading-relaxed text-white/85">
+            Every flag traces back to a reference range or a written rule. The explanations are grounded and translated
+            with Adaption.
+          </p>
+          <div className="mt-auto flex items-center justify-between gap-3 pt-6">
+            <span aria-hidden="true" className="flex gap-1.5">
+              <span className="h-1 w-8 rounded-full bg-white" />
+              <span className="h-1 w-8 rounded-full bg-white/35" />
+              <span className="h-1 w-8 rounded-full bg-white/35" />
+            </span>
+            <Link href="/how-it-works" className="rounded-full bg-white/20 px-3 py-1.5 text-xs font-semibold hover:bg-white/30">
+              How it works
+            </Link>
+          </div>
+        </section>
+
         {/* 1. Sample reports */}
-        <section className={card} aria-labelledby="try-sample">
-          <h3 id="try-sample" className="text-lg font-bold">
-            Try a sample
-          </h3>
-          <p className="mt-1 text-sm text-muted">Four real-looking reports from Indian labs.</p>
+        <section className="card flex flex-col" aria-labelledby="try-sample">
+          <CardHeader id="try-sample" title="Try a sample" tag="4 reports" />
           {samples ? (
-            <ul className="mt-4 grid grid-cols-2 gap-2">
-              {samples.map((s) => (
+            <ul className="mt-3 divide-y divide-line">
+              {samples.map((s, i) => (
                 <li key={s.id}>
                   <button
                     type="button"
                     disabled={busy !== null}
                     onClick={() => props.onSample(s)}
-                    className="h-full w-full cursor-pointer rounded-lg border border-line bg-bg px-3 py-2.5 text-left transition-colors hover:border-muted disabled:cursor-not-allowed disabled:opacity-60"
+                    className="group flex w-full cursor-pointer items-center gap-3 rounded-xl py-2.5 text-left disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span className="block font-bold">{s.label}</span>
-                    <span className="block text-sm text-muted" aria-live="polite">
-                      {busy === s.id ? "Analyzing…" : s.description}
+                    <span
+                      aria-hidden="true"
+                      className={`flex size-10 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-sm font-semibold ${AVATARS[i % AVATARS.length]}`}
+                    >
+                      {s.label.charAt(0)}
                     </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-semibold">{s.label}</span>
+                      <span className="block text-xs text-muted" aria-live="polite">
+                        {busy === s.id ? "Analyzing…" : s.description}
+                      </span>
+                    </span>
+                    <ChevronRight className="size-4 text-muted transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                   </button>
                 </li>
               ))}
@@ -106,7 +144,7 @@ export default function AddReport(props: Props) {
           ) : samplesError ? (
             <div className="mt-4 text-sm">
               <p className="text-critical">{samplesError}</p>
-              <button type="button" onClick={retrySamples} className="btn btn-secondary mt-3">
+              <button type="button" onClick={retrySamples} className="btn-pill mt-3">
                 Try again
               </button>
             </div>
@@ -118,11 +156,8 @@ export default function AddReport(props: Props) {
         </section>
 
         {/* 2. File upload */}
-        <section className={card} aria-labelledby="upload-file">
-          <h3 id="upload-file" className="text-lg font-bold">
-            Upload a file
-          </h3>
-          <p className="mt-1 text-sm text-muted">A PDF or text file from your lab, up to 10 MB.</p>
+        <section className="card flex flex-col" aria-labelledby="upload-file">
+          <CardHeader id="upload-file" title="Upload a file" tag="PDF or TXT" />
           <label
             onDragOver={(e) => {
               e.preventDefault();
@@ -135,8 +170,8 @@ export default function AddReport(props: Props) {
               const file = e.dataTransfer.files[0];
               if (file && busy === null) pickFile(file);
             }}
-            className={`mt-4 flex min-h-36 flex-1 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-6 text-center transition-colors focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-low ${
-              dragging ? "border-low bg-[#EAF0FA]" : "border-line bg-bg hover:border-muted"
+            className={`mt-4 flex min-h-44 flex-1 cursor-pointer flex-col items-center justify-center rounded-[20px] border-2 border-dashed px-4 py-6 text-center transition-colors focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-primary ${
+              dragging ? "border-primary bg-primary-soft" : "border-[#d6e0f5] bg-subtle hover:border-primary/50"
             }`}
           >
             <input
@@ -150,27 +185,28 @@ export default function AddReport(props: Props) {
                 e.target.value = "";
               }}
             />
+            <IconCircle className="size-12 bg-white">
+              <Upload className="size-5" />
+            </IconCircle>
             {busy === "file" ? (
-              <span className="font-bold" aria-live="polite">
+              <span className="mt-3 text-sm font-semibold" aria-live="polite">
                 Analyzing…
               </span>
             ) : (
               <>
-                <span className="font-bold">Drop your PDF or TXT here</span>
-                <span className="mt-1 text-sm text-muted">
-                  or <span className="font-bold text-low underline underline-offset-2">choose a file</span>
+                <span className="mt-3 text-sm font-semibold">Drop your report here</span>
+                <span className="mt-0.5 text-sm text-muted">
+                  or <span className="font-semibold text-primary">choose a file</span>
                 </span>
+                <span className="mt-2 text-xs text-muted">Up to 10 MB</span>
               </>
             )}
           </label>
         </section>
 
         {/* 3. Paste */}
-        <section className={card} aria-labelledby="paste-text">
-          <h3 id="paste-text" className="text-lg font-bold">
-            Paste text
-          </h3>
-          <p className="mt-1 text-sm text-muted">Copy the results section of your report.</p>
+        <section className="card flex flex-col" aria-labelledby="paste-text">
+          <CardHeader id="paste-text" title="Paste text" tag="Results section" />
           <form
             className="mt-4 flex flex-1 flex-col gap-3"
             onSubmit={(e) => {
@@ -187,9 +223,9 @@ export default function AddReport(props: Props) {
               onChange={(e) => setText(e.target.value)}
               rows={5}
               placeholder={"Haemoglobin  9.1  g/dL\nTSH  7.8  mIU/L\nSGPT  58  U/L"}
-              className="min-h-36 flex-1 resize-y rounded-lg border border-line bg-bg px-3 py-2 font-mono text-sm leading-relaxed"
+              className="min-h-36 flex-1 resize-y rounded-[16px] border border-transparent bg-subtle px-4 py-3 font-mono text-sm leading-relaxed placeholder:text-[#98a2b3] focus:border-[#c9d8f8] focus:outline-none focus-visible:outline-3 focus-visible:outline-primary"
             />
-            <button type="submit" disabled={busy !== null || !text.trim()} className="btn btn-primary">
+            <button type="submit" disabled={busy !== null || !text.trim()} className="btn-primary w-full">
               {busy === "paste" ? "Analyzing…" : "Analyze report"}
             </button>
           </form>
@@ -197,15 +233,15 @@ export default function AddReport(props: Props) {
       </div>
 
       {props.aiEnabled && (
-        <label className="mt-5 flex items-start gap-2 text-sm">
+        <label className="mt-5 flex items-start gap-2.5 text-sm">
           <input
             type="checkbox"
             checked={props.useAi}
             onChange={(e) => props.onUseAiChange(e.target.checked)}
-            className="mt-0.5 size-4 accent-[#15212B]"
+            className="mt-0.5 size-4 accent-[#2f6fed]"
           />
           <span>
-            <b>Use AI to read messy reports.</b>{" "}
+            <b className="font-semibold">Use AI to read messy reports.</b>{" "}
             <span className="text-muted">AI only reads the numbers. Fixed rules still decide what is out of range.</span>
           </span>
         </label>
