@@ -21,9 +21,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${atkinson.variable} antialiased`}>
-      <body className="min-h-screen bg-canvas text-ink">
+      <body className="min-h-screen text-ink">
         <div className="mx-auto w-full max-w-[1280px] sm:px-5 sm:py-6">
-          <div className="min-h-screen bg-[#f6f8fb] px-3 py-3 sm:min-h-0 sm:rounded-[32px] sm:px-7 sm:py-7">
+          <div className="min-h-screen px-3 py-3 sm:min-h-0 sm:px-7 sm:py-7">
             <Header />
             <main className="pt-8 pb-6 sm:pt-10">{children}</main>
           </div>

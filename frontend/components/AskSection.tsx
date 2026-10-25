@@ -38,7 +38,7 @@ export default function AskSection({ reportSummary, lang }: { reportSummary: str
           onChange={(e) => setQuestion(e.target.value)}
           maxLength={500}
           placeholder="Which result should I worry about first?"
-          className="flex-1 rounded-full border border-rule bg-[#f6f8fb] px-5 py-2.5 placeholder:text-[#93a0b2] focus:border-lab focus:outline-none"
+          className="flex-1 rounded-full border border-white/70 bg-white/50 px-5 py-2.5 placeholder:text-[#93a0b2] focus:border-lab focus:outline-none"
         />
         <button type="submit" disabled={busy || !question.trim()} className="btn-primary">
           {busy ? "Getting an answer…" : "Get an answer"}

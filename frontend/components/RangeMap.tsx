@@ -66,7 +66,7 @@ function Column({ r }: { r: Result }) {
           />
         )}
         <span
-          className={`absolute left-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full ring-[3px] ring-[#f3f6fa] ${STATUS_BG[r.status]} ${
+          className={`absolute left-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full ring-[3px] ring-white ${STATUS_BG[r.status]} ${
             critical ? "size-4" : "size-3"
           }`}
           style={{ top: `${dot}%` }}

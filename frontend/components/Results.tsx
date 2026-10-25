@@ -146,7 +146,7 @@ export default function Results(props: Props) {
               type="button"
               aria-pressed={onlyFlags}
               onClick={() => setOnlyFlags((v) => !v)}
-              className={`btn-pill ${onlyFlags ? "border-lab bg-[#eef3fd] text-lab" : ""}`}
+              className={`btn-pill ${onlyFlags ? "border-lab bg-white/90 text-lab" : ""}`}
             >
               Show only results outside the range
             </button>
@@ -206,7 +206,7 @@ function SexToggle({ value, disabled, onChange }: { value: Sex; disabled: boolea
     <div
       role="group"
       aria-label="Reference ranges for"
-      className="inline-flex items-center gap-1 rounded-full border border-rule bg-paper p-1 pl-4 text-sm"
+      className="inline-flex items-center gap-1 rounded-full border border-white/70 bg-white/60 p-1 pl-4 text-sm backdrop-blur-md"
     >
       <span className="mr-1 text-slate">Reference ranges for</span>
       {(["F", "M"] as const).map((s) => (
@@ -323,7 +323,7 @@ function ResultCard({ r, open, onToggle }: { r: Result; open: boolean; onToggle:
         aria-expanded={open}
         aria-controls={`explain-${r.key}`}
         onClick={onToggle}
-        className="block w-full cursor-pointer rounded-2xl p-4 text-left transition-colors hover:bg-[#ebf0f6]"
+        className="block w-full cursor-pointer rounded-2xl p-4 text-left transition-colors hover:bg-white/80"
       >
         {body}
       </button>

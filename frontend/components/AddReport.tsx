@@ -103,7 +103,7 @@ export default function AddReport(props: Props) {
                     onClick={() => props.onSample(s)}
                     className="group flex w-full cursor-pointer items-center gap-3 py-3 text-left disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-[#eef2f7] text-sm font-bold text-slate">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-white/70 text-sm font-bold text-slate">
                       {s.sex}
                       <span className="sr-only">{s.sex === "F" ? " (female)" : " (male)"}</span>
                     </span>
@@ -148,7 +148,7 @@ export default function AddReport(props: Props) {
               if (file && busy === null) pickFile(file);
             }}
             className={`mt-4 flex min-h-48 flex-1 cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-4 py-6 text-center transition-colors focus-within:outline-3 focus-within:outline-offset-2 focus-within:outline-lab ${
-              dragging ? "border-lab bg-[#eef3fd]" : "border-[#cdd7e4] bg-[#f6f8fb] hover:border-lab"
+              dragging ? "border-lab bg-white/80" : "border-[#b9c7dc] bg-white/40 hover:border-lab"
             }`}
           >
             <input
@@ -198,7 +198,7 @@ export default function AddReport(props: Props) {
               onChange={(e) => setText(e.target.value)}
               rows={5}
               placeholder={"Haemoglobin  9.1  g/dL\nTSH  7.8  mIU/L\nSGPT  58  U/L"}
-              className="min-h-36 flex-1 resize-y rounded-2xl border border-rule bg-[#f6f8fb] px-4 py-3 text-[15px] leading-relaxed placeholder:text-[#93a0b2] focus:border-lab focus:outline-none"
+              className="min-h-36 flex-1 resize-y rounded-2xl border border-white/70 bg-white/50 px-4 py-3 text-[15px] leading-relaxed placeholder:text-[#93a0b2] focus:border-lab focus:outline-none"
             />
             <button type="submit" disabled={busy !== null || !text.trim()} className="btn-primary">
               {busy === "paste" ? "Analyzing…" : "Analyze report"}

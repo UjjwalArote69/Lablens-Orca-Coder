@@ -33,7 +33,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="grid grid-cols-[1fr_auto] items-center gap-3 rounded-[20px] bg-paper px-4 py-3 sm:grid-cols-[1fr_auto_1fr] sm:px-5">
+    <header className="glass grid grid-cols-[1fr_auto] items-center gap-3 rounded-[20px] px-4 py-3 sm:grid-cols-[1fr_auto_1fr] sm:px-5">
       <Link href="/" className="col-start-1 row-start-1 flex items-center gap-2.5 justify-self-start text-lg font-bold tracking-tight">
         <LogoMark />
         LabLens
