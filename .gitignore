@@ -25,3 +25,7 @@ Thumbs.db
 *.log
 
 design
+
+# Media: voice-over drafts and the raw recording stay local; the compressed demo is in docs/
+*.mp3
+/Lablens.mp4
