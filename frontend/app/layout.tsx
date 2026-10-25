@@ -8,6 +8,8 @@ const atkinson = Atkinson_Hyperlegible_Next({
   variable: "--font-atkinson",
   subsets: ["latin"],
   display: "swap",
+  fallback: ["system-ui", "sans-serif"],
+  adjustFontFallback: false, // Next has no metrics for this family yet
 });
 
 export const metadata: Metadata = {
