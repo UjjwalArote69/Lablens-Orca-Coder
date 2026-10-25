@@ -81,8 +81,10 @@ def _clean(value: str) -> str:
     return value.strip().strip("\"'").strip().rstrip("/")
 
 
-CORS_ORIGINS = [o for o in map(_clean, os.environ.get("FRONTEND_ORIGIN", "http://localhost:3000").split(",")) if o]
-CORS_ORIGIN_REGEX = _clean(os.environ.get("FRONTEND_ORIGIN_REGEX", "")) or None
+# Empty or missing settings fall back to local development plus this project's Vercel addresses.
+CORS_ORIGINS = [o for o in map(_clean, os.environ.get("FRONTEND_ORIGIN", "").split(",")) if o] or ["http://localhost:3000"]
+CORS_ORIGIN_REGEX = (_clean(os.environ.get("FRONTEND_ORIGIN_REGEX", ""))
+                     or r"https://lablens-orca-coder[a-z0-9-]*[.]vercel[.]app")
 logging.getLogger("uvicorn.error").info("CORS origins=%s regex=%s", CORS_ORIGINS, CORS_ORIGIN_REGEX)
 
 app.add_middleware(
