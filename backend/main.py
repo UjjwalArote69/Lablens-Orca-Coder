@@ -4,6 +4,8 @@ Run: uvicorn main:app --reload --port 8000
 """
 from __future__ import annotations
 
+import base64
+import io
 import logging
 import math
 import os
@@ -11,6 +13,7 @@ import re
 from pathlib import Path
 from typing import Literal
 
+import pypdfium2 as pdfium
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -30,6 +33,7 @@ ROOT = Path(__file__).resolve().parent
 SAMPLES_DIR = ROOT / "samples"
 MAX_UPLOAD = 10 * 1024 * 1024
 MAX_TEXT = 200_000
+MAX_SCAN_PAGES = 4
 
 SAMPLES = [
     dict(id="suresh_kidney_urgent", label="Suresh, 61", description="Emergency sample", sex="M"),
@@ -305,6 +309,28 @@ def analyze_file(file: UploadFile = File(...), sex: str | None = Form(None), lan
     else:
         raise HTTPException(415, "Upload a PDF or a .txt file, or paste the results as text.")
     return run_analysis(text, sex, lang, use_ai)
+
+
+@app.post("/api/pdf/pages")
+def pdf_pages(file: UploadFile = File(...)):
+    """Page images of a scanned PDF. The browser reads them with OCR, so photos stay on the device."""
+    data = file.file.read(MAX_UPLOAD + 1)
+    if len(data) > MAX_UPLOAD:
+        raise HTTPException(413, "That file is larger than 10 MB. Upload a smaller PDF or a photo of the report.")
+    if data[:5] != b"%PDF-":
+        raise HTTPException(415, "That file is not a PDF. Upload a PDF, a photo of the report, or paste the results as text.")
+    pages = []
+    try:
+        doc = pdfium.PdfDocument(data)
+        for i in range(min(len(doc), MAX_SCAN_PAGES)):
+            image = doc[i].render(scale=2.5).to_pil().convert("L")  # about 180 dpi, enough for OCR
+            buf = io.BytesIO()
+            image.save(buf, "JPEG", quality=85)
+            pages.append("data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode())
+    except Exception:  # noqa: BLE001
+        log.exception("PDF render failed")
+        raise HTTPException(422, "We could not read that PDF. Try a photo of the report or paste the results as text.")
+    return {"pages": pages, "page_count": len(doc)}
 
 
 @app.post("/api/summary.pdf")

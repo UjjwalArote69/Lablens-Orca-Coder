@@ -76,6 +76,13 @@ export function analyzeFile(file: File, opts: AnalyzeOptions = {}): Promise<Anal
   return request<Analysis>("/api/analyze/file", { method: "POST", body: form });
 }
 
+/** Page images of a scanned PDF (one with no text layer), for reading in the browser. */
+export function pdfPages(file: File): Promise<{ pages: string[]; page_count: number }> {
+  const form = new FormData();
+  form.append("file", file);
+  return request("/api/pdf/pages", { method: "POST", body: form });
+}
+
 /** One-page PDF of an analysis, for the patient to take to their doctor. */
 export async function summaryPdf(analysis: Analysis, source: string): Promise<Blob> {
   const res = await send("/api/summary.pdf", {

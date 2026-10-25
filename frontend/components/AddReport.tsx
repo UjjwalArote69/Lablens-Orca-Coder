@@ -12,6 +12,7 @@ const ANITA: Sample = { id: "anita_anemia_thyroid", label: "Anita, 34", descript
 
 interface Props {
   busy: string | null;
+  status: string | null;
   error: string | null;
   aiEnabled: boolean;
   useAi: boolean;
@@ -23,7 +24,7 @@ interface Props {
 }
 
 export default function AddReport(props: Props) {
-  const { busy } = props;
+  const { busy, status } = props;
   const [samples, setSamples] = useState<Sample[] | null>(null);
   const [samplesError, setSamplesError] = useState<string | null>(null);
   const [slow, setSlow] = useState(false);
@@ -58,9 +59,8 @@ export default function AddReport(props: Props) {
   }
 
   function pickFile(file: File) {
-    const name = file.name.toLowerCase();
-    if (!name.endsWith(".pdf") && !name.endsWith(".txt")) {
-      props.onLocalError("Upload a PDF or a .txt file, or paste the results as text.");
+    if (!/\.(pdf|txt|jpe?g|png|webp)$/i.test(file.name) && !file.type.startsWith("image/")) {
+      props.onLocalError("Upload a PDF, a photo (JPG or PNG) or a .txt file, or paste the results as text.");
     } else if (file.size > MAX_BYTES) {
       props.onLocalError("That file is larger than 10 MB. Upload a smaller PDF or paste the results as text.");
     } else {
@@ -153,7 +153,7 @@ export default function AddReport(props: Props) {
           >
             <input
               type="file"
-              accept=".pdf,.txt,application/pdf,text/plain"
+              accept=".pdf,.txt,.jpg,.jpeg,.png,.webp,application/pdf,text/plain,image/*"
               className="sr-only"
               disabled={busy !== null}
               onChange={(e) => {
@@ -163,19 +163,20 @@ export default function AddReport(props: Props) {
               }}
             />
             {busy === "file" ? (
-              <span className="font-bold" aria-live="polite">
-                Analyzing…
+              <span className="font-bold tabular-nums" aria-live="polite">
+                {status ?? "Analyzing…"}
               </span>
             ) : (
               <>
                 <Upload className="size-6 text-lab" aria-hidden="true" />
-                <span className="mt-3 font-bold">Drop your PDF or TXT here</span>
+                <span className="mt-3 font-bold">Drop a PDF, photo or text file</span>
                 <span className="mt-1 text-sm text-slate">
                   or <span className="font-bold text-lab underline underline-offset-4">choose a file</span>, up to 10 MB
                 </span>
               </>
             )}
           </label>
+          <p className="mt-3 text-sm text-slate">Photos and scanned pages are read on your device.</p>
         </section>
 
         {/* 3. Paste */}
