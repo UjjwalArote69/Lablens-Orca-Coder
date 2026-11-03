@@ -85,9 +85,39 @@
     "values_f1": 0.8280388553426097,
     "patterns_f1": 0.38640429338103754,
     "unseen_fully_correct": 0.06060606060606061
+   },
+   "adapted": {
+    "n": 99,
+    "fully_correct": 0.5454545454545454,
+    "missed_urgent_rate": 0.0425531914893617,
+    "verdict_accuracy": 0.8585858585858586,
+    "json_valid": 0.9797979797979798,
+    "status_accuracy": 0.9672634271099744,
+    "values_f1": 0.9935649935649936,
+    "patterns_f1": 0.8884955752212389,
+    "unseen_fully_correct": 0.45454545454545453
    }
   },
-  "runs": []
+  "runs": [
+   {
+    "label": "A",
+    "model": "Qwen/Qwen3.5-4B",
+    "best_win_rate": 0.4943,
+    "status": "succeeded"
+   },
+   {
+    "label": "B",
+    "model": "Qwen/Qwen3.5-4B",
+    "best_win_rate": 0.5857,
+    "status": "succeeded"
+   },
+   {
+    "label": "C",
+    "model": "Qwen/Qwen3.5-4B",
+    "best_win_rate": 0.4631,
+    "status": "running"
+   }
+  ]
  },
  "cases": [
   {
@@ -252,6 +282,121 @@
        "dehydration"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- Hemoglobin: 10.2 g/dL ↓ (reference 13–17)\n- White blood cells (WBC): 14.2 ×10³/µL ↑ (reference 4–11)\n- Blood urea: 128 mg/dL ↑ (reference 15–45)\n- Creatinine: 3.4 mg/dL ↑ (reference 0.7–1.3)\n- Sodium: 131 mmol/L ↓ (reference 135–145)\n- Potassium: 6.4 mmol/L ↑ (reference 3.5–5.1)\n- CRP: 48 mg/L ↑ (reference up to 5)\n\n**Results that matter together**\n- [See a doctor today] Reduced kidney clearance with high potassium: Creatinine ↑, Potassium ↑\n- [Discuss with your doctor] Kidney filtration markers raised together: Creatinine ↑, Blood urea ↑\n- [Discuss with your doctor] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [Discuss with your doctor] Signs of active infection or inflammation: White blood cells (WBC) ↑, CRP ↑\n\n**What this means**\nReduced kidney clearance means your kidneys are filtering waste slower than usual. When this happens, potassium—a mineral that helps your muscles work—can build up in your blood. Common causes include dehydration, certain medicines, or long-term health issues like diabetes. Seeing raised kidney markers, like creatinine and urea, can be worrying, but please stay calm. These tests show how well your kidneys clean your blood.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.2,
+        "pred": 10.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 14.2,
+        "pred": 14.2,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 162,
+        "pred": 162,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 3.4,
+        "pred": 3.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 131,
+        "pred": 131,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 6.4,
+        "pred": 6.4,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 48,
+        "pred": 48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "critical:k"
+      ],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -393,6 +538,121 @@
         "gold_status": "normal",
         "pred_status": null,
         "status_ok": false
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 48,
+        "pred": 48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "critical:k"
+      ],
+      "extra_patterns": []
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** काही निकालांसाठी आजच डॉक्टरांना भेटणे आवश्यक आहे.\n\n**संदर्भ मर्यादेबाहेरील निकाल**\n- Hemoglobin: 10.2 g/dL ↓ (संदर्भ 13–17)\n- White blood cells (WBC): 14.2 ×10³/µL ↑ (संदर्भ 4–11)\n- Blood urea: 128 mg/dL ↑ (संदर्भ 15–45)\n- Creatinine: 3.4 mg/dL ↑ (संदर्भ 0.7–1.3)\n- Sodium: 131 mmol/L ↓ (संदर्भ 135–145)\n- Potassium: 6.4 mmol/L ↑ (संदर्भ 3.5–5.1)\n- CRP: 48 mg/L ↑ (संदर्भ 5 पर्यंत)\n\n**एकत्र पाहणे आवश्यक असलेले निकाल**\n- [आजच डॉक्टरांना भेटा] Reduced kidney clearance with high potassium: Creatinine ↑, Potassium ↑\n- [तुमच्या डॉक्टरांशी चर्चा करा] Kidney filtration markers raised together: Creatinine ↑, Blood urea ↑\n- [तुमच्या डॉक्टरांशी चर्चा करा] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [तुमच्या डॉक्टरांशी चर्चा करा] Signs of active infection or inflammation: White blood cells (WBC) ↑, CRP ↑\n\n**याचा अर्थ काय**\nकिडनीची 'क्लिअरन्स' म्हणजे रक्त शुद्ध करण्याची क्षमता. ती कमी असणे आणि पोटॅशियम (शरीरासाठी गरजेचे क्षार) जास्त असणे, हे सहसा किडनीच्या कामावर परिणाम दर्शवते. यामागे पाण्याची कमी, मधुमेह, रक्तदाब किंवा काही औषधे कारणीभूत असू शकतात. किडनी फिल्ट्रेशन मार्कर्स (किडनीने रक्तातील कचरा गाळण्याची क्षमता मोजणारे घटक) वाढले असल्याचा अर्थ किडनीला थोडा त्रास होत आहे. याला अनेक सामान्य कारणे असू शकतात, जसे की शरीरात पाण्याची कमी, तात्पुरता ताण किंवा काही औषधे.\n\n**पुढे काय करावे**\nआजच डॉक्टरांना भेटा. तब्येत खूप बिघडल्यासारखी वाटल्यास 108 किंवा 112 वर कॉल करा.\n\n_LabLens हे निदान नाही. तुमच्या रिपोर्टवर छापलेल्या मर्यादेशी तुलना करा._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.2,
+        "pred": 10.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 14.2,
+        "pred": 14.2,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 162,
+        "pred": 162,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 3.4,
+        "pred": 3.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 131,
+        "pred": 131,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 6.4,
+        "pred": 6.4,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
        },
        {
         "key": "crp",
@@ -584,6 +844,137 @@
        "kidney"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** A few results are worth discussing with your doctor.\n\n**Results outside the reference range**\n- Fasting glucose: 142 mg/dL ↑ (reference 70–99)\n- HbA1c: 7.4 % ↑ (reference 4–5.6)\n- Total cholesterol: 238 mg/dL ↑ (reference up to 199)\n- Triglycerides: 262 mg/dL ↑ (reference up to 149)\n- HDL cholesterol: 34 mg/dL ↓ (reference 40 or more)\n- LDL cholesterol: 152 mg/dL ↑ (reference up to 129)\n- VLDL cholesterol: 52 mg/dL ↑ (reference up to 30)\n- ALT (SGPT): 58 U/L ↑ (reference up to 40)\n- AST (SGOT): 46 U/L ↑ (reference up to 40)\n- Uric acid: 7.9 mg/dL ↑ (reference 3.4–7)\n\n**Results that matter together**\n- [Discuss with your doctor] Blood sugar results in the diabetes range: Fasting glucose ↑, HbA1c ↑\n- [Discuss with your doctor] Liver enzymes raised together: ALT (SGPT) ↑, AST (SGOT) ↑\n- [Discuss with your doctor] Cholesterol pattern linked to heart risk: Triglycerides ↑, HDL cholesterol ↓, LDL cholesterol ↑, VLDL cholesterol ↑\n- [Keep an eye on] Cholesterol pattern linked to heart risk: LDL cholesterol ↑, Triglycerides ↑, HDL cholesterol ↓, VLDL cholesterol ↑\n\n**What this means**\nSeeing blood sugar in the diabetes range means the sugar in your urine or blood is higher than normal. Stay calm; this is a manageable condition. Common causes include diet, lack of exercise, stress, or family history. Raised liver enzymes are proteins that show how your liver is working. When both are high, it often means your liver is stressed or inflamed.\n\n**What to do next**\nBook a visit with your doctor in the next few days and take this report with you.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 142,
+        "pred": 142,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 7.4,
+        "pred": 7.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1,
+        "pred": 1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 46,
+        "pred": 46,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.9,
+        "pred": 0.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 238,
+        "pred": 238,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 152,
+        "pred": 152,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 262,
+        "pred": 262,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 7.9,
+        "pred": 7.9,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "bili_direct",
+       "cholhdl",
+       "vldl"
+      ],
+      "missing_patterns": [
+       "metabolic"
+      ],
+      "extra_patterns": [
+       "subclinical"
+      ]
+     }
     }
    }
   },
@@ -744,6 +1135,111 @@
       "extra_patterns": [
        "vitd"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**Verdict:** A few results are worth discussing with your doctor.\n\n**Results outside the reference range**\n- Hemoglobin: 9.1 g/dL ↓ (reference 12–15.5)\n- MCV (red cell size): 71.4 fL ↓ (reference 80–100)\n- MCH: 22.1 pg ↓ (reference 27–31)\n- Ferritin: 8.2 ng/mL ↓ (reference 15–150)\n- TSH: 7.8 mIU/L ↑ (reference 0.4–4.5)\n- Free T4: 0.62 ng/dL ↓ (reference 0.8–1.8)\n- Vitamin D (25-OH): 14.6 ng/mL ↓ (reference 30–100)\n\n**Results that matter together**\n- [Discuss with your doctor] Pattern of iron-deficiency anemia: Hemoglobin ↓, Ferritin ↓, MCH ↓\n- [Discuss with your doctor] Pattern of iron-deficiency anemia: Hemoglobin ↓, MCV (red cell size) ↓, MCH ↓\n- [Discuss with your doctor] Underactive thyroid pattern: TSH ↑, Free T4 ↓\n\n**What this means**\nThis result suggests your body lacks enough iron to make healthy red blood cells, which carry oxygen. This is common and often treatable. It happens when your diet lacks iron, you are active (like athletes), or you have a hidden blood loss. This pattern suggests an underactive thyroid, or hypothyroidism. This means the small gland in your neck is not making enough hormones to control your energy and weight.\n\n**What to do next**\nBook a visit with your doctor in the next few days and take this report with you.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9.1,
+        "pred": 9.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 260,
+        "pred": 260,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 71.4,
+        "pred": 71.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 7.8,
+        "pred": 7.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.62,
+        "pred": 0.62,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 8.2,
+        "pred": 8.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 312,
+        "pred": 312,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 14.6,
+        "pred": 14.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "mch"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -906,6 +1402,111 @@
        "vitd"
       ]
      }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** कुछ परिणामों के बारे में अपने डॉक्टर से बात करना अच्छा रहेगा।\n\n**संदर्भ सीमा से बाहर के परिणाम**\n- Hemoglobin: 9.1 g/dL ↓ (संदर्भ 12–15.5)\n- MCV (red cell size): 71.4 fL ↓ (संदर्भ 80–100)\n- MCH: 22.1 pg ↓ (संदर्भ 27–31)\n- Ferritin: 8.2 ng/mL ↓ (संदर्भ 15–150)\n- TSH: 7.8 mIU/L ↑ (संदर्भ 0.4–4.5)\n- Free T4: 0.62 ng/dL ↓ (संदर्भ 0.8–1.8)\n- Vitamin D (25-OH): 14.6 ng/mL ↓ (संदर्भ 30–100)\n\n**जिन परिणामों को साथ में देखना ज़रूरी है**\n- [अपने डॉक्टर से चर्चा करें] Pattern of iron-deficiency anemia: Hemoglobin ↓, Ferritin ↓, MCH ↓\n- [अपने डॉक्टर से चर्चा करें] Underactive thyroid pattern: TSH ↑, Free T4 ↓\n\n**इसका क्या मतलब है**\nइसका मतलब है कि आपके शरीर में आयरन (लोहे) की कमी है, जिससे एनीमिया (खून की कमी) हो सकता है। आयरन खून बनाने और ऑक्सीजन पहुंचाने के लिए जरूरी है। इसके आम कारण कम पोषण, पानी की कमी या शरीर में संकेतिक बदले हो सकते हैं। \"अंडरएक्टिव थायरॉइड\" का मतलब है कि गले में मौजूद ग्रंथि धीमी गति से काम कर रही है। इसे 'हाइपोथायरायडिज्म' भी कहते हैं।\n\n**आगे क्या करें**\nअगले कुछ दिनों में डॉक्टर से मिलें और यह रिपोर्ट साथ ले जाएं।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9.1,
+        "pred": 9.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 260,
+        "pred": 260,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 71.4,
+        "pred": 71.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 7.8,
+        "pred": 7.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.62,
+        "pred": 0.62,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 8.2,
+        "pred": 8.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 312,
+        "pred": 312,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 14.6,
+        "pred": 14.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "mch"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -1051,6 +1652,119 @@
       "missing_patterns": [],
       "extra_patterns": []
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Everything we could read is within the reference range.\n\n**Results outside the reference range**\nAll the results we could read are within the reference range.\n\n**What this means**\nEvery test we could read falls inside the usual adult reference range. One report is only a snapshot, so read it together with how you feel.\n\n**What to do next**\nNothing extra is needed now; keep up your routine check-ups.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 13.4,
+        "pred": 13.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 7.2,
+        "pred": 7.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 280,
+        "pred": 280,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.2,
+        "pred": 5.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 96,
+        "pred": 96,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.1,
+        "pred": 2.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -1115,6 +1829,249 @@
      "text": "हे लॅब रिपोर्टचे विश्लेषण खालीलप्रमाणे आहे:\n\n**निष्कर्ष (Verdict):** review\n\n**रिपोर्टमधील बाहेर पडलेले मूल्ये (Results outside the reference range):**\n*   **HGB (हॅमोग्लोबिन):** १५४ g/L (रेंज: १२०-१५५) - *लक्षणे आहेत, परंतु मर्यादेच्या वर आहे.*\n*   **Serum Urea:** १०३ mg/dL (रेंज: १५-४५) - **उच्च**\n*   **BUN:** ४ mg/dL (रेंज: ७-२०) - **कमी**\n*   **Na+ (सोडियम):** ११७ mmol/L (रेंज: १३५-१४५) - **कमी**\n*   **HDL:** ३१ mg/dL (रेंज: >४९) - **कमी**\n*   **Triglycerides:** ८४५ mg/dL (रेंज: ०-१४९) - **अत्यंत उच्च**\n*   **TSH:** ०.२४ uIU/mL (रेंज: ०.४०-४.५०) - **कमी**\n*   **F.T4:** १.८४ ng/dL (रेंज: ०.८०-१.८०) - *मर्यादेच्या वर आहे.*\n*   **FERRITIN:** ५.३ ng/mL (रेंज: १५.०-१५०.०) - **अत्यंत कमी**\n\n**सहसा असलेले महत्त्वाचे मूल्ये (Results that matter together):**\n*   **kidney_potassium:** उच्च युरिया (१०३) आणि कमी सोडियम (११७) हे एकत्र येतात.\n*   **metabolic:** उच्च ट्रायग्लिसराइड्स (८४५) आणि कमी HDL हे मेटाबोलिक सिंड्रोमचे लक्षण आहेत.\n*   **iron_def:** खूप कमी फेरिटिन (५.३) आणि सामान्य HGB (१५४) हे लोह-अभाव रक्तशोषाचे (iron-deficiency anemia) लक्षण दर्शवतात.\n*   **hypothyroid:** TSH कमी आणि F.T4 मर्यादेच्या वर असल्याने थायरायडची कार्यक्षमता सामान्य वाटते, परंतु TSH कमी असल्याचे लक्षात घ्यावे.\n\n**हे काय दर्शवते (What this means):**\n१. **लोह-अभाव रक्तशोषाचा (Iron Deficiency):** फेरिटिन अत्यंत कमी आहे (५.३), जे खूप गंभीर लोह-अभाव दर्शवते. हे रक्तशोषाचे मुख्य कारण असू शकते.\n२. **किडनी आणि इलेक्ट्रोलाईट्स:** युरिया खूप उच्च (१०३) आणि सोडियम खूप कमी (११७) आहे. युरिया उच्च असल्याचे लक्षात घ्यावे, कारण हे किडनीच्या कार्यक्षमतेवर किंवा पाण्याच्या संतुलनावर अवलंबून असू शकते.\n३. **मेटाबोलिक आणि हृदय संकट:** ट्रायग्लिसराइड्स अत्यंत उच्च आहेत (८४५), जे हृदय रोगाचा धोका वाढवते. HDL कमी आहे.\n४. **थायरायड:** TSH कमी आहे, जे थायरायडच्या कार्यक्षमतेचे लक्षण असू शकते.\n\n**काय करावे (What to do next):**\n*   **दरवर्षी रक्तशोधक (Blood Transfusion):** लोह-अभाव रक्तशोषाची (Iron Deficiency) तपासणी करावी आणि लोह-सप्लीमेंट्सची सल्ला घ्यावा.\n*   **किडनी तपासणी:** युरिया उच्च आणि सोडियम कमी असल्याने किडनीचे कार्य तपासून पाहिले पाहिजे.\n*   **हृदय रोगाचा धोका:** ट्रायग्लिसराइड्स आणि कोलेस्ट्रॉल नियंत्रणासाठी डॉक्टरांचा सल्ला घ्यावा.\n*   **थायरायड:** TSH कमी असल्याने थायरायडच्या तपासणीसाठी डॉक्टरांचा सल्ला घ्यावा.\n\n**अस्वीकरण:** ही माहिती फक्त माहितीसाठी आहे आणि वैद्यकीय सल्ला देण्यासाठी नाही. कृपया योग्य डॉक्टरांचा सल्ला घेणे आवश्यक आहे.",
      "check": {
       "valid": false
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** काही निकालांसाठी आजच डॉक्टरांना भेटणे आवश्यक आहे.\n\n**संदर्भ मर्यादेबाहेरील निकाल**\n- Creatinine: 1.22 mg/dL ↑ (संदर्भ 0.6–1.1)\n- Blood urea: 103 mg/dL ↑ (संदर्भ 15–45)\n- BUN: 4 mg/dL ↓ (संदर्भ 7–20)\n- Sodium: 117 mmol/L ↓↓ (संदर्भ 135–145) — गंभीर पातळी\n- LDL cholesterol: 163 mg/dL ↑ (संदर्भ 129 पर्यंत)\n- HDL cholesterol: 31 mg/dL ↓ (संदर्भ 50 किंवा अधिक)\n- Triglycerides: 845 mg/dL ↑ (संदर्भ 149 पर्यंत)\n- TSH: 0.24 mIU/L ↓ (संदर्भ 0.4–4.5)\n- Free T4: 1.84 ng/dL ↑ (संदर्भ 0.8–1.8)\n- Ferritin: 5.3 ng/mL ↓ (संदर्भ 15–150)\n\n**एकत्र पाहणे आवश्यक असलेले निकाल**\n- [आजच डॉक्टरांना भेटा] Sodium at a critical level: Sodium ↓↓\n- [तुमच्या डॉक्टरांशी चर्चा करा] Kidney filtration markers raised together: Creatinine ↑, Blood urea ↑\n- [तुमच्या डॉक्टरांशी चर्चा करा] Overactive thyroid pattern: TSH ↓, Free T4 ↑\n- [लक्ष ठेवा] Cholesterol pattern linked to heart risk: LDL cholesterol ↑, HDL cholesterol ↓, Triglycerides ↑\n\n**याचा अर्थ काय**\nसोडियम म्हणजे रक्तातील साखरेचे पदार्थ. हे शरीरातील पाण्याचे संतुलन मोजण्यास मदत करते. रक्तात सोडियम कमी असणे म्हणजे शरीरात पाण्याचे प्रमाण वाढले आहे. याला 'हायपोनेट्रेमिया' म्हणतात. घाबरू नका. किडनी फिल्ट्रेशन मार्कर्स (किडनीने रक्तातील कचरा गाळण्याची क्षमता मोजणारे घटक) वाढले असल्याचा अर्थ किडनीला थोडा त्रास होत आहे. याला अनेक सामान्य कारणे असू शकतात, जसे की पोषणाची कमतरता, तात्पुरता ताण किंवा काही औषधांचा परिणाम.\n\n**पुढे काय करावे**\nआजच डॉक्टरांना भेटा. तब्येत खूप बिघडल्यासारखी वाटल्यास 108 किंवा 112 वर कॉल करा.\n\n_LabLens हे निदान नाही. तुमच्या रिपोर्टवर छापलेल्या मर्यादेशी तुलना करा._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 15.4,
+        "pred": 15.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 10.4,
+        "pred": 10.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 354,
+        "pred": 354,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 98.9,
+        "pred": 98.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 77,
+        "pred": 77,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.6,
+        "pred": 4.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.22,
+        "pred": 1.22,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 103,
+        "pred": 103,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 4,
+        "pred": 4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 117,
+        "pred": 117,
+        "value_ok": true,
+        "gold_status": "critical_low",
+        "pred_status": "critical_low",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.8,
+        "pred": 4.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 16,
+        "pred": 16,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 20,
+        "pred": 20,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 1.2,
+        "pred": 1.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 167,
+        "pred": 167,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 163,
+        "pred": 163,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 31,
+        "pred": 31,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 845,
+        "pred": 845,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.24,
+        "pred": 0.24,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.84,
+        "pred": 1.84,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 5.3,
+        "pred": 5.3,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 579,
+        "pred": 579,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 61.4,
+        "pred": 61.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -1236,6 +2193,99 @@
       "extra_values": [
        "creatin"
       ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** जो भी परिणाम पढ़े जा सके, वे सभी संदर्भ सीमा के अंदर हैं।\n\n**संदर्भ सीमा से बाहर के परिणाम**\nपढ़े गए सभी परिणाम संदर्भ सीमा के अंदर हैं।\n\n**इसका क्या मतलब है**\nपढ़े गए सभी परिणाम सामान्य वयस्क संदर्भ सीमा के अंदर हैं। एक रिपोर्ट सिर्फ़ उस समय की तस्वीर होती है, इसलिए इसे अपनी सेहत के साथ मिलाकर देखें।\n\n**आगे क्या करें**\nअभी कुछ अलग करने की ज़रूरत नहीं है; नियमित जांच करवाते रहें।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.5,
+        "pred": 16.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8.7,
+        "pred": 8.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 270,
+        "pred": 270,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 96,
+        "pred": 96,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.82,
+        "pred": 0.82,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 25,
+        "pred": 25,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 144,
+        "pred": 144,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.6,
+        "pred": 4.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
       "missing_patterns": [],
       "extra_patterns": []
      }
@@ -1510,6 +2560,219 @@
        "hypothyroid",
        "iron_def"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** काही निकालांसाठी आजच डॉक्टरांना भेटणे आवश्यक आहे.\n\n**संदर्भ मर्यादेबाहेरील निकाल**\n- White blood cells (WBC): 3.1 ×10³/µL ↓ (संदर्भ 4–11)\n- MCV (red cell size): 109 fL ↑ (संदर्भ 80–100)\n- HbA1c: 6.8 % ↑ (संदर्भ 4–5.6)\n- HDL cholesterol: 36 mg/dL ↓ (संदर्भ 40 किंवा अधिक)\n- Triglycerides: 627 mg/dL ↑ (संदर्भ 149 पर्यंत)\n- TSH: 0.17 mIU/L ↓ (संदर्भ 0.4–4.5)\n- Free T4: 2.12 ng/dL ↑ (संदर्भ 0.8–1.8)\n\n**एकत्र पाहणे आवश्यक असलेले निकाल**\n- [आजच डॉक्टरांना भेटा] Overactive thyroid pattern: TSH ↓, Free T4 ↑\n- [तुमच्या डॉक्टरांशी चर्चा करा] Metabolic syndrome pattern: Triglycerides ↑, HDL cholesterol ↓, HbA1c ↑\n- [लक्ष ठेवा] Blood sugar above normal: HbA1c ↑\n\n**याचा अर्थ काय**\nतुमच्या रिपोर्टचा अर्थ असा आहे की थायरॉईड ग्रंथी (गळ्यातील ऊर्जा नियंत्रित करणारी ग्रंथी) गरजेपेक्षा जास्त हार्मोन्स बनवत आहे. याला 'हायपरथायरॉईडिझम' म्हणतात. याची सामान्य कारणे शरीरातील ताण किंवा रोगप्रतिकार शक्तावर दवांचा परिणाम असू शकतात. 'मेटाबॉलिक सिंड्रोम' म्हणजे शरीरातील साखर, रक्तदाब आणि पोटावरील चरबी यांचे संतुलन एकत्रितपण बिघडणे. यामुळे भविष्यात हृदयाचे आजार किंवा मधुमेह होण्याचा धोका वाढू शकतो.\n\n**पुढे काय करावे**\nआजच डॉक्टरांना भेटा. तब्येत खूप बिघडल्यासारखी वाटल्यास 108 किंवा 112 वर कॉल करा.\n\n_LabLens हे निदान नाही. तुमच्या रिपोर्टवर छापलेल्या मर्यादेशी तुलना करा._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.1,
+        "pred": 3.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 398,
+        "pred": 398,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 109,
+        "pred": 109,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 87,
+        "pred": 87,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.98,
+        "pred": 0.98,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 44,
+        "pred": 44,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 14,
+        "pred": 14,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 135,
+        "pred": 135,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 26,
+        "pred": 26,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 13,
+        "pred": 13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.4,
+        "pred": 0.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 147,
+        "pred": 147,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 82,
+        "pred": 82,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 627,
+        "pred": 627,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.17,
+        "pred": 0.17,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 2.12,
+        "pred": 2.12,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 82.1,
+        "pred": 82.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -1830,6 +3093,259 @@
        "kidney_potassium"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- Fasting glucose: 331 mg/dL ↑ (reference 70–99)\n- HbA1c: 11.1 % ↑ (reference 4–5.6)\n- Creatinine: 1.42 mg/dL ↑ (reference 0.7–1.3)\n- Sodium: 162 mmol/L ↑↑ (reference 135–145) — critical\n- TSH: 0.38 mIU/L ↓ (reference 0.4–4.5)\n- Free T4: 1.82 ng/dL ↑ (reference 0.8–1.8)\n- Uric acid: 7.6 mg/dL ↑ (reference 3.4–7)\n\n**Results that matter together**\n- [See a doctor today] Sodium at a critical level: Sodium ↑↑\n- [Discuss with your doctor] Blood sugar results in the diabetes range: Fasting glucose ↑, HbA1c ↑\n- [Discuss with your doctor] Overactive thyroid pattern: TSH ↓, Free T4 ↑\n- [Keep an eye on] High uric acid with reduced kidney clearance: Uric acid ↑, Creatinine ↑\n\n**What this means**\nHigh sodium means there is too much salt in your blood. This often happens if you are dehydrated, meaning your body needs more water. Common causes include not drinking enough fluids, heavy sweating in hot weather, vomiting, or diarrhea. Seeing blood sugar in the diabetes range means the sugar in your blood is higher than normal. Stay calm; this is a manageable condition.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.1,
+        "pred": 16.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 10,
+        "pred": 10,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 338,
+        "pred": 338,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 97.4,
+        "pred": 97.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 331,
+        "pred": 331,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 11.1,
+        "pred": 11.1,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.42,
+        "pred": 1.42,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 25,
+        "pred": 25,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 18,
+        "pred": 18,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 162,
+        "pred": 162,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "critical_high",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 3.7,
+        "pred": 3.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 19,
+        "pred": 19,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 185,
+        "pred": 185,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 124,
+        "pred": 124,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 109,
+        "pred": 109,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.38,
+        "pred": 0.38,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.82,
+        "pred": 1.82,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 364.7,
+        "pred": 364.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 505,
+        "pred": 505,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 80.3,
+        "pred": 80.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.1,
+        "pred": 2.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 7.6,
+        "pred": 7.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -2128,6 +3644,259 @@
       "extra_patterns": [
        "kidney_potassium"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** वाचता आलेले सर्व निकाल संदर्भ मर्यादेत आहेत.\n\n**संदर्भ मर्यादेबाहेरील निकाल**\nवाचलेले सर्व निकाल संदर्भ मर्यादेत आहेत.\n\n**याचा अर्थ काय**\nवाचलेल्या सर्व चाचण्या प्रौढांच्या सामान्य संदर्भ मर्यादेत आहेत. एक रिपोर्ट म्हणजे फक्त त्या वेळेचे बारी शरीराची तपासणी असते, त्यामुळे स्वतःहून तुमची म्हणजे कोठत्याते आजाचा आरोग्य त्यासोबते मिलून मिळजुळी करा.\n\n**पुढे काय करावे**\nसध्या वेगळे काही करावे नी. नियमित तपासणी करत रहा.\n\n_LabLens हे निदान नाही. तुमच्या रिपोर्टवर छापलेल्या मर्यादेशी तुलना करा._",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.6,
+        "pred": 16.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 10,
+        "pred": 10,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 234,
+        "pred": 234,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 89.4,
+        "pred": 89.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 80,
+        "pred": 80,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.4,
+        "pred": 5.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.28,
+        "pred": 1.28,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 43,
+        "pred": 43,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 142,
+        "pred": 142,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5,
+        "pred": 5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 1,
+        "pred": 1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 153,
+        "pred": 153,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 113,
+        "pred": 113,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 63,
+        "pred": 63,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.84,
+        "pred": 0.84,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.98,
+        "pred": 0.98,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 272,
+        "pred": 272,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 540,
+        "pred": 540,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 6.9,
+        "pred": 6.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -2454,6 +4223,269 @@
        "kidney_potassium"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** A few results are worth discussing with your doctor.\n\n**Results outside the reference range**\n- Hemoglobin: 10.7 g/dL ↓ (reference 12–15.5)\n- Fasting glucose: 158 mg/dL ↑ (reference 70–99)\n- HbA1c: 11.6 % ↑ (reference 4–5.6)\n- Creatinine: 1.34 mg/dL ↑ (reference 0.6–1.1)\n- TSH: 14.17 mIU/L ↑ (reference 0.4–4.5)\n\n**Results that matter together**\n- [Discuss with your doctor] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [Discuss with your doctor] Blood sugar results in the diabetes range: Fasting glucose ↑, HbA1c ↑\n- [Keep an eye on] Mildly underactive thyroid pattern: TSH ↑, Free T4 (normal)\n\n**What this means**\nSeeing both results can be worrying, but this combination is common and help is available. Anemia means low hemoglobin, the protein that carries oxygen in your blood. Reduced kidney function means your body's ability to filter waste is slowed. Seeing blood sugar in the diabetes range means the sugar in your blood is higher than normal. Stay calm; this is a manageable condition.\n\n**What to do next**\nBook a visit with your doctor in the next few days and take this report with you.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.7,
+        "pred": 10.7,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8.8,
+        "pred": 8.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 387,
+        "pred": 387,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 98.6,
+        "pred": 98.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 158,
+        "pred": 158,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 11.6,
+        "pred": 11.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.34,
+        "pred": 1.34,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 27,
+        "pred": 27,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 13,
+        "pred": 13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 145,
+        "pred": 145,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4,
+        "pred": 4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 19,
+        "pred": 19,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.3,
+        "pred": 0.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 146,
+        "pred": 146,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 72,
+        "pred": 72,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 60,
+        "pred": 60,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 14.17,
+        "pred": 14.17,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.86,
+        "pred": 0.86,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 47.4,
+        "pred": 47.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 652,
+        "pred": 652,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 64.6,
+        "pred": 64.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.5,
+        "pred": 2.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 2.9,
+        "pred": 2.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -2750,6 +4782,239 @@
        "infection"
       ]
      }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** कुछ परिणामों के लिए आज ही डॉक्टर को दिखाना ज़रूरी है।\n\n**संदर्भ सीमा से बाहर के परिणाम**\n- Hemoglobin: 9 g/dL ↓ (संदर्भ 12–15.5)\n- Creatinine: 1.26 mg/dL ↑ (संदर्भ 0.6–1.1)\n- Blood urea: 59 mg/dL ↑ (संदर्भ 15–45)\n- Sodium: 144 mmol/L ↑ (संदर्भ 135–145)\n- ALT (SGPT): 42 U/L ↑ (संदर्भ 40 तक)\n- AST (SGOT): 861 U/L ↑ (संदर्भ 40 तक)\n- Total bilirubin: 3.3 mg/dL ↑ (संदर्भ 1.2 तक)\n- Total cholesterol: 311 mg/dL ↑ (संदर्भ 199 तक)\n- CRP: 98.1 mg/L ↑ (संदर्भ 5 तक)\n- Uric acid: 9.3 mg/dL ↑ (संदर्भ 2.4–6)\n\n**जिन परिणामों को साथ में देखना ज़रूरी है**\n- [आज ही डॉक्टर को दिखाएं] Liver enzymes raised together with bilirubin: ALT (SGPT) ↑, AST (SGOT) ↑, Total bilirubin ↑\n- [अपने डॉक्टर से चर्चा करें] Kidney filtration markers raised together: Creatinine ↑, Blood urea ↑\n- [अपने डॉक्टर से चर्चा करें] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [नज़र रखें] High uric acid with reduced kidney clearance: Uric acid ↑, Creatinine ↑\n\n**इसका क्या मतलब है**\nलिवर एंजाइम और बिलिरुबिन (शरीर का पीला कचरा जो लिवर साफ करता है) दोनों का बढ़ना बताता है कि आपके लिवर पर कुछ जोर पड़ रहा है या पित्त के प्रवाह में रुकावट है। इसके आम कारण फैटी लिवर, वायरल हेपेटाइटिस (लिवर का संक्रमण), शराब, या कुछ दवाइयां हो सकती हैं। घबराएं नहीं, सही समय पर इलाज से यह अक्सर ठीक हो जाता है। जब किडनी के फिल्टर संकेत (जैसे क्रिएटिनिन और यूरिया) एक साथ बढ़ते हैं, तो इसका मतलब हो सकता है कि किडनी कचरा साफ करने में थोड़ी परेशानी महसूस कर रही है। घबराएं नहीं, यह हमेशा सерियर कलांश नहीं होता।\n\n**आगे क्या करें**\nआज ही डॉक्टर को दिखाएं। अगर तबीयत बहुत खराब लगे, तो 108 या 112 पर कॉल करें।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9,
+        "pred": 9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8,
+        "pred": 8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 187,
+        "pred": 187,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 94.5,
+        "pred": 94.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.1,
+        "pred": 4.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.26,
+        "pred": 1.26,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 59,
+        "pred": 59,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 144,
+        "pred": 144,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.3,
+        "pred": 4.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 42,
+        "pred": 42,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 861,
+        "pred": 861,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 3.3,
+        "pred": 3.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 311,
+        "pred": 311,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 93,
+        "pred": 93,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 60,
+        "pred": 60,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 71,
+        "pred": 71,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.4,
+        "pred": 2.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 108.2,
+        "pred": 108.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 774,
+        "pred": 774,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 32.9,
+        "pred": 32.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 98.1,
+        "pred": 98.1,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 9.3,
+        "pred": 9.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -2856,6 +5121,69 @@
        "vitd",
        "wbc"
       ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    },
+    "adapted": {
+     "text": "**Verdict:** Everything we could read is within the reference range.\n\n**Results outside the reference range**\nAll the results we could read are within the reference range.\n\n**What this means**\nEvery test we could read falls inside the usual adult reference range. One report is only a snapshot, so read it together with how you feel.\n\n**What to do next**\nNothing extra is needed now; keep up your routine check-ups.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 85,
+        "pred": 85,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.1,
+        "pred": 5.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.91,
+        "pred": 0.91,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 115,
+        "pred": 115,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 69,
+        "pred": 69,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
       "missing_patterns": [],
       "extra_patterns": []
      }
@@ -3169,6 +5497,251 @@
        "kidney"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- Hemoglobin: 11.7 g/dL ↓ (reference 12–15.5)\n- MCV (red cell size): 100.5 fL ↑ (reference 80–100)\n- Fasting glucose: 120 mg/dL ↑ (reference 70–99)\n- HbA1c: 5.6 % ↑ (reference 4–5.6)\n- Creatinine: 4.18 mg/dL ↑ (reference 0.6–1.1)\n- Potassium: 5.4 mmol/L ↑ (reference 3.5–5.1)\n- CRP: 79.3 mg/L ↑ (reference up to 5)\n\n**Results that matter together**\n- [See a doctor today] Reduced kidney clearance with high potassium: Creatinine ↑, Potassium ↑\n- [Discuss with your doctor] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [Discuss with your doctor] Pattern of B12 or folate-deficiency anemia: Hemoglobin ↓, MCV (red cell size) ↑\n- [Keep an eye on] Blood sugar above normal: Fasting glucose ↑, HbA1c ↑\n\n**What this means**\nReducated kidney clearance means your kidneys are not filtering waste as fast as they usually do. When this happens, potassium—a mineral that helps your muscles work—can build up in your blood. Common causes include dehydration, certain medicines, or long-term health issues like diabetes. Seeing both results can be worrying, but this combination is common and help is available. Anemia means low hemoglobin, the protein that carries oxygen in your blood.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.7,
+        "pred": 11.7,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 4.7,
+        "pred": 4.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 100.5,
+        "pred": 100.5,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 120,
+        "pred": 120,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 4.18,
+        "pred": 4.18,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 39,
+        "pred": 39,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 6,
+        "pred": 6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.4,
+        "pred": 5.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 15,
+        "pred": 15,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 146,
+        "pred": 146,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 70,
+        "pred": 70,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 122,
+        "pred": 122,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 3.78,
+        "pred": 3.78,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.1,
+        "pred": 1.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 732,
+        "pred": 732,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 70.5,
+        "pred": 70.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 79.3,
+        "pred": 79.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 2.6,
+        "pred": 2.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "critical:creat"
+      ],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -3458,6 +6031,239 @@
        "atherogenic",
        "hypothyroid"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** कुछ परिणामों के बारे में अपने डॉक्टर से बात करना अच्छा रहेगा।\n\n**संदर्भ सीमा से बाहर के परिणाम**\n- TSH: 0.35 mIU/L ↓ (संदर्भ 0.4–4.5)\n- Free T4: 3.95 ng/dL ↑ (संदर्भ 0.8–1.8)\n- LDL cholesterol: 139 mg/dL ↑ (संदर्भ 129 तक)\n\n**जिन परिणामों को साथ में देखना ज़रूरी है**\n- [अपने डॉक्टर से चर्चा करें] Overactive thyroid pattern: TSH ↓, Free T4 ↑\n\n**इसका क्या मतलब है**\n\"ओवरएक्टिव थायरिड\" का मतलब है कि गर्दन की थायरॉइड ग्रंथि ज़रूरत से ज़्यादा हार्मोन बना रही है। इसे हाइपरथायरायडिज्म कहते हैं। घबराएं नहीं। इसका मतलब है कि आपकी खून में वसा (cholesterol) की मात्रा सामान्य से ज्यादा है। इसे अक्सर नज़र रखें और तायर रखें।\n\n**आगे क्या करें**\nअगले कुछ दिनों में डॉक्टर से मिलें और यह रिपोर्ट साथ ले जाएं।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 9.2,
+        "pred": 9.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 372,
+        "pred": 372,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 90.4,
+        "pred": 90.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 77,
+        "pred": 77,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.9,
+        "pred": 4.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.26,
+        "pred": 1.26,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 11,
+        "pred": 11,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.2,
+        "pred": 4.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.6,
+        "pred": 0.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 138,
+        "pred": 138,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 139,
+        "pred": 139,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 59,
+        "pred": 59,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.35,
+        "pred": 0.35,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 3.95,
+        "pred": 3.95,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 303,
+        "pred": 303,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 484,
+        "pred": 484,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 75.3,
+        "pred": 75.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 4.7,
+        "pred": 4.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -3770,6 +6576,249 @@
        "liver_jaundice"
       ]
      }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** कुछ परिणामों के लिए आज ही डॉक्टर को दिखाना ज़रूरी है।\n\n**संदर्भ सीमा से बाहर के परिणाम**\n- Hemoglobin: 11.4 g/dL ↓ (संदर्भ 12–15.5)\n- White blood cells (WBC): 3.9 ×10³/µL ↓ (संदर्भ 4–11)\n- Platelets: 140 ×10³/µL ↓ (संदर्भ 150–410)\n- Creatinine: 1.68 mg/dL ↑ (संदर्भ 0.6–1.1)\n- BUN: 78 mg/dL ↑ (संदर्भ 7–20)\n- Potassium: 5.9 mmol/L ↑ (संदर्भ 3.5–5.1)\n- ALT (SGPT): 130 U/L ↑ (संदर्भ 40 तक)\n- AST (SGOT): 637 U/L ↑ (संदर्भ 40 तक)\n- LDL cholesterol: 241 mg/dL ↑ (संदर्भ 129 तक)\n\n**जिन परिणामों को साथ में देखना ज़रूरी है**\n- [आज ही डॉक्टर को दिखाएं] Low counts across red cells, white cells and platelets: Hemoglobin ↓, White blood cells (WBC) ↓, Platelets ↓\n- [आज ही डॉक्टर को दिखाएं] Reduced kidney clearance with high potassium: Creatinine ↑, Potassium ↑\n- [अपने डॉक्टर से चर्चा करें] Liver enzymes raised together: ALT (SGPT) ↑, AST (SGOT) ↑\n- [अपने डॉक्टर से चर्चा करें] Kidney filtration markers raised together: Creatinine ↑, BUN ↑\n- [अपने डॉक्टर से चर्चा करें] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n\n**इसका क्या मतलब है**\nआपकी रिपोर्ट में लाल रक्त कोशिकाएं (ऑक्सीजन ले जाने वाली), व्हाइट ब्लड कोशिकाएं (संक्रमण से लड़ने वाली) और प्लेटलेट्स (खून जमाने वाली) तीनों कम हैं। इसे 'पैनसाइटोपेनिया' कहते हैं। इसके आम कारणों में विटामिन की कमी, वायरल बुखार, कुछ दवाइयां, या अस्थि मज्जा (हड्डी के अंदर का हिस्सा जहाँ खून बनता है) की समस्या शामिल हो सकती है। घबराएं नहीं। किडनी (गुर्दे) शरीर से कचरा और अतिरिक्त पोटैशियम बाहर निकालती है।\n\n**आगे क्या करें**\nआज ही डॉक्टर को दिखाएं। अगर तबीयत बहुत खराब लगे, तो 108 या 112 पर कॉल करें।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.4,
+        "pred": 11.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 140,
+        "pred": 140,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 86.8,
+        "pred": 86.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.2,
+        "pred": 5.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.68,
+        "pred": 1.68,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 20,
+        "pred": 20,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 78,
+        "pred": 78,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 145,
+        "pred": 145,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.9,
+        "pred": 5.9,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 130,
+        "pred": 130,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 637,
+        "pred": 637,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.3,
+        "pred": 0.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 241,
+        "pred": 241,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 65,
+        "pred": 65,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 82,
+        "pred": 82,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.47,
+        "pred": 2.47,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.79,
+        "pred": 1.79,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 107.2,
+        "pred": 107.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 505,
+        "pred": 505,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 5,
+        "pred": 5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -3850,6 +6899,89 @@
         "name": "Ferritin",
         "gold": 77,
         "pred": 77.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 201,
+        "pred": 201,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 88.5,
+        "pred": 88.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    },
+    "adapted": {
+     "text": "**Verdict:** Everything we could read is within the reference range.\n\n**Results outside the reference range**\nAll the results we could read are within the reference range.\n\n**What this means**\nEvery test we could read falls inside the usual adult reference range. One report is only a snapshot, so read it together with how you feel.\n\n**What to do next**\nNothing extra is needed now; keep up your routine check-ups.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 15,
+        "pred": 15,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 5.7,
+        "pred": 5.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 262,
+        "pred": 262,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 86.4,
+        "pred": 86.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 77,
+        "pred": 77,
         "value_ok": true,
         "gold_status": "normal",
         "pred_status": "normal",
@@ -4191,6 +7323,251 @@
        "kidney_potassium"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- Hemoglobin: 11.7 g/dL ↓ (reference 13–17)\n- White blood cells (WBC): 3.8 ×10³/µL ↓ (reference 4–11)\n- Platelets: 83 ×10³/µL ↓ (reference 150–410)\n- MCV (red cell size): 119.5 fL ↑ (reference 80–100)\n- HbA1c: 3.9 % ↓ (reference 4–5.6)\n- Creatinine: 1.34 mg/dL ↑ (reference 0.7–1.3)\n- Blood urea: 51 mg/dL ↑ (reference 15–45)\n- Sodium: 158 mmol/L ↑ (reference 135–145)\n- Vitamin B12: 134 pg/mL ↓ (reference 200–900)\n\n**Results that matter together**\n- [See a doctor today] Low counts across red cells, white cells and platelets: Hemoglobin ↓, White blood cells (WBC) ↓, Platelets ↓\n- [Discuss with your doctor] Kidney filtration markers raised together: Creatinine ↑, Blood urea ↑\n- [Discuss with your doctor] Anemia alongside reduced kidney function: Hemoglobin ↓, Creatinine ↑\n- [Discuss with your doctor] Pattern of B12 or folate-deficiency anemia: Hemoglobin ↓, MCV (red cell size) ↑, Vitamin B12 ↓\n- [Keep an eye on] Pattern suggesting dehydration: Creatinine ↑, Blood urea ↑, Sodium ↑\n\n**What this means**\nWhen red cells, white cells, and platelets are all low together, it needs attention. Red cells carry oxygen, white cells fight infection, and platelets stop bleeding. Common causes include low vitamins (like B12), recent viral fevers, medicine side effects, or bone marrow issues where blood cells are made. Seeing raised kidney markers, like creatinine and urea, can be worrying, but please stay calm. These tests show how well your kidneys clean your blood.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.7,
+        "pred": 11.7,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.8,
+        "pred": 3.8,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 83,
+        "pred": 83,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 119.5,
+        "pred": 119.5,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 84,
+        "pred": 84,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.34,
+        "pred": 1.34,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 51,
+        "pred": 51,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 158,
+        "pred": 158,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.5,
+        "pred": 4.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 28,
+        "pred": 28,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 30,
+        "pred": 30,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 125,
+        "pred": 125,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 69,
+        "pred": 69,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 65,
+        "pred": 65,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 3.2,
+        "pred": 3.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.8,
+        "pred": 1.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 337.3,
+        "pred": 337.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 134,
+        "pred": 134,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 37.6,
+        "pred": 37.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 0.9,
+        "pred": 0.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "dehydration"
+      ]
+     }
     }
    }
   },
@@ -4340,6 +7717,109 @@
       "missing_patterns": [],
       "extra_patterns": []
      }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** जो भी परिणाम पढ़े जा सके, वे सभी संदर्भ सीमा के अंदर हैं।\n\n**संदर्भ सीमा से बाहर के परिणाम**\nपढ़े गए सभी परिणाम संदर्भ सीमा के अंदर हैं।\n\n**इसका क्या मतलब है**\nपढ़े गए सभी टेस्ट सामान्य वयस्क संदर्भ सीमा के अंदर हैं। एक रिपोर्ट सिर्फ़ उस समय की तस्वीर होती है, इसलिए इसे अपनी सेहत के साथ मिलाकर देखें।\n\n**आगे क्या करें**\nअभी कुछ अलग करने की ज़रूरत नहीं है; नियमित जांच करवाते रहें।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 98,
+        "pred": 98,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.6,
+        "pred": 4.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 11,
+        "pred": 11,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 30,
+        "pred": 30,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.6,
+        "pred": 0.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 198,
+        "pred": 198,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 92,
+        "pred": 92,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 79,
+        "pred": 79,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 103,
+        "pred": 103,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -4402,6 +7882,249 @@
      "text": "नमस्ते फराह जी, आपकी रक्त परीक्षण रिपोर्ट का विश्लेषण नीचे दिया गया है:\n\n**निष्कर्ष (Verdict):**\nआपकी रिपोर्ट में कुछ महत्वपूर्ण असामान्यताएं हैं जो तुरंत ध्यान की आवश्यकता दर्शाती हैं। सबसे बड़ी समस्या आपकी रक्त शर्करा (Diabetes) और उच्च यूरिया (Kidney) स्तरों में है।\n\n**संदर्भ सीमा से बाहर वाले परिणाम (Results outside the reference range):**\n*   **Hemoglobin (hb):** 10.1 g/dL (संकेत: कम, Low) - *नोट: महिलाओं के लिए 11.6 से कम होना कम रक्त शर्करा का संकेत है।*\n*   **Fasting Blood Sugar (fbs):** 278 mg/dL (संकेत: बहुत अधिक, Critical High) - *डायबिटीज रेंज में है।*\n*   **HbA1c:** 11.8% (संकेत: बहुत अधिक, Critical High) - *डायबिटीज रेंज में है।*\n*   **Urea:** 107 mg/dL (संकेत: बहुत अधिक, Critical High) - *किडनी फिल्टरेशन संकेत।*\n*   **Sodium (na):** 148 mmol/L (संकेत: थोड़ा अधिक, High) - *मर्यादित सीमा से ऊपर।*\n*   **HDL:** 30 mg/dL (संकेत: कम, Low) - *हृदय स्वास्थ्य के लिए कम।*\n*   **Vitamin D (vitd):** 98.7 ng/mL (संकेत: थोड़ा कम, Low) - *सीमा के बहुत करीब है।*\n*   **B12:** 119 pg/mL (संकेत: कम, Low) - *महिलाओं के लिए कम।*\n*   **MCV:** 103.8 fL (संकेत: अधिक, High) - *मegaloblastic anemia संकेत।*\n\n**संयुक्त रूप से महत्वपूर्ण परिणाम (Results that matter together):**\n*   **diabetes:** रक्त शर्करा और HbA1c दोनों बहुत उच्च हैं।\n*   **kidney_potassium:** यूरिया बहुत उच्च है, जो किडनी की कार्यक्षमता को संदिग्ध बनाता है (हालांकि पोटेशियम सामान्य है)।\n*   **iron_def:** Hb कम है लेकिन MCV उच्च है, जो अक्सर B12 या फोलेट की कमी से जुड़ा होता है (B12 भी कम है)।\n*   **prediabetes:** (यद्यपि fbs बहुत उच्च है, यह स्पष्ट रूप से डायबिटीज है)।\n\n**यह क्या दर्शाता है (What this means):**\nफराह जी, आपकी रिपोर्ट **डायबिटीज** और **किडनी की समस्या** का गंभीर संकेत देती है। आपकी रक्त शर्करा (278 mg/dL) और HbA1c (11.8%) अत्यधिक उच्च हैं, जो लंबे समय तक अनदेखा होने पर न्यूरोलॉजिकल और रक्त संबंधी जटिलताओं का कारण बन सकती हैं। यूरिया (107 mg/dL) बहुत उच्च है, जो किडनी फिल्टरेशन में कमी या द्रव रetention का संकेत दे सकता है। साथ ही, आपकी B12 और फोलेट की कमी (B12 119, MCV उच्च) के कारण आपकी एरिथ्रोसाइट्स बड़ी (Megaloblastic) हो रही हैं, जो रक्त की कमी को बढ़ावा देती है।\n\n**अगला कदम (What to do next):**\n1.  **तुरंत डॉक्टर से संपर्क करें:** एक इन्टरनेल मीडिसिन या एंडोक्राइनोलॉजिस्ट को दिखाएं।\n2.  **डायबिटीज मनेजमेंट:** आपकी रक्त शर्करा को नियंत्रित करने के लिए तुरंत दवाओं और आहार में बदलाव की आवश्यकता हो सकती है।\n3.  **किडनी फंक्शन टेस्ट:** यूरिया और क्रिएटिनिन के स्तर को पुष्ट करने के लिए किडनी फंक्शन टेस्ट (KFT) और यूरिन टेस्ट करें।\n4.  **पोषण सुधार:** B12 और फोलेट की कमी को ठीक करने के लिए विटामिन सप्लीमेंटेशन शुरू करें।\n5.  **डायलिसिस की जांच:** यूरिया स्तर को देखते हुए किडनी फंक्शन की गंभीरता की जांच करनी होगी।\n\n**अस्वीकरण:** यह जानकारी केवल शिक्षा के उद्देश्य से है और चिकित्सा सलाह नहीं है। कृपया अपने डॉक्टर से संपर्क करें।",
      "check": {
       "valid": false
+     }
+    },
+    "adapted": {
+     "text": "**निष्कर्ष:** कुछ परिणामों के बारे में अपने डॉक्टर से बात करना अच्छा रहेगा।\n\n**संदर्भ सीमा से बाहर के परिणाम**\n- Hemoglobin: 10.1 g/dL ↓ (संदर्भ 12–15.5)\n- MCV (red cell size): 103.8 fL ↑ (संदर्भ 80–100)\n- Fasting glucose: 278 mg/dL ↑ (संदर्भ 70–99)\n- HbA1c: 11.8 % ↑ (संदर्भ 4–5.6)\n- Blood urea: 107 mg/dL ↑ (संदर्भ 15–45)\n- Sodium: 148 mmol/L ↑ (संदर्भ 135–145)\n- Vitamin B12: 119 pg/mL ↓ (संदर्भ 200–900)\n- Uric acid: 1.9 mg/dL ↓ (संदर्भ 2.4–6)\n\n**जिन परिणामों को साथ में देखना ज़रूरी है**\n- [अपने डॉक्टर से चर्चा करें] Pattern of B12 or folate-deficiency anemia: Hemoglobin ↓, MCV (red cell size) ↑\n- [अपने डॉक्टर से चर्चा करें] Blood sugar results in the diabetes range: Fasting glucose ↑, HbA1c ↑\n- [नज़र रखें] Pattern suggesting dehydration: Blood urea ↑, Creatinine (सामान्य), Sodium ↑\n\n**इसका क्या मतलब है**\nआपकी रिपोर्ट में विटामिन B12 या फोलेट (जरूरी विटामिन) की कमी से एनीमिया (खून की कमी) दिखा है। इसका मतलब है कि शरीर में स्वस्थ लाल रक्त कोशिकाएं कम हैं। यह अक्सर खान-पान की कमी या शरीर द्वारा पोषक तत्वों को न सोख पाने के कारण होता है। आपकी रिपोर्ट में ब्लड शुगर (खून में शक्कर की मात्रा) डायबिटीज की सीमा में है। इसका मतलब है कि शरीर शक्कर को सही इस्तेमाल नहीं कर पा रहा।\n\n**आगे क्या करें**\nअगले कुछ दिनों में डॉक्टर से मिलें और यह रिपोर्ट साथ ले जाएं।\n\n_LabLens निदान नहीं है। अपनी रिपोर्ट पर छपी सीमा से मिलान करें।_",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.1,
+        "pred": 10.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 384,
+        "pred": 384,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 103.8,
+        "pred": 103.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 278,
+        "pred": 278,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 11.8,
+        "pred": 11.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1,
+        "pred": 1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 107,
+        "pred": 107,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 16,
+        "pred": 16,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 148,
+        "pred": 148,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.8,
+        "pred": 4.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 11,
+        "pred": 11,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 1.1,
+        "pred": 1.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 195,
+        "pred": 195,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 60,
+        "pred": 60,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 30,
+        "pred": 30,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 141,
+        "pred": 141,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 1.27,
+        "pred": 1.27,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.13,
+        "pred": 1.13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 75.1,
+        "pred": 75.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 119,
+        "pred": 119,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 98.7,
+        "pred": 98.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2,
+        "pred": 2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 1.9,
+        "pred": 1.9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -4699,6 +8422,249 @@
        "iron_def"
       ]
      }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- MCV (red cell size): 120.3 fL ↑ (reference 80–100)\n- Creatinine: 1.12 mg/dL ↑ (reference 0.6–1.1)\n- Potassium: 5.6 mmol/L ↑ (reference 3.5–5.1)\n\n**Results that matter together**\n- [See a doctor today] Reduced kidney clearance with high potassium: Creatinine ↑, Potassium ↑\n\n**What this means**\nReduced kidney clearance means your kidneys are filtering waste slower than usual. When this happens, potassium—a mineral that helps your muscles work—can build up in your blood. Common causes include dehydration, certain medicines, or long-term health issues like diabetes. MCV measures the average size of your red blood cells, which carry oxygen in your blood. A high result means your cells are larger than normal.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 14.7,
+        "pred": 14.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 354,
+        "pred": 354,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 120.3,
+        "pred": 120.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5,
+        "pred": 5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.12,
+        "pred": 1.12,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 44,
+        "pred": 44,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 13,
+        "pred": 13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 15,
+        "pred": 15,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 33,
+        "pred": 33,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 132,
+        "pred": 132,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 73,
+        "pred": 73,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 106,
+        "pred": 106,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 4.1,
+        "pred": 4.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 129.8,
+        "pred": 129.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 600,
+        "pred": 600,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 38.5,
+        "pred": 38.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.5,
+        "pred": 2.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.3,
+        "pred": 3.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
     }
    }
   },
@@ -4857,6 +8823,109 @@
       "extra_patterns": [
        "atherogenic"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**Verdict:** Some results need a doctor today.\n\n**Results outside the reference range**\n- Fasting glucose: 215 mg/dL ↑ (reference 70–99)\n- HbA1c: 7.3 % ↑ (reference 4–5.6)\n- ALT (SGPT): 228 U/L ↑ (reference up to 40)\n- Total bilirubin: 8 mg/dL ↑ (reference up to 1.2)\n\n**Results that matter together**\n- [See a doctor today] Liver enzymes raised together with bilirubin: ALT (SGPT) ↑, Total bilirubin ↑\n- [Discuss with your doctor] Blood sugar results in the diabetes range: Fasting glucose ↑, HbA1c ↑\n\n**What this means**\nHigh liver enzymes (proteins showing stress) and bilirubin (a waste product) mean your liver is working hard or not filtering blood properly. When both are high, it often means the liver is swollen or the flow of digestive fluid is blocked. Common causes include viral fevers, fatty liver, alcohol, some medicines, or gallstones. Seeing blood sugar in the diabetes range means the sugar in your blood is higher than normal. Stay calm; this is a manageable condition.\n\n**What to do next**\nSee a doctor today. If you feel very unwell, call 108 or 108.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 215,
+        "pred": 215,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 7.3,
+        "pred": 7.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 228,
+        "pred": 228,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 37,
+        "pred": 37,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 8,
+        "pred": 8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 193,
+        "pred": 193,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 97,
+        "pred": 97,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 81,
+        "pred": 81,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }
@@ -5168,6 +9237,249 @@
        "iron_def",
        "kidney"
       ]
+     }
+    },
+    "adapted": {
+     "text": "**Verdict:** A few results are worth discussing with your doctor.\n\n**Results outside the reference range**\n- MCV (red cell size): 75.6 fL ↓ (reference 80–100)\n- HbA1c: 13.2 % ↑ (reference 4–5.6)\n- Creatinine: 1.45 mg/dL ↑ (reference 0.6–1.1)\n- HDL cholesterol: 24 mg/dL ↓ (reference 50 or more)\n- Triglycerides: 376 mg/dL ↑ (reference up to 149)\n- TSH: 0.24 mIU/L ↓ (reference 0.4–4.5)\n- Free T4: 2.48 ng/dL ↑ (reference 0.8–1.8)\n- Uric acid: 8.3 mg/dL ↑ (reference 2.4–6)\n\n**Results that matter together**\n- [Discuss with your doctor] Metabolic syndrome pattern: Triglycerides ↑, HDL cholesterol ↓, HbA1c ↑\n- [Discuss with your doctor] Overactive thyroid pattern: TSH ↓, Free T4 ↑\n- [Keep an eye on] Blood sugar above normal: HbA1c ↑\n- [Keep an eye on] High uric acid with reduced kidney clearance: Uric acid ↑, Creatinine ↑\n\n**What this means**\n\"Metabolic syndrome\" is not a single disease. It means a few health numbers are high together, like high blood sugar, high blood pressure, or extra weight around your waist. Common causes include diet, less exercise, and genetics. Seeing these results can be worrying, but this is a common and manageable pattern. Your doctor may call this an \"overactive thyroid\" or hyperthyroidism. This means your thyroid gland, which controls your body's energy, is making too much hormone.\n\n**What to do next**\nBook a visit with your doctor in the next few days and take this report with you.\n\n_LabLens is not a diagnosis. Compare with the range printed on your report._",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 14.9,
+        "pred": 14.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.7,
+        "pred": 6.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 75.6,
+        "pred": 75.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 92,
+        "pred": 92,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 13.2,
+        "pred": 13.2,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.45,
+        "pred": 1.45,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 140,
+        "pred": 140,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 3.6,
+        "pred": 3.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 39,
+        "pred": 39,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.5,
+        "pred": 0.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 126,
+        "pred": 126,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 24,
+        "pred": 24,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 376,
+        "pred": 376,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.24,
+        "pred": 0.24,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 2.48,
+        "pred": 2.48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 98.9,
+        "pred": 98.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 887,
+        "pred": 887,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 99.7,
+        "pred": 99.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 4.5,
+        "pred": 4.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 8.3,
+        "pred": 8.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
      }
     }
    }

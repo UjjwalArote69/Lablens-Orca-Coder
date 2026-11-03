@@ -488,6 +488,169 @@
         "language_correct_hi_mr": 0.9411764705882353,
         "avg_output_chars": 2138
       }
+    },
+    "adapted": {
+      "all": {
+        "n": 99,
+        "json_valid": 0.9797979797979798,
+        "values": {
+          "precision": 1.0,
+          "recall": 0.9872122762148338,
+          "f1": 0.9935649935649936
+        },
+        "status_accuracy": 0.9672634271099744,
+        "patterns": {
+          "precision": 0.9094202898550725,
+          "recall": 0.8685121107266436,
+          "f1": 0.8884955752212389
+        },
+        "verdict_accuracy": 0.8585858585858586,
+        "missed_urgent_rate": 0.0425531914893617,
+        "false_urgent_rate": 0.19230769230769232,
+        "fully_correct": 0.5454545454545454,
+        "sex_accuracy": 0.9797979797979798,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1587
+      },
+      "seen_layouts": {
+        "n": 66,
+        "json_valid": 0.9848484848484849,
+        "values": {
+          "precision": 1.0,
+          "recall": 0.9824293353705118,
+          "f1": 0.9911368015414258
+        },
+        "status_accuracy": 0.9656226126814362,
+        "patterns": {
+          "precision": 0.9081081081081082,
+          "recall": 0.8484848484848485,
+          "f1": 0.877284595300261
+        },
+        "verdict_accuracy": 0.8939393939393939,
+        "missed_urgent_rate": 0.02857142857142857,
+        "false_urgent_rate": 0.16129032258064516,
+        "fully_correct": 0.5909090909090909,
+        "sex_accuracy": 0.9848484848484849,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1603
+      },
+      "unseen_layouts": {
+        "n": 33,
+        "json_valid": 0.9696969696969697,
+        "values": {
+          "precision": 1.0,
+          "recall": 0.9969040247678018,
+          "f1": 0.9984496124031007
+        },
+        "status_accuracy": 0.9705882352941176,
+        "patterns": {
+          "precision": 0.9120879120879121,
+          "recall": 0.9120879120879121,
+          "f1": 0.9120879120879121
+        },
+        "verdict_accuracy": 0.7878787878787878,
+        "missed_urgent_rate": 0.08333333333333333,
+        "false_urgent_rate": 0.23809523809523808,
+        "fully_correct": 0.45454545454545453,
+        "sex_accuracy": 0.9696969696969697,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1553
+      },
+      "ocr_noise": {
+        "n": 19,
+        "json_valid": 1.0,
+        "values": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "status_accuracy": 0.9771428571428571,
+        "patterns": {
+          "precision": 0.8135593220338984,
+          "recall": 0.8421052631578947,
+          "f1": 0.8275862068965518
+        },
+        "verdict_accuracy": 0.9473684210526315,
+        "missed_urgent_rate": 0.0,
+        "false_urgent_rate": 0.14285714285714285,
+        "fully_correct": 0.5263157894736842,
+        "sex_accuracy": 1.0,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1644
+      },
+      "lang_en": {
+        "n": 60,
+        "json_valid": 1.0,
+        "values": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "status_accuracy": 0.9811643835616438,
+        "patterns": {
+          "precision": 0.9058823529411765,
+          "recall": 0.8850574712643678,
+          "f1": 0.8953488372093024
+        },
+        "verdict_accuracy": 0.8666666666666667,
+        "missed_urgent_rate": 0.038461538461538464,
+        "false_urgent_rate": 0.17647058823529413,
+        "fully_correct": 0.5666666666666667,
+        "sex_accuracy": 1.0,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": null,
+        "avg_output_chars": 1613
+      },
+      "lang_hi": {
+        "n": 22,
+        "json_valid": 1.0,
+        "values": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "status_accuracy": 0.9776785714285714,
+        "patterns": {
+          "precision": 0.9354838709677419,
+          "recall": 0.8923076923076924,
+          "f1": 0.9133858267716536
+        },
+        "verdict_accuracy": 0.9545454545454546,
+        "missed_urgent_rate": 0.0,
+        "false_urgent_rate": 0.09090909090909091,
+        "fully_correct": 0.5454545454545454,
+        "sex_accuracy": 1.0,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1631
+      },
+      "lang_mr": {
+        "n": 17,
+        "json_valid": 0.8823529411764706,
+        "values": {
+          "precision": 1.0,
+          "recall": 0.9262536873156342,
+          "f1": 0.9617151607963247
+        },
+        "status_accuracy": 0.9056047197640118,
+        "patterns": {
+          "precision": 0.8863636363636364,
+          "recall": 0.78,
+          "f1": 0.8297872340425532
+        },
+        "verdict_accuracy": 0.7058823529411765,
+        "missed_urgent_rate": 0.1,
+        "false_urgent_rate": 0.42857142857142855,
+        "fully_correct": 0.47058823529411764,
+        "sex_accuracy": 0.8823529411764706,
+        "language_correct_all": 1.0,
+        "language_correct_hi_mr": 1.0,
+        "avg_output_chars": 1435
+      }
     }
   },
   "details": {
@@ -580,6 +743,36 @@
         "uric": 0.763
       },
       "avg_seconds_per_report": 44.35
+    },
+    "adapted": {
+      "status_accuracy_by_test": {
+        "hb": 0.94,
+        "wbc": 0.988,
+        "plt": 0.962,
+        "mcv": 0.988,
+        "fbs": 0.951,
+        "hba1c": 0.935,
+        "creat": 0.941,
+        "urea": 0.974,
+        "bun": 0.938,
+        "na": 0.974,
+        "k": 0.949,
+        "alt": 0.988,
+        "ast": 0.975,
+        "bili": 0.987,
+        "chol": 0.975,
+        "ldl": 0.987,
+        "hdl": 0.951,
+        "tg": 0.988,
+        "tsh": 1.0,
+        "ft4": 0.946,
+        "ferritin": 0.932,
+        "b12": 0.986,
+        "vitd": 0.972,
+        "crp": 0.986,
+        "uric": 0.974
+      },
+      "avg_seconds_per_report": 33.55
     }
   }
 }

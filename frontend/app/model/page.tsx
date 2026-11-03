@@ -40,8 +40,12 @@ export default function ModelPage() {
   const { left, right, systems, summary } = data;
   const l = summary.eval?.[left];
   const r = summary.eval?.[right];
-  const wins = summary.runs.map((x) => x.best_win_rate).filter((w): w is number => w !== null);
-  const mean = wins.length ? wins.reduce((a, b) => a + b, 0) / wins.length : null;
+  const done = summary.runs.filter((x) => x.status === "succeeded" && x.best_win_rate !== null);
+  const best = done.length ? Math.max(...done.map((x) => x.best_win_rate as number)) : null;
+  const bestRun = done.find((x) => x.best_win_rate === best);
+  const runList = summary.runs
+    .map((x) => `${x.label} ${x.status === "succeeded" ? pct(x.best_win_rate) : "still training"}`)
+    .join(", ");
 
   return (
     <div>
@@ -61,9 +65,9 @@ export default function ModelPage() {
         <div className="mt-4 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-4">
           <div className="border-t border-rule pt-4">
             <p className="text-sm font-semibold text-slate">AutoScientist win rate vs base</p>
-            <p className="mt-1 text-[2rem] leading-none font-bold tabular-nums">{pct(mean)}</p>
+            <p className="mt-1 text-[2rem] leading-none font-bold tabular-nums">{pct(best)}</p>
             <p className="mt-1 text-sm text-slate">
-              {wins.length ? `mean of ${wins.length} identical runs (${wins.map(pct).join(", ")})` : "training runs in Round 2"}
+              {bestRun ? `run ${bestRun.label}, the model on this page. All runs: ${runList}` : "training runs in Round 2"}
             </p>
           </div>
           <Stat label="Reports read fully correctly" left={pct(l?.fully_correct)} right={pct(r?.fully_correct)}

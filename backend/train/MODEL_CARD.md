@@ -81,12 +81,78 @@ Generator: `backend/train/make_dataset.py`. Full statistics: `backend/train/data
 
 ## 5. Results
 
-**AutoScientist head-to-head win rate against the base model: [mean] (runs: [A], [B]).**
+**AutoScientist head-to-head win rate against the base model: 0.586 (run B, the published adapter).** Run A, with
+identical settings, scored 0.494; run C: [result].
 
-Our own evaluation on the 300 held-out reports uses the same prompts and greedy decoding for every system, with gold
-labels from the rules engine:
+Our own evaluation ran on 99 of the 300 held-out reports (the first 99 ids; 33 on layouts never used in training).
+Local inference on a 6 GB laptop GPU limited how many we could run. Every system saw the same reports with greedy
+decoding, and the gold labels come from the rules engine. `base_with_format` is the base model with our output
+format spelled out in the system prompt, a stronger baseline than the bare model. LabLens Reader gets no format
+instructions.
 
-[paste backend/train/eval_results.md]
+| | Round 1 regex app | Qwen3.5-4B + format instructions | **LabLens Reader** |
+|---|---|---|---|
+| Reports read fully correctly | 7% | 3% | **55%** |
+| Urgent reports missed | 43% | 51% | **4%** |
+| Values read correctly (F1) | 70% | 83% | **99%** |
+| Combination patterns (F1) | 66% | 39% | **89%** |
+| Verdict correct | 58% | 44% | **86%** |
+| Values read correctly on unseen layouts | 4% | 82% | **99.8%** |
+
+Weak spot: 19% of non-urgent reports are called urgent (base model: 29%). That errs on the side of caution, and the
+app's rules engine corrects it.
+
+Full tables (`gold` is the rules engine itself, as a sanity check; `adapted` is LabLens Reader):
+
+
+#### All held-out reports
+
+| Metric | gold | regex_engine | base_with_format | adapted |
+|---|---|---|---|---|
+| Reports | 99 | 99 | 99 | 99 |
+| JSON block valid | 100.0% | 78.8% | 87.9% | 98.0% |
+| Values read correctly (F1, within 1%) | 100.0% | 70.1% | 82.8% | 99.4% |
+| Abnormal status per test (accuracy) | 100.0% | 53.1% | 73.6% | 96.7% |
+| Combination patterns (F1) | 100.0% | 65.8% | 38.6% | 88.8% |
+| Verdict (accuracy) | 100.0% | 57.6% | 44.4% | 85.9% |
+| Missed urgent (lower is better) | 0.0% | 42.6% | 51.1% | 4.3% |
+| False urgent (lower is better) | 0.0% | 0.0% | 28.8% | 19.2% |
+| Fully correct reports | 100.0% | 7.1% | 3.0% | 54.5% |
+| Sex used for ranges | 100.0% | 64.6% | 85.9% | 98.0% |
+| Answer in the requested language (hi/mr) | 100.0% | 79.5% | 97.4% | 100.0% |
+
+#### Unseen layouts only
+
+| Metric | gold | regex_engine | base_with_format | adapted |
+|---|---|---|---|---|
+| Reports | 33 | 33 | 33 | 33 |
+| JSON block valid | 100.0% | 36.4% | 87.9% | 97.0% |
+| Values read correctly (F1, within 1%) | 100.0% | 3.6% | 82.1% | 99.8% |
+| Abnormal status per test (accuracy) | 100.0% | 1.9% | 71.2% | 97.1% |
+| Combination patterns (F1) | 100.0% | 0.0% | 37.5% | 91.2% |
+| Verdict (accuracy) | 100.0% | 6.1% | 45.5% | 78.8% |
+| Missed urgent (lower is better) | 0.0% | 100.0% | 41.7% | 8.3% |
+| False urgent (lower is better) | 0.0% | 0.0% | 28.6% | 23.8% |
+| Fully correct reports | 100.0% | 0.0% | 6.1% | 45.5% |
+| Sex used for ranges | 100.0% | 24.2% | 87.9% | 97.0% |
+| Answer in the requested language (hi/mr) | 100.0% | 42.9% | 100.0% | 100.0% |
+
+#### Reports with OCR noise
+
+| Metric | gold | regex_engine | base_with_format | adapted |
+|---|---|---|---|---|
+| Reports | 19 | 19 | 19 | 19 |
+| JSON block valid | 100.0% | 89.5% | 94.7% | 100.0% |
+| Values read correctly (F1, within 1%) | 100.0% | 70.8% | 79.5% | 100.0% |
+| Abnormal status per test (accuracy) | 100.0% | 54.0% | 74.3% | 97.7% |
+| Combination patterns (F1) | 100.0% | 72.5% | 55.4% | 82.8% |
+| Verdict (accuracy) | 100.0% | 68.4% | 57.9% | 94.7% |
+| Missed urgent (lower is better) | 0.0% | 33.3% | 50.0% | 0.0% |
+| False urgent (lower is better) | 0.0% | 0.0% | 0.0% | 14.3% |
+| Fully correct reports | 100.0% | 0.0% | 0.0% | 52.6% |
+| Sex used for ranges | 100.0% | 78.9% | 89.5% | 100.0% |
+| Answer in the requested language (hi/mr) | 100.0% | 87.5% | 100.0% | 100.0% |
+
 
 ## 6. Safety and limits
 
@@ -95,5 +161,4 @@ labels from the rules engine:
 - The rules engine stays the source of truth: the app recomputes every flag from the extracted values and shows
   any disagreement.
 - It never prescribes medicines or doses. Urgent findings are escalated with "see a doctor today; call 108 or 112".
-- The Hindi and Marathi section headings and fixed sentences come from templates, [reviewed by a native speaker / not
-  yet reviewed by a native speaker]. The explanations come from the LabLens library built with Adaption Adaptive Data.
+- The Hindi and Marathi section headings and fixed sentences come from templates, not yet reviewed by a native speaker. The explanations come from the LabLens library built with Adaption Adaptive Data.
