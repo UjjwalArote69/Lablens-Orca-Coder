@@ -114,8 +114,14 @@
    {
     "label": "C",
     "model": "Qwen/Qwen3.5-4B",
-    "best_win_rate": 0.4631,
-    "status": "running"
+    "best_win_rate": 0.5795,
+    "status": "succeeded"
+   },
+   {
+    "label": "D",
+    "model": "Qwen/Qwen3.5-4B",
+    "best_win_rate": 0.4653,
+    "status": "succeeded"
    }
   ]
  },

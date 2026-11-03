@@ -74,7 +74,15 @@ Generator: `backend/train/make_dataset.py`. Full statistics: `backend/train/data
   its eval loss 0.55.
 - Identical settings gave 0.49 and 0.59, so the variance between runs is about 9 points. We therefore launched a
   third run, C (14:10 IST), on the same data with 5 iterations instead of 3, giving the search more attempts:
-  [result].
+  5 of 5 iterations, best win rate **0.580** (iterations: 0.463, 0.489, 0.491, 0.580, then no further gain). Its best
+  settings are identical to run B's (rank 32, lr 2e-4, 5 epochs, dropout 0.05, grad norm 2.0): two independent
+  searches converged on the same recipe and the same score (0.586 and 0.580).
+- Run D (15:20 IST) tested a hypothesis: that the 35% general-diversity rows were diluting the head-to-head win rate.
+  We built a second dataset (`train/data_v2`, seed 8): 6,000 of our own verified rows with 25% fully normal reports
+  (up from 15%, to curb over-flagging). The held-out set stayed byte-identical. D used no general rows and 3
+  iterations, and scored a best of **0.465**: iteration 1 reached it and iterations 2–3 did not improve. The
+  hypothesis was wrong. Without general data the model drifts further from the base model's general helpfulness,
+  which the judge also rewards. We kept run B, the general-row recipe, as the published model.
 - Loading the adapter: AutoScientist trains Qwen3.5's image-text class, so the adapter keys are
   `model.language_model.*`. Loading the text-only class attaches nothing, and the result silently runs the base
   model. `eval_model.py` loads the matching class and refuses to run if no LoRA module is attached.
@@ -82,7 +90,15 @@ Generator: `backend/train/make_dataset.py`. Full statistics: `backend/train/data
 ## 5. Results
 
 **AutoScientist head-to-head win rate against the base model: 0.586 (run B, the published adapter).** Run A, with
-identical settings, scored 0.494; run C: [result].
+identical settings, scored 0.494. Run C, given 5 iterations, converged on the same settings as B and
+scored 0.580. Run D, the no-general-rows ablation, scored 0.465.
+
+| Run | Data | Iterations | Best win rate |
+|---|---|---|---|
+| A | 3,000 own rows + 1,615 general | 3 | 0.494 |
+| **B** | 3,000 own rows + 1,615 general | 3 | **0.586** |
+| C | 3,000 own rows + 1,615 general | 5 | 0.580 |
+| D | 6,000 own rows, no general | 3 | 0.465 |
 
 Our own evaluation ran on 99 of the 300 held-out reports (the first 99 ids; 33 on layouts never used in training).
 Local inference on a 6 GB laptop GPU limited how many we could run. Every system saw the same reports with greedy
