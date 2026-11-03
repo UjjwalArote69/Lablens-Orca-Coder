@@ -1,11 +1,11 @@
 """Train LabLens Reader with Adaption AutoScientist.
 
     python train/run_autoscientist.py models                 # base models AutoScientist accepts
-    python train/run_autoscientist.py launch                 # round start: upload + estimate + runs A and B
+    python train/run_autoscientist.py launch                 # round start: upload + estimate + run A
     python train/run_autoscientist.py upload                # train.csv -> raw, trainable dataset
     python train/run_autoscientist.py estimate               # hyperparameters it would use (nothing launched)
     python train/run_autoscientist.py run --label A          # Run A: Qwen/Qwen3.5-4B
-    python train/run_autoscientist.py run --label B          # identical repeat, to report mean and spread
+    python train/run_autoscientist.py run --label B          # identical repeat; needs its own upload (one run per dataset)
     python train/run_autoscientist.py run --label auto --model auto   # let AutoScientist pick the model
     python train/run_autoscientist.py status [--watch 300]   # every poll is appended to train/runs.log
     python train/run_autoscientist.py download --label A     # best checkpoint -> train/checkpoints/
@@ -142,18 +142,22 @@ def cmd_run(c, args):
 
 
 def cmd_launch(c, args):
-    """Round start in one command: upload, record the hyperparameters, start runs A and B."""
+    """Round start in one command: upload, record the hyperparameters, start run A.
+
+    AutoScientist allows one in-flight run per dataset, so an identical repeat (run B) needs a second upload of the
+    same train.csv; launching B on this dataset would fail with 409 TRAINING_LAUNCH_IN_FLIGHT.
+    """
     cmd_upload(c, args)
     if not load_state().get("rows"):
         sys.exit("Dataset is still ingesting. Re-run `launch` in a minute; the upload is not repeated.")
     cmd_estimate(c, args)
-    for label in ("A", "B"):
-        if label in load_state()["runs"]:
-            print(f"Run {label} already started; skipping.")
-            continue
-        args.label = label
+    if "A" in load_state()["runs"]:
+        print("Run A already started; skipping.")
+    else:
+        args.label = "A"
         cmd_run(c, args)
-    print("Both runs started. Watch them with:  python train/run_autoscientist.py status --watch 300")
+    print("Watch it with:  python train/run_autoscientist.py status --watch 300\n"
+          "For a repeat run, upload train.csv again (one run per dataset) and start it on that copy.")
 
 
 def log(label: str, d: dict):
