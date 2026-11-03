@@ -1,0 +1,86 @@
+WEBVTT
+
+1
+00:00:00.420 --> 00:00:02.230
+Lab reports in India are messy.
+
+2
+00:00:02.510 --> 00:00:05.800
+Different names, different units, different layouts.
+
+3
+00:00:06.240 --> 00:00:08.430
+In Round 1, we built LabLens.
+
+4
+00:00:08.640 --> 00:00:12.530
+It flags abnormal results, and the combinations that need a doctor.
+
+5
+00:00:12.820 --> 00:00:14.830
+But it could only check what it could read.
+
+6
+00:00:15.030 --> 00:00:17.720
+So for Round 2, we trained our own model.
+
+7
+00:00:17.950 --> 00:00:21.460
+LabLens Reader. Trained with Adaption AutoScientist.
+
+8
+00:00:21.697 --> 00:00:26.947
+Three thousand training examples, in English, Hindi and Marathi.
+
+9
+00:00:27.177 --> 00:00:31.007
+Our rules engine wrote every answer, so every label is correct.
+
+10
+00:00:32.107 --> 00:00:35.377
+AutoScientist tried different training settings, and kept the best.
+
+11
+00:00:35.517 --> 00:00:39.067
+Our model beat the original in 59% of head-to-head comparisons.
+
+12
+00:00:39.467 --> 00:00:41.837
+And a second run found the exact same recipe.
+
+13
+00:00:42.157 --> 00:00:44.747
+Now, a doctor's note it never saw in training.
+
+14
+00:00:44.987 --> 00:00:47.817
+The original model says, discuss with your doctor.
+
+15
+00:00:48.087 --> 00:00:51.857
+Ours says, see a doctor today. And the rules engine agrees.
+
+16
+00:00:52.147 --> 00:00:57.517
+A PDF dump in Marathi: all 23 values, read correctly.
+
+17
+00:00:57.797 --> 00:01:03.597
+On 99 reports it had never seen, fully correct answers went from 3% to 55%.
+
+18
+00:01:03.977 --> 00:01:07.367
+Missed urgent cases fell from 51% to 4%.
+
+19
+00:01:07.497 --> 00:01:09.467
+And the AI never gets the last word.
+
+20
+00:01:09.657 --> 00:01:11.527
+Our rules engine checks every value.
+
+21
+00:01:11.777 --> 00:01:15.687
+LabLens. Built for ORCATHON 2026.
+

@@ -58,7 +58,24 @@ export default function ModelPage() {
         engine, so each label is correct by construction.
       </p>
 
-      <section className="card mt-10" aria-labelledby="results">
+      <section className="card mt-10" aria-labelledby="video">
+        <h2 id="video" className="text-[1.375rem] leading-tight font-bold tracking-tight">
+          LabLens Reader in 77 seconds
+        </h2>
+        <video
+          className="mt-4 aspect-video w-full rounded-2xl bg-white/60"
+          controls
+          playsInline
+          preload="metadata"
+          poster="/video/lablens-reader-poster.jpg"
+        >
+          <source src="/video/lablens-reader.mp4" type="video/mp4" />
+          <track src="/video/lablens-reader.en.vtt" kind="captions" srcLang="en" label="English" />
+          Your browser cannot play this video. <a href="/video/lablens-reader.mp4">Download it</a> instead.
+        </video>
+      </section>
+
+      <section className="card mt-4" aria-labelledby="results">
         <h2 id="results" className="text-[1.375rem] leading-tight font-bold tracking-tight">
           {systems[left]} → {systems[right]}
         </h2>

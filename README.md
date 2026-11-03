@@ -14,6 +14,7 @@ messy Indian lab reports, and on 99 held-out reports it went from 3% to 55% read
 
 [**Open the live app**](https://lablens-orca-coder.vercel.app) &nbsp;|&nbsp;
 [**Our model**](https://lablens-orca-coder.vercel.app/model) &nbsp;|&nbsp;
+[**Watch the Round 2 video**](https://lablens-orca-coder.vercel.app/video/lablens-reader.mp4) &nbsp;|&nbsp;
 [Watch the Round 1 demo](docs/lablens-demo.mp4) &nbsp;|&nbsp;
 [How it works](https://lablens-orca-coder.vercel.app/how-it-works) &nbsp;|&nbsp;
 [API health](https://lablens-api-9jjf.onrender.com/api/health)
@@ -44,6 +45,8 @@ full analysis in English, Hindi or Marathi. Every answer ends with a JSON block 
 
 [**Compare it with the base model, live**](https://lablens-orca-coder.vercel.app/model) &nbsp;|&nbsp;
 [Model card](backend/train/MODEL_CARD.md) &nbsp;|&nbsp; [Full evaluation](backend/train/eval_results.md)
+
+<a href="https://lablens-orca-coder.vercel.app/video/lablens-reader.mp4"><img src="docs/round2-cover.jpg" alt="LabLens Reader, Round 2 video, 1 minute 17 seconds" width="100%" /></a>
 
 | 3% → 55% | 51% → 4% | 83% → 99% | 0.586 |
 |:---:|:---:|:---:|:---:|
