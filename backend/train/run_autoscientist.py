@@ -37,8 +37,12 @@ TERMINAL = {"succeeded", "failed", "cancelled"}
 
 
 def client():
+    import functools
+    import httpx
     from dotenv import load_dotenv
     from adaption import Adaption
+    if not isinstance(httpx.put, functools.partial):  # the SDK's file PUT uses httpx's 5 s default; 18 MB needs longer
+        httpx.put = functools.partial(httpx.put, timeout=httpx.Timeout(600.0))
     load_dotenv(BACKEND / ".env")
     return Adaption()
 

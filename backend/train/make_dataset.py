@@ -869,6 +869,7 @@ def main():
     ap.add_argument("--min-per-combo", type=int, default=300)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--heldout-seed", type=int, default=1007)
+    ap.add_argument("--normal-share", type=float, default=.15, help="share of fully normal training reports (held-out stays .15)")
     ap.add_argument("--tiny", action="store_true", help="60 rows + 20 held-out, for a quick check")
     ap.add_argument("--out", type=Path, default=DATA)
     a = ap.parse_args()
@@ -877,7 +878,7 @@ def main():
     a.out.mkdir(parents=True, exist_ok=True)
 
     stats = {}
-    train, counts = build(random.Random(a.seed), a.rows, TEMPLATES, a.min_per_combo, (.75, .15, .10), .15, stats)
+    train, counts = build(random.Random(a.seed), a.rows, TEMPLATES, a.min_per_combo, (.75, .15, .10), a.normal_share, stats)
     check(train)
     seen = {norm(r["prompt"]) for r in train}
     hrng = random.Random(a.heldout_seed)
