@@ -1,0 +1,194 @@
+{
+  "train": {
+    "rows": 3000,
+    "kinds": {
+      "qa_test": 234,
+      "main": 2250,
+      "qa_medicine": 84,
+      "qa_next": 132,
+      "abstain_not_report": 83,
+      "abstain_unreadable": 96,
+      "abstain_missing": 121
+    },
+    "languages": {
+      "en": 1835,
+      "mr": 429,
+      "hi": 736
+    },
+    "templates": {
+      "table_aligned": 301,
+      "whatsapp": 274,
+      "table_flags": 293,
+      "compact_inline": 316,
+      "csv_export": 292,
+      "ocr_two_col": 297,
+      "pipe_table": 272,
+      "hindi_headers": 295,
+      "key_value": 296,
+      "dot_leaders": 281,
+      "none": 83
+    },
+    "ocr_noise_rows": 576,
+    "sex_modes": {
+      "prompt": 577,
+      "honorific": 319,
+      "explicit": 1354
+    },
+    "verdicts": {
+      "ok": 347,
+      "review": 736,
+      "urgent": 1096,
+      "watch": 71
+    },
+    "fully_normal_main_rows": 347,
+    "pattern_counts_main": {
+      "pancytopenia": 302,
+      "kidney_potassium": 305,
+      "liver_jaundice": 308,
+      "liver_enzymes": 307,
+      "kidney": 320,
+      "renal_anemia": 381,
+      "iron_def": 305,
+      "b12_anemia": 307,
+      "diabetes": 306,
+      "prediabetes": 430,
+      "metabolic": 309,
+      "atherogenic": 308,
+      "hypothyroid": 301,
+      "subclinical_hypo": 305,
+      "hyperthyroid": 305,
+      "infection": 303,
+      "dehydration": 309,
+      "gout_kidney": 306
+    },
+    "critical_counts_main": {
+      "critical:alt": 44,
+      "critical:ast": 58,
+      "critical:bili": 45,
+      "critical:bun": 34,
+      "critical:creat": 70,
+      "critical:fbs": 32,
+      "critical:hb": 68,
+      "critical:hba1c": 31,
+      "critical:k": 35,
+      "critical:na": 45,
+      "critical:plt": 43,
+      "critical:tg": 48,
+      "critical:urea": 39,
+      "critical:vitd": 28,
+      "critical:wbc": 63
+    },
+    "avg_prompt_chars": 1320,
+    "avg_completion_chars": 1308,
+    "regex_parser_exact_match_by_template": {
+      "compact_inline": 0.0,
+      "csv_export": 0.263,
+      "dot_leaders": 0.221,
+      "hindi_headers": 0.242,
+      "key_value": 0.25,
+      "ocr_two_col": 0.0,
+      "pipe_table": 0.019,
+      "table_aligned": 0.225,
+      "table_flags": 0.245,
+      "whatsapp": 0.286
+    }
+  },
+  "heldout": {
+    "rows": 300,
+    "kinds": {
+      "main": 300
+    },
+    "languages": {
+      "mr": 46,
+      "hi": 84,
+      "en": 170
+    },
+    "templates": {
+      "vertical_cells": 58,
+      "key_value": 19,
+      "table_aligned": 24,
+      "whatsapp": 21,
+      "hindi_headers": 26,
+      "table_flags": 20,
+      "ocr_two_col": 12,
+      "doctor_note": 42,
+      "compact_inline": 20,
+      "pipe_table": 23,
+      "dot_leaders": 17,
+      "csv_export": 18
+    },
+    "ocr_noise_rows": 68,
+    "sex_modes": {
+      "explicit": 185,
+      "honorific": 33,
+      "prompt": 82
+    },
+    "verdicts": {
+      "urgent": 140,
+      "review": 113,
+      "ok": 40,
+      "watch": 7
+    },
+    "fully_normal_main_rows": 40,
+    "pattern_counts_main": {
+      "pancytopenia": 36,
+      "kidney_potassium": 39,
+      "liver_jaundice": 37,
+      "liver_enzymes": 38,
+      "kidney": 54,
+      "renal_anemia": 69,
+      "iron_def": 38,
+      "b12_anemia": 47,
+      "diabetes": 47,
+      "prediabetes": 78,
+      "metabolic": 36,
+      "atherogenic": 34,
+      "hypothyroid": 23,
+      "subclinical_hypo": 46,
+      "hyperthyroid": 32,
+      "infection": 38,
+      "dehydration": 29,
+      "gout_kidney": 42
+    },
+    "critical_counts_main": {
+      "critical:alt": 10,
+      "critical:ast": 10,
+      "critical:bili": 2,
+      "critical:bun": 4,
+      "critical:creat": 12,
+      "critical:fbs": 3,
+      "critical:hb": 19,
+      "critical:hba1c": 2,
+      "critical:k": 6,
+      "critical:na": 5,
+      "critical:plt": 3,
+      "critical:tg": 3,
+      "critical:urea": 3,
+      "critical:vitd": 1,
+      "critical:wbc": 9
+    },
+    "avg_prompt_chars": 1279,
+    "avg_completion_chars": 1629,
+    "regex_parser_exact_match_by_template": {
+      "compact_inline": 0.0,
+      "csv_export": 0.222,
+      "doctor_note": 0.0,
+      "dot_leaders": 0.235,
+      "hindi_headers": 0.308,
+      "key_value": 0.158,
+      "ocr_two_col": 0.0,
+      "pipe_table": 0.043,
+      "table_aligned": 0.25,
+      "table_flags": 0.25,
+      "vertical_cells": 0.0,
+      "whatsapp": 0.19
+    }
+  },
+  "combos_below_quota": [],
+  "critical_keys_missing": [],
+  "min_per_combo": 300,
+  "seeds": {
+    "train": 7,
+    "heldout": 1007
+  }
+}
