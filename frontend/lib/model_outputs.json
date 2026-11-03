@@ -1,0 +1,5176 @@
+{
+ "generated": "2026-11-03",
+ "systems": {
+  "base_with_format": "Qwen3.5-4B + format instructions",
+  "adapted": "LabLens Reader"
+ },
+ "left": "base_with_format",
+ "right": "adapted",
+ "pattern_titles": {
+  "pancytopenia": "Low counts across red cells, white cells and platelets",
+  "kidney_potassium": "Reduced kidney clearance with high potassium",
+  "liver_jaundice": "Liver enzymes raised together with bilirubin",
+  "liver_enzymes": "Liver enzymes raised together",
+  "kidney": "Kidney filtration markers raised together",
+  "renal_anemia": "Anemia alongside reduced kidney function",
+  "iron_def": "Pattern of iron-deficiency anemia",
+  "b12_anemia": "Pattern of B12 or folate-deficiency anemia",
+  "diabetes": "Blood sugar results in the diabetes range",
+  "prediabetes": "Blood sugar above normal",
+  "metabolic": "Metabolic syndrome pattern",
+  "atherogenic": "Cholesterol pattern linked to heart risk",
+  "hypothyroid": "Underactive thyroid pattern",
+  "subclinical_hypo": "Mildly underactive thyroid pattern",
+  "hyperthyroid": "Overactive thyroid pattern",
+  "infection": "Signs of active infection or inflammation",
+  "dehydration": "Pattern suggesting dehydration",
+  "gout_kidney": "High uric acid with reduced kidney clearance",
+  "critical:hb": "Hemoglobin at a critical level",
+  "critical:wbc": "White blood cells (WBC) at a critical level",
+  "critical:plt": "Platelets at a critical level",
+  "critical:mcv": "MCV (red cell size) at a critical level",
+  "critical:fbs": "Fasting glucose at a critical level",
+  "critical:hba1c": "HbA1c at a critical level",
+  "critical:creat": "Creatinine at a critical level",
+  "critical:urea": "Blood urea at a critical level",
+  "critical:bun": "BUN at a critical level",
+  "critical:na": "Sodium at a critical level",
+  "critical:k": "Potassium at a critical level",
+  "critical:alt": "ALT (SGPT) at a critical level",
+  "critical:ast": "AST (SGOT) at a critical level",
+  "critical:bili": "Total bilirubin at a critical level",
+  "critical:chol": "Total cholesterol at a critical level",
+  "critical:ldl": "LDL cholesterol at a critical level",
+  "critical:hdl": "HDL cholesterol at a critical level",
+  "critical:tg": "Triglycerides at a critical level",
+  "critical:tsh": "TSH at a critical level",
+  "critical:ft4": "Free T4 at a critical level",
+  "critical:ferritin": "Ferritin at a critical level",
+  "critical:b12": "Vitamin B12 at a critical level",
+  "critical:vitd": "Vitamin D (25-OH) at a critical level",
+  "critical:crp": "CRP at a critical level",
+  "critical:uric": "Uric acid at a critical level"
+ },
+ "summary": {
+  "eval": {
+   "gold": {
+    "n": 99,
+    "fully_correct": 1.0,
+    "missed_urgent_rate": 0.0,
+    "verdict_accuracy": 1.0,
+    "json_valid": 1.0,
+    "status_accuracy": 1.0,
+    "values_f1": 1.0,
+    "patterns_f1": 1.0,
+    "unseen_fully_correct": 1.0
+   },
+   "regex_engine": {
+    "n": 99,
+    "fully_correct": 0.0707070707070707,
+    "missed_urgent_rate": 0.425531914893617,
+    "verdict_accuracy": 0.5757575757575758,
+    "json_valid": 0.7878787878787878,
+    "status_accuracy": 0.5314578005115089,
+    "values_f1": 0.7005649717514124,
+    "patterns_f1": 0.6575342465753424,
+    "unseen_fully_correct": 0.0
+   },
+   "base_with_format": {
+    "n": 99,
+    "fully_correct": 0.030303030303030304,
+    "missed_urgent_rate": 0.5106382978723404,
+    "verdict_accuracy": 0.4444444444444444,
+    "json_valid": 0.8787878787878788,
+    "status_accuracy": 0.7360613810741689,
+    "values_f1": 0.8280388553426097,
+    "patterns_f1": 0.38640429338103754,
+    "unseen_fully_correct": 0.06060606060606061
+   }
+  },
+  "runs": []
+ },
+ "cases": [
+  {
+   "id": "suresh_kidney_urgent",
+   "lang": "en",
+   "language": "English",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in English.\n\nMETRO HOSPITAL LABORATORY  (Emergency sample)\nPatient: Suresh Patil          Age/Sex: 61 Y / M        Received: 24-10-2026 21:40\n\nHAEMATOLOGY\nHemoglobin                     10.2      g/dL         13.0 - 17.0\nTotal WBC Count                14,200    /cumm        4000 - 11000\nPlatelets                      1,62,000  /cumm        150000 - 410000\nMCV                            88        fL           80 - 100\n\nRENAL FUNCTION\nBlood Urea                     128       mg/dL        15 - 45\nSerum Creatinine               3.4       mg/dL        0.7 - 1.3\nSodium (Na+)                   131       mmol/L       135 - 145\nPotassium (K+)                 6.4       mmol/L       3.5 - 5.1\n\nINFLAMMATION\nC-Reactive Protein (CRP)       48        mg/L         < 5\n\nLIVER\nTotal Bilirubin                0.8       mg/dL        0.2 - 1.2\n",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 10.2,
+     "wbc": 14.2,
+     "plt": 162,
+     "mcv": 88,
+     "creat": 3.4,
+     "urea": 128,
+     "na": 131,
+     "k": 6.4,
+     "bili": 0.8,
+     "crp": 48
+    },
+    "abnormal": {
+     "hb": "low",
+     "wbc": "high",
+     "creat": "high",
+     "urea": "high",
+     "na": "low",
+     "k": "critical_high",
+     "crp": "high"
+    },
+    "patterns": [
+     "kidney_potassium",
+     "critical:k",
+     "kidney",
+     "renal_anemia",
+     "infection"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Suresh, 61",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**urgent**\n\n### Results outside the reference range\n*   **Hemoglobin (hb):** 10.2 g/dL (Low)\n*   **Total WBC Count (wbc):** 14,200 /cumm (High)\n*   **Platelets (plt):** 1,62,000 /cumm (High)\n*   **MCV (mcv):** 88 fL (Normal)\n*   **Blood Urea (urea):** 128 mg/dL (High)\n*   **Serum Creatinine (creatin):** 3.4 mg/dL (High)\n*   **Sodium (na):** 131 mmol/L (Low)\n*   **Potassium (k):** 6.4 mmol/L (High)\n*   **C-Reactive Protein (crp):** 48 mg/L (High)\n*   **Total Bilirubin (bili):** 0.8 mg/dL (Normal)\n\n### Results that matter together\n*   **kidney_potassium:** Elevated creatinine and potassium indicate reduced kidney function with hyperkalemia.\n*   **infection:** High WBC, elevated CRP, and thrombocytosis (high platelets) suggest an active infection or inflammatory response.\n*   **dehydration:** High urea and creatinine alongside low sodium and high potassium suggest significant dehydration and prerenal kidney injury.\n\n### What this means\nThe patient is showing signs of **severe acute kidney injury (AKI)**, likely due to severe dehydration, evidenced by very high urea and creatinine levels. The high potassium (6.4 mmol/L) is dangerous and requires immediate attention to prevent cardiac issues. There is also a strong indication of an **active infection** (high CRP and WBC), which may be the cause of the dehydration and kidney stress. The anemia (low hemoglobin) is mild and likely chronic or related to the overall stress, while the high platelets are a reactive response to the infection.\n\n### What to do next\nThis is a medical emergency. The patient requires immediate hospital admission for:\n1.  **Fluid resuscitation** to treat dehydration and improve kidney function.\n2.  **Electrolyte management** to lower the dangerous potassium level.\n3.  **Infection workup** (blood cultures, imaging) to identify and treat the source of infection.\n4.  **Monitoring** of renal function and cardiac stability.\n\n***\n*Disclaimer: I am an AI, not a doctor. This analysis is for informational purposes only and does not constitute medical advice. Please consult a qualified healthcare professional immediately for diagnosis and treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.2,
+        "pred": 10.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 14.2,
+        "pred": 14200,
+        "value_ok": false,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 162,
+        "pred": 162000,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 3.4,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "high",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 131,
+        "pred": 131,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 6.4,
+        "pred": 6.4,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 48,
+        "pred": 48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "creatin"
+      ],
+      "missing_patterns": [
+       "critical:k",
+       "kidney",
+       "renal_anemia"
+      ],
+      "extra_patterns": [
+       "dehydration"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "suresh_kidney_urgent_mr",
+   "lang": "mr",
+   "language": "Marathi",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in Marathi.\n\nMETRO HOSPITAL LABORATORY  (Emergency sample)\nPatient: Suresh Patil          Age/Sex: 61 Y / M        Received: 24-10-2026 21:40\n\nHAEMATOLOGY\nHemoglobin                     10.2      g/dL         13.0 - 17.0\nTotal WBC Count                14,200    /cumm        4000 - 11000\nPlatelets                      1,62,000  /cumm        150000 - 410000\nMCV                            88        fL           80 - 100\n\nRENAL FUNCTION\nBlood Urea                     128       mg/dL        15 - 45\nSerum Creatinine               3.4       mg/dL        0.7 - 1.3\nSodium (Na+)                   131       mmol/L       135 - 145\nPotassium (K+)                 6.4       mmol/L       3.5 - 5.1\n\nINFLAMMATION\nC-Reactive Protein (CRP)       48        mg/L         < 5\n\nLIVER\nTotal Bilirubin                0.8       mg/dL        0.2 - 1.2\n",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 10.2,
+     "wbc": 14.2,
+     "plt": 162,
+     "mcv": 88,
+     "creat": 3.4,
+     "urea": 128,
+     "na": 131,
+     "k": 6.4,
+     "bili": 0.8,
+     "crp": 48
+    },
+    "abnormal": {
+     "hb": "low",
+     "wbc": "high",
+     "creat": "high",
+     "urea": "high",
+     "na": "low",
+     "k": "critical_high",
+     "crp": "high"
+    },
+    "patterns": [
+     "kidney_potassium",
+     "critical:k",
+     "kidney",
+     "renal_anemia",
+     "infection"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Suresh, 61",
+   "outputs": {
+    "base_with_format": {
+     "text": "**Verdict:** urgent\n**Results outside the reference range:**\n*   hb: 10.2 (Low)\n*   wbc: 14200 (High)\n*   plt: 162000 (High)\n*   mcv: 88 (Normal)\n*   fbs: Not provided\n*   hba1c: Not provided\n*   creat: 3.4 (High)\n*   urea: 128 (High)\n*   bun: Not provided\n*   na: 131 (Low)\n*   k: 6.4 (High)\n*   alt: Not provided\n*   ast: Not provided\n*   bili: 0.8 (Normal)\n*   chol: Not provided\n*   ldl: Not provided\n*   hdl: Not provided\n*   tg: Not provided\n*   tsh: Not provided\n*   ft4: Not provided\n*   ferritin: Not provided\n*   b12: Not provided\n*   vitd: Not provided\n*   crp: 48 (High)\n*   uric: Not provided\n\n**Results that matter together:**\n*   kidney_potassium\n*   kidney\n*   infection\n*   renal_anemia\n\n**What this means:**\nहे रिपोर्टमध्ये मूळधमनी (Hemoglobin) कमी आहे, जे आंशिक अॅनिमिया (Anemia) दर्शवते. पेशींचा संख्या (WBC) वाढली आहे, ज्यामुळे संसर्ग किंवा आतडीचा आजार शक्य आहे. CRP (C-Reactive Protein) खूप जास्त आहे, जो शरीरातील तीव्र आतडीचा (Inflammation) लक्षणांसाठी आहे. युरिया (Urea) आणि क्रिएटिनिन (Creatinine) खूप जास्त आहेत, ज्यामुळे किडनीची कार्यक्षमता खराब झाली आहे. पोटॅशियम (Potassium) आणि सोडियम (Sodium)ची पातळीही सामान्य सेटिंग्सपेक्षा बाहेर आहे. हे सर्व एकत्रितपणे किडनीच्या फंक्शनमध्ये गंभीर समस्या आणि संसर्गाचे लक्षण आहेत.\n\n**What to do next:**\nतुम्हाला त्वरित डॉक्टरांचा सल्ला घेणे आवश्यक आहे. हे रिपोर्ट गंभीर आहे, कारण किडनीची कार्यक्षमता खूप कमी आहे आणि पोटॅशियमची पातळी जास्त आहे, जी हृदयासाठी धोकादायक असू शकते. तसेच, संसर्गाची शक्यता असल्याने अतिशय लवकर उपचार सुरू करावे लागतील.\n\n**Disclaimer:** ही माहिती फक्त माहितीसाठी आहे आणि तज्ज्ञ डॉक्टरांचा सल्ला न घेता कोणताही उपचार करू नका.",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.2,
+        "pred": 10.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 14.2,
+        "pred": 14200,
+        "value_ok": false,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 162,
+        "pred": 162000,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 3.4,
+        "pred": 3.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 131,
+        "pred": 131,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 6.4,
+        "pred": 6.4,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 48,
+        "pred": 48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "critical:k"
+      ],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "rajesh_metabolic",
+   "lang": "en",
+   "language": "English",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in English.\n\nCITY CARE PATHOLOGY LAB\nPatient: Rajesh Kulkarni       Age/Sex: 52 Y / M        Collected: 23/10/2026 08:10\n\nBLOOD SUGAR\nFasting Blood Sugar               142     mg/dL      70 - 99\nGlycated Haemoglobin (HbA1c)      7.4     %          4.0 - 5.6\n\nLIPID PROFILE\nTotal Cholesterol                 238     mg/dL      < 200\nTriglycerides                     262     mg/dL      < 150\nHDL Cholesterol                   34      mg/dL      > 40\nLDL Cholesterol                   152     mg/dL      < 130\nVLDL Cholesterol                  52      mg/dL      < 30\nChol/HDL Ratio                    7.0                < 5.0\n\nLIVER FUNCTION TEST\nSGPT (ALT)                        58      U/L        < 40\nSGOT (AST)                        46      U/L        < 40\nBilirubin Total                   0.9     mg/dL      0.2 - 1.2\nBilirubin Direct                  0.3     mg/dL      0 - 0.3\n\nKIDNEY FUNCTION TEST\nSerum Creatinine                  1.0     mg/dL      0.7 - 1.3\nSerum Uric Acid                   7.9     mg/dL      3.4 - 7.0\n",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "fbs": 142,
+     "hba1c": 7.4,
+     "creat": 1,
+     "alt": 58,
+     "ast": 46,
+     "bili": 0.9,
+     "chol": 238,
+     "ldl": 152,
+     "hdl": 34,
+     "tg": 262,
+     "uric": 7.9
+    },
+    "abnormal": {
+     "fbs": "high",
+     "hba1c": "high",
+     "alt": "high",
+     "ast": "high",
+     "chol": "high",
+     "ldl": "high",
+     "hdl": "low",
+     "tg": "high",
+     "uric": "high"
+    },
+    "patterns": [
+     "liver_enzymes",
+     "diabetes",
+     "metabolic",
+     "atherogenic"
+    ],
+    "verdict": "review"
+   },
+   "label": "Rajesh, 52",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**review**\n\n### Results outside the reference range\n*   **fbs (Fasting Blood Sugar):** 142 mg/dL (High; Ref: 70–99)\n*   **hba1c (HbA1c):** 7.4% (High; Ref: 4.0–5.6)\n*   **tg (Triglycerides):** 262 mg/dL (High; Ref: <150)\n*   **hdl (HDL Cholesterol):** 34 mg/dL (Low; Ref: >40)\n*   **ldl (LDL Cholesterol):** 152 mg/dL (High; Ref: <130)\n*   **chol (Total Cholesterol):** 238 mg/dL (High; Ref: <200)\n*   **chol/hdl ratio:** 7.0 (High; Ref: <5.0)\n*   **alt (SGPT):** 58 U/L (High; Ref: <40)\n*   **ast (SGOT):** 46 U/L (High; Ref: <40)\n*   **uric (Uric Acid):** 7.9 mg/dL (High; Ref: 3.4–7.0)\n\n### Results that matter together\n*   **diabetes:** Fasting blood sugar and HbA1c indicate uncontrolled blood sugar levels.\n*   **atherogenic:** High LDL, high triglycerides, low HDL, and a high cholesterol ratio suggest a high risk for cardiovascular disease.\n*   **metabolic:** The combination of high blood sugar, high triglycerides, low HDL, and high cholesterol fits the profile of metabolic syndrome.\n*   **kidney:** Elevated uric acid may indicate reduced kidney clearance or gout risk.\n*   **liver_enzymes:** Mild elevation in ALT and AST suggests potential liver stress, possibly due to metabolic factors or fatty liver.\n\n### What this means\nThe lab results indicate significant issues with blood sugar control and lipid metabolism. An HbA1c of 7.4% confirms diabetes (or pre-diabetes progressing to diabetes), while the fasting sugar is well above the normal range. The lipid profile shows a classic \"atherogenic\" pattern with high \"bad\" cholesterol (LDL) and triglycerides, coupled with low \"good\" cholesterol (HDL), which significantly increases heart disease risk. Additionally, there is mild liver enzyme elevation and high uric acid, which could be related to metabolic syndrome or require further investigation for kidney function and gout risk.\n\n### What to do next\nConsult a physician immediately for a comprehensive review. The patient likely needs a medication adjustment for diabetes and a lipid management plan. The doctor may order a liver ultrasound to check for fatty liver disease, a kidney function test (including eGFR) to assess the impact of high uric acid, and a detailed dietary counseling plan to address metabolic syndrome.\n\n### Disclaimer\n*This information is for educational purposes only and does not constitute medical advice. Please consult a qualified healthcare professional for diagnosis and treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 142,
+        "pred": 142,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 7.4,
+        "pred": 7.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 46,
+        "pred": 46,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.9,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 238,
+        "pred": 238,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 152,
+        "pred": 152,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 262,
+        "pred": 262,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 7.9,
+        "pred": 7.9,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "liver_enzymes"
+      ],
+      "extra_patterns": [
+       "kidney"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "anita_anemia_thyroid",
+   "lang": "en",
+   "language": "English",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in English.\n\nSUNRISE DIAGNOSTICS PVT LTD\nPatient: Anita Deshmukh        Age/Sex: 34 Y / F        Sample date: 22-10-2026\nRef. Dr: Self                  Lab No: SD/26/104882\n\nCOMPLETE BLOOD COUNT\nTest                         Result     Unit          Biological Ref. Interval\nHaemoglobin                  9.1        g/dL          12.0 - 15.5\nTotal Leucocyte Count        6,800      cells/cumm    4000 - 11000\nPlatelet Count               2.6        lakhs/cumm    1.5 - 4.1\nMCV                          71.4       fL            80 - 100\nMCH                          22.1       pg            27 - 32\n\nIRON STUDIES\nSerum Ferritin               8.2        ng/mL         15 - 150\n\nTHYROID PROFILE\nTSH (3rd generation)         7.8        mIU/L         0.4 - 4.5\nFree T4                      0.62       ng/dL         0.8 - 1.8\n\nVITAMINS\n25-OH Vitamin D              14.6       ng/mL         30 - 100\nVitamin B12                  312        pg/mL         200 - 900\n",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 9.1,
+     "wbc": 6.8,
+     "plt": 260,
+     "mcv": 71.4,
+     "tsh": 7.8,
+     "ft4": 0.62,
+     "ferritin": 8.2,
+     "b12": 312,
+     "vitd": 14.6
+    },
+    "abnormal": {
+     "hb": "low",
+     "mcv": "low",
+     "tsh": "high",
+     "ft4": "low",
+     "ferritin": "low",
+     "vitd": "low"
+    },
+    "patterns": [
+     "iron_def",
+     "hypothyroid"
+    ],
+    "verdict": "review"
+   },
+   "label": "Anita, 34",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**review**\n\n### Results outside the reference range\n*   **Haemoglobin (hb):** 9.1 g/dL (Low; Ref: 12.0–15.5)\n*   **MCV (mcv):** 71.4 fL (Low; Ref: 80–100)\n*   **MCH (mch):** 22.1 pg (Low; Ref: 27–32)\n*   **Serum Ferritin (ferritin):** 8.2 ng/mL (Low; Ref: 15–150)\n*   **TSH (tsh):** 7.8 mIU/L (High; Ref: 0.4–4.5)\n*   **Free T4 (ft4):** 0.62 ng/dL (Low; Ref: 0.8–1.8)\n*   **25-OH Vitamin D (vitd):** 14.6 ng/mL (Low; Ref: 30–100)\n\n### Results that matter together\n*   **iron_def:** Low hemoglobin, low MCV, low MCH, and critically low ferritin indicate iron-deficiency anemia.\n*   **hypothyroid:** Elevated TSH combined with low Free T4 indicates an underactive thyroid.\n*   **vitd:** Vitamin D level is significantly below the reference range.\n\n### What this means\nThe patient is suffering from **iron-deficiency anemia**, likely due to nutritional deficiency or chronic blood loss, evidenced by low hemoglobin, small red blood cells (low MCV), and very low ferritin. Concurrently, there is a clear case of **hypothyroidism** (underactive thyroid), where the thyroid is not producing enough hormone (low T4) in response to high TSH stimulation. Additionally, the patient has **severe vitamin D deficiency**, which is common in India and can contribute to fatigue and muscle weakness.\n\n### What to do next\nConsult a physician immediately for blood tests to check iron stores and thyroid function. The doctor will likely prescribe iron supplements for the anemia and thyroid medication (levothyroxine) for the hypothyroidism. A diet rich in iron and vitamin D, along with sun exposure or supplements, should be discussed.\n\n### Disclaimer\n*This information is for educational purposes only and does not constitute medical advice. Please consult a qualified healthcare professional for diagnosis and treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9.1,
+        "pred": 9.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6800,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 260,
+        "pred": 2.6,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 71.4,
+        "pred": 71.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 7.8,
+        "pred": 7.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.62,
+        "pred": 0.62,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 8.2,
+        "pred": 8.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 312,
+        "pred": 312,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 14.6,
+        "pred": 14.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "alt",
+       "ast",
+       "bili",
+       "bun",
+       "chol",
+       "creat",
+       "crp",
+       "fbs",
+       "hba1c",
+       "hdl",
+       "k",
+       "ldl",
+       "na",
+       "tg",
+       "urea",
+       "uric"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "vitd"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "anita_anemia_thyroid_hi",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in Hindi.\n\nSUNRISE DIAGNOSTICS PVT LTD\nPatient: Anita Deshmukh        Age/Sex: 34 Y / F        Sample date: 22-10-2026\nRef. Dr: Self                  Lab No: SD/26/104882\n\nCOMPLETE BLOOD COUNT\nTest                         Result     Unit          Biological Ref. Interval\nHaemoglobin                  9.1        g/dL          12.0 - 15.5\nTotal Leucocyte Count        6,800      cells/cumm    4000 - 11000\nPlatelet Count               2.6        lakhs/cumm    1.5 - 4.1\nMCV                          71.4       fL            80 - 100\nMCH                          22.1       pg            27 - 32\n\nIRON STUDIES\nSerum Ferritin               8.2        ng/mL         15 - 150\n\nTHYROID PROFILE\nTSH (3rd generation)         7.8        mIU/L         0.4 - 4.5\nFree T4                      0.62       ng/dL         0.8 - 1.8\n\nVITAMINS\n25-OH Vitamin D              14.6       ng/mL         30 - 100\nVitamin B12                  312        pg/mL         200 - 900\n",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 9.1,
+     "wbc": 6.8,
+     "plt": 260,
+     "mcv": 71.4,
+     "tsh": 7.8,
+     "ft4": 0.62,
+     "ferritin": 8.2,
+     "b12": 312,
+     "vitd": 14.6
+    },
+    "abnormal": {
+     "hb": "low",
+     "mcv": "low",
+     "tsh": "high",
+     "ft4": "low",
+     "ferritin": "low",
+     "vitd": "low"
+    },
+    "patterns": [
+     "iron_def",
+     "hypothyroid"
+    ],
+    "verdict": "review"
+   },
+   "label": "Anita, 34",
+   "outputs": {
+    "base_with_format": {
+     "text": "यहाँ आपकी लैब रिपोर्ट का हिंदी में विश्लेषण है:\n\n**निष्कर्ष (Verdict):** review\n**असामान्य परिणाम (Results outside the reference range):**\n*   **Hemoglobin (hb):** 9.1 g/dL (निम्न - Low)\n*   **Platelet Count (plt):** 2.6 lakhs/cumm (निम्न - Low)\n*   **MCV (mcv):** 71.4 fL (निम्न - Low)\n*   **Ferritin (ferritin):** 8.2 ng/mL (निम्न - Low)\n*   **TSH (tsh):** 7.8 mIU/L (उच्च - High)\n*   **Free T4 (ft4):** 0.62 ng/dL (निम्न - Low)\n*   **Vitamin D (vitd):** 14.6 ng/mL (निम्न - Low)\n\n**परिणाम जो एक साथ महत्वपूर्ण हैं (Results that matter together):**\n*   **iron_def:** लोहे की कमी का पैटर्न (निम्न हीमोग्लोबिन, MCV और फेरीटिन)।\n*   **hypothyroid:** थायराइड की कमजोरी का पैटर्न (उच्च TSH और निम्न Free T4)।\n*   **vitd:** विटामिन D की कमी।\n\n**यह क्या दर्शाता है (What this means):**\nआपके शरीर में लोहे की कमी (Iron Deficiency) है, जो आपकी थकान या कमजोरी का कारण हो सकती है। साथ ही, आपकी थायराइड ग्रंथि धीमी काम कर रही है (Hypothyroidism), जिसके कारण TSH बढ़ा और Free T4 कम है। विटामिन D भी बहुत कम स्तर पर है। प्लेटलेट्स का भी थोड़ा कम होना है, जो अक्सर लोहे की कमी या थायराइड की समस्या से जुड़ा हो सकता है।\n\n**अगला कदम (What to do next):**\nकृपया अपने डॉक्टर से मिलें। डॉक्टर आपको लोहे की सप्लीमेंट्स (Iron supplements) और थायराइड के लिए दवा (Levothyroxine) शुरू करने की सलाह देंगे। विटामिन D की सप्लीमेंट भी आवश्यक हो सकती है।\n\n**अस्वीकरण:** यह जानकारी केवल शिक्षा के उद्देश्य से है और चिकित्सा सलाह नहीं है। कृपया अपने चिकित्सक से संपर्क करें।",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9.1,
+        "pred": 9.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 260,
+        "pred": 2.6,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "low",
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 71.4,
+        "pred": 71.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 7.8,
+        "pred": 7.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.62,
+        "pred": 0.62,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 8.2,
+        "pred": 8.2,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 312,
+        "pred": 312,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 14.6,
+        "pred": 14.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "alt",
+       "ast",
+       "bili",
+       "bun",
+       "chol",
+       "creat",
+       "crp",
+       "fbs",
+       "hba1c",
+       "hdl",
+       "k",
+       "ldl",
+       "na",
+       "tg",
+       "urea",
+       "uric"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "vitd"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "priya_healthy",
+   "lang": "en",
+   "language": "English",
+   "layout": "app sample",
+   "unseen_layout": false,
+   "source": "sample",
+   "prompt": "Read this lab report and explain the results in English.\n\nWELLNESS ANNUAL CHECK-UP\nPatient: Priya Iyer            Age/Sex: 29 Y / F\n\nHemoglobin            13.4   g/dL      12.0 - 15.5\nWBC                   7.2    10^3/uL   4.0 - 11.0\nPlatelets             280    10^3/uL   150 - 410\nFasting Glucose       88     mg/dL     70 - 99\nHbA1c                 5.2    %         4.0 - 5.6\nTSH                   2.1    mIU/L     0.4 - 4.5\nCreatinine            0.8    mg/dL     0.6 - 1.1\nHDL Cholesterol       58     mg/dL     > 50\nLDL Cholesterol       96     mg/dL     < 130\nVitamin D             34     ng/mL     30 - 100\n",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 13.4,
+     "wbc": 7.2,
+     "plt": 280,
+     "fbs": 88,
+     "hba1c": 5.2,
+     "creat": 0.8,
+     "ldl": 96,
+     "hdl": 58,
+     "tsh": 2.1,
+     "vitd": 34
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Priya, 29",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**ok**\n\n### Results outside the reference range\nNone of the reported values are outside the provided reference ranges.\n\n### Results that matter together\nNo specific patterns (such as metabolic syndrome, liver issues, or kidney dysfunction) are triggered by the current results. All markers fall within normal limits.\n\n### What this means\nThe lab results indicate a healthy baseline for a 29-year-old female. Hemoglobin, white blood cells, and platelets are normal, suggesting no anemia or infection. Blood sugar levels (fasting glucose and HbA1c) are well-controlled, indicating no diabetes. Kidney function markers (creatinine) are normal. Thyroid function (TSH) is within the normal range, ruling out overt hypothyroidism. Lipid profile shows good HDL levels and LDL is below the target of 130 mg/dL. Vitamin D is at the lower end of normal but still within range.\n\n### What to do next\nContinue maintaining a healthy lifestyle with a balanced diet and regular physical activity. No immediate medical intervention is required based on these results.\n\n### Disclaimer\n*This information is for educational purposes only and does not constitute medical advice. Please consult a qualified healthcare professional for diagnosis and treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 13.4,
+        "pred": 13.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 7.2,
+        "pred": 7.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 280,
+        "pred": 280,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.2,
+        "pred": 5.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.8,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 96,
+        "pred": 96,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.1,
+        "pred": 2.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "creatin"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "h000",
+   "lang": "mr",
+   "language": "Marathi",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "माझा रिपोर्ट पाहून काय सामान्य नाही ते मराठीत सांगा.\n\nReport:\nKALPATARU HEALTH LABS\nThane | Ph: 080-47914511\nPatient: Lata Gill        Age/Sex: 57 Y / F        Date: 06-03-2026\nCollected: 06-03-2026 09:24\n\nComplete Blood Count\nTest\nResult\nUnit\nReference\nHGB\n154\ng/L\n120-155\nWhite Blood Cell Count\n10,400\ncells/µL\n4,000-11,000\nPlatelet Count\n354000\n/cu mm\n141756 - 415675\nMCV (Mean Corpuscular Volume)\n98.9\nfL\n80.0 to 100.0\nGLUCOSE\nTest\nResult\nUnit\nReference\nFasting Plasma Glucose\n77\nmg/dL\n70-99\nHbA1c\n4.6\n%\n3.8 - 5.6\nKIDNEY FUNCTION TEST (KFT)\nTest\nResult\nUnit\nReference\nCreatinine\n1.22\nmg/dl\nM: 0.70-1.30 / F: 0.60-1.10\nSerum Urea\n103\nmg/dL\n15-45\nBUN\n4\nmg/dl\n7 - 20\nNa+\n117\nmmol/L\n135 to 145\nK+\n4.8\nmmol/l\n3.3 to 5.3\nLFT\nTest\nResult\nUnit\nReference\nALT (SGPT)\n16\nU/L\n< 40\nAspartate Aminotransferase\n20\nIU/L\nUp to 40\nSerum Bilirubin (Total)\n1.2\nmg/dL\nUp to 1.2\nLIPIDS\nTest\nResult\nUnit\nReference\nTotal Cholesterol\n167\nmg/dL\nUp to 199\nLDL Cholesterol\n163\nmg/dL\nUp to 136\nHDL\n31\nmg/dL\n> 49\nTriglycerides\n845\nmg/dL\n0 - 149\nTHYROID PROFILE\nTest\nResult\nUnit\nReference\nTSH\n0.24\nuIU/mL\n0.40-4.50\nF.T4\n1.84\nng/dl\n0.80 - 1.80\nVITAMINS & IRON\nTest\nResult\nUnit\nReference\nFERRITIN\n5.3\nng/ml\n15.0 - 150.0\nVITAMIN B12\n579\npg/ml\n200 to 900\nVit D Total\n61.4\nng/mL\n30.0-100.0\nDr. D. Singh, MD (Pathology)\nClinical correlation is advised.\nReported: 06-03-2026 17:11",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 15.4,
+     "wbc": 10.4,
+     "plt": 354,
+     "mcv": 98.9,
+     "fbs": 77,
+     "hba1c": 4.6,
+     "creat": 1.22,
+     "urea": 103,
+     "bun": 4,
+     "na": 117,
+     "k": 4.8,
+     "alt": 16,
+     "ast": 20,
+     "bili": 1.2,
+     "chol": 167,
+     "ldl": 163,
+     "hdl": 31,
+     "tg": 845,
+     "tsh": 0.24,
+     "ft4": 1.84,
+     "ferritin": 5.3,
+     "b12": 579,
+     "vitd": 61.4
+    },
+    "abnormal": {
+     "creat": "high",
+     "urea": "high",
+     "bun": "low",
+     "na": "critical_low",
+     "ldl": "high",
+     "hdl": "low",
+     "tg": "high",
+     "tsh": "low",
+     "ft4": "high",
+     "ferritin": "low"
+    },
+    "patterns": [
+     "critical:na",
+     "kidney",
+     "hyperthyroid",
+     "atherogenic"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 000",
+   "outputs": {
+    "base_with_format": {
+     "text": "हे लॅब रिपोर्टचे विश्लेषण खालीलप्रमाणे आहे:\n\n**निष्कर्ष (Verdict):** review\n\n**रिपोर्टमधील बाहेर पडलेले मूल्ये (Results outside the reference range):**\n*   **HGB (हॅमोग्लोबिन):** १५४ g/L (रेंज: १२०-१५५) - *लक्षणे आहेत, परंतु मर्यादेच्या वर आहे.*\n*   **Serum Urea:** १०३ mg/dL (रेंज: १५-४५) - **उच्च**\n*   **BUN:** ४ mg/dL (रेंज: ७-२०) - **कमी**\n*   **Na+ (सोडियम):** ११७ mmol/L (रेंज: १३५-१४५) - **कमी**\n*   **HDL:** ३१ mg/dL (रेंज: >४९) - **कमी**\n*   **Triglycerides:** ८४५ mg/dL (रेंज: ०-१४९) - **अत्यंत उच्च**\n*   **TSH:** ०.२४ uIU/mL (रेंज: ०.४०-४.५०) - **कमी**\n*   **F.T4:** १.८४ ng/dL (रेंज: ०.८०-१.८०) - *मर्यादेच्या वर आहे.*\n*   **FERRITIN:** ५.३ ng/mL (रेंज: १५.०-१५०.०) - **अत्यंत कमी**\n\n**सहसा असलेले महत्त्वाचे मूल्ये (Results that matter together):**\n*   **kidney_potassium:** उच्च युरिया (१०३) आणि कमी सोडियम (११७) हे एकत्र येतात.\n*   **metabolic:** उच्च ट्रायग्लिसराइड्स (८४५) आणि कमी HDL हे मेटाबोलिक सिंड्रोमचे लक्षण आहेत.\n*   **iron_def:** खूप कमी फेरिटिन (५.३) आणि सामान्य HGB (१५४) हे लोह-अभाव रक्तशोषाचे (iron-deficiency anemia) लक्षण दर्शवतात.\n*   **hypothyroid:** TSH कमी आणि F.T4 मर्यादेच्या वर असल्याने थायरायडची कार्यक्षमता सामान्य वाटते, परंतु TSH कमी असल्याचे लक्षात घ्यावे.\n\n**हे काय दर्शवते (What this means):**\n१. **लोह-अभाव रक्तशोषाचा (Iron Deficiency):** फेरिटिन अत्यंत कमी आहे (५.३), जे खूप गंभीर लोह-अभाव दर्शवते. हे रक्तशोषाचे मुख्य कारण असू शकते.\n२. **किडनी आणि इलेक्ट्रोलाईट्स:** युरिया खूप उच्च (१०३) आणि सोडियम खूप कमी (११७) आहे. युरिया उच्च असल्याचे लक्षात घ्यावे, कारण हे किडनीच्या कार्यक्षमतेवर किंवा पाण्याच्या संतुलनावर अवलंबून असू शकते.\n३. **मेटाबोलिक आणि हृदय संकट:** ट्रायग्लिसराइड्स अत्यंत उच्च आहेत (८४५), जे हृदय रोगाचा धोका वाढवते. HDL कमी आहे.\n४. **थायरायड:** TSH कमी आहे, जे थायरायडच्या कार्यक्षमतेचे लक्षण असू शकते.\n\n**काय करावे (What to do next):**\n*   **दरवर्षी रक्तशोधक (Blood Transfusion):** लोह-अभाव रक्तशोषाची (Iron Deficiency) तपासणी करावी आणि लोह-सप्लीमेंट्सची सल्ला घ्यावा.\n*   **किडनी तपासणी:** युरिया उच्च आणि सोडियम कमी असल्याने किडनीचे कार्य तपासून पाहिले पाहिजे.\n*   **हृदय रोगाचा धोका:** ट्रायग्लिसराइड्स आणि कोलेस्ट्रॉल नियंत्रणासाठी डॉक्टरांचा सल्ला घ्यावा.\n*   **थायरायड:** TSH कमी असल्याने थायरायडच्या तपासणीसाठी डॉक्टरांचा सल्ला घ्यावा.\n\n**अस्वीकरण:** ही माहिती फक्त माहितीसाठी आहे आणि वैद्यकीय सल्ला देण्यासाठी नाही. कृपया योग्य डॉक्टरांचा सल्ला घेणे आवश्यक आहे.",
+     "check": {
+      "valid": false
+     }
+    }
+   }
+  },
+  {
+   "id": "h003",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "Pushpak Clinical Laboratory\nLucknow | Ph: 046-79458063\nName : Shri MAHESH PAWAR | Age : 29\nLab No: PU/25/257625\nCollected: 2 Sep 2025 08:40\nRef. By: Dr. B. Pawar\n\nHAEMOGRAM\nTest\nResult\nUnit\nReference\nHGB\n16.5\ng/dl\n13.0 - 17.0\nTLC\n8.7\nx10^9/L\n3.8 to 10.9\nPlatelet Count\n2,70,000\n/cumm\n1,50,000 - 4,10,000\nMean Corpuscular Volume\n96.0\nfL\n80.0 - 100.0\nKIDNEY FUNCTION TEST (KFT)\nTest\nResult\nUnit\nReference\nS. Creatinine\n0.82\nmg/dL\n0.69-1.33\nB. Urea\n25\nmg/dl\n15-46\nSerum Sodium\n144\nmmol/l\n135 to 145\nS. Potassium (K)\n4.6\nmmol/L\n3.5-5.1\nClinical correlation is advised.\n\nHere is my blood test report. What is abnormal and what does it mean? Please reply in Hindi.",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 16.5,
+     "wbc": 8.7,
+     "plt": 270,
+     "mcv": 96,
+     "creat": 0.82,
+     "urea": 25,
+     "na": 144,
+     "k": 4.6
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Held-out report 003",
+   "outputs": {
+    "base_with_format": {
+     "text": "नमस्ते, आपकी रक्त परीक्षण रिपोर्ट का विश्लेषण नीचे दिया गया है:\n\n**निष्कर्ष (Verdict):**\nआपकी रिपोर्ट में कोई भी मान सामान्य सीमा (Reference Range) के अंदर आता है। सभी मान सामान्य हैं।\n\n**सामान्य सीमा से बाहर के मान (Results outside the reference range):**\nकोई भी मान सामान्य सीमा से बाहर नहीं है।\n\n**सहजता से जुड़े महत्वपूर्ण मान (Results that matter together):**\nकोई विशेष पैटर्न नहीं है क्योंकि सभी मान सामान्य हैं।\n\n**यह क्या दर्शाता है (What this means):**\nआपके रक्त के ग्लोब्यूल (Hemoglobin), प्लेटलेट्स, और नephron फंक्शन (Creatinine, Urea, Potassium) की स्थिति पूरी तरह से सामान्य है। यह दर्शाता है कि आपका रक्त निर्माण, थकान का स्तर और किडनी का फिल्टरिंग काम ठीक से चल रहा है।\n\n**अगला कदम (What to do next):**\nचूंकि सभी मान सामान्य हैं, आपको कोई विशेष चिकित्सा कदम नहीं लेने की आवश्यकता है। अपनी आदतों को बनाए रखें और आगे की जांच के लिए नियमित रूप से (जैसे हर 6-12 महीने में) रक्त परीक्षण करवाते रहें।\n\n**अस्वीकरण:**\nयह जानकारी केवल सामान्य ज्ञान के लिए है और चिकित्सकीय सलाह नहीं है; कृपया अपने डॉक्टर से संपर्क करें।",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.5,
+        "pred": 16.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8.7,
+        "pred": 8.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 270,
+        "pred": 270000,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 96,
+        "pred": 96.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.82,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 25,
+        "pred": 25,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 144,
+        "pred": 144,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.6,
+        "pred": 4.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "creatin"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "h006",
+   "lang": "mr",
+   "language": "Marathi",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "What does this report say about my health? Answer in Marathi, in simple words. (The patient is a 66-year-old man.)\n\nArogya Health Labs\nPune | Ph: 078-10407888\nPatient ID: 58667943    Age: 66 Yrs\nCollected: 03-04-2026 07:41\nLab No: AR/26/135380\n\nCOMPLETE BLOOD COUNT (CBC)\nTest\nResult\nUnit\nReference\nWhite Blood Cell Count\n3.1\nx10^9/L\n4.0 - 11.0\nPlatelet Count\n398,000\ncells/cumm\n150,000 to 410,000\nMCV\n109.0\nfL\n76.2-104.5\nDIABETES PROFILE\nTest\nResult\nUnit\nReference\nFBS\n87\nmg/dl\n70 to 99\nGlycosylated Hemoglobin (HbA1c)\n6.8\n%\n3.8-5.6\nRenal Profile with Electrolytes\nTest\nResult\nUnit\nReference\nCreatinine\n0.98\nmg/dL\nM: 0.70-1.30 / F: 0.60-1.10\nB. Urea\n44\nmg/dl\n15-45\nBUN\n14\nmg/dl\n7 to 20\nSerum Sodium\n135\nmmol/l\n135-145\nLiver Profile\nTest\nResult\nUnit\nReference\nS.G.P.T.\n26\nU/l\nUp to 40\nAspartate Aminotransferase\n13\nU/L\nUp to 40\nBILIRUBIN TOTAL\n0.4\nmg/dL\nUp to 1.2\nLIPID PROFILE\nTest\nResult\nUnit\nReference\nTotal Cholesterol\n147\nmg/dL\n< 199\nLDL Cholesterol\n82\nmg/dL\n0 - 129\nHigh Density Lipoprotein\n36\nmg/dL\n>= 40\nTriglycerides\n627\nmg/dl\n< 146\nTHYROID FUNCTION TEST\nTest\nResult\nUnit\nReference\nTSH\n0.17\nµIU/mL\n0.40 to 4.39\nFree T4\n2.12\nng/dl\n0.76 - 1.87\nIRON STUDIES / VITAMINS\nTest\nResult\nUnit\nReference\n25-OH Vitamin D\n82.1\nng/ml\n30.0 - 100.0\nOTHERS\nTest\nResult\nUnit\nReference\nSerum Uric Acid\n3.9\nmg/dL\nM: 3.4-7.0 / F: 2.4-6.0\n*** End of Report ***\nResults relate only to the sample tested.\nDr. M. Singh, MD (Pathology)",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "wbc": 3.1,
+     "plt": 398,
+     "mcv": 109,
+     "fbs": 87,
+     "hba1c": 6.8,
+     "creat": 0.98,
+     "urea": 44,
+     "bun": 14,
+     "na": 135,
+     "alt": 26,
+     "ast": 13,
+     "bili": 0.4,
+     "chol": 147,
+     "ldl": 82,
+     "hdl": 36,
+     "tg": 627,
+     "tsh": 0.17,
+     "ft4": 2.12,
+     "vitd": 82.1,
+     "uric": 3.9
+    },
+    "abnormal": {
+     "wbc": "low",
+     "mcv": "high",
+     "hba1c": "high",
+     "hdl": "low",
+     "tg": "high",
+     "tsh": "low",
+     "ft4": "high"
+    },
+    "patterns": [
+     "metabolic",
+     "hyperthyroid",
+     "prediabetes"
+    ],
+    "verdict": "review"
+   },
+   "label": "Held-out report 006",
+   "outputs": {
+    "base_with_format": {
+     "text": "**विचार (Verdict):** review (अहंकाराची तपासणी करावी लागेल कारण शर्करा आणि लाल रक्त कणिकांचे आकार बदलले आहेत.)\n\n**परिणाम जो मर्यादेबाहेर आहेत (Results outside the reference range):**\n*   **White Blood Cell Count (wbc):** 3.1 (मर्यादा: 4.0 - 11.0) -> **Low**\n*   **HbA1c (hba1c):** 6.8% (मर्यादा: 3.8-5.6) -> **High**\n*   **MCV (mcv):** 109.0 fL (मर्यादा: 76.2-104.5) -> **High**\n*   **Triglycerides (tg):** 627 mg/dL (मर्यादा: < 146) -> **High**\n*   **TSH (tsh):** 0.17 µIU/mL (मर्यादा: 0.40 - 4.39) -> **Low**\n*   **Free T4 (ft4):** 2.12 ng/dL (मर्यादा: 0.76 - 1.87) -> **High**\n\n**जे एकत्र महत्त्वाचे आहेत (Results that matter together):**\n*   **diabetes:** FBS 87 mg/dL आणि HbA1c 6.8% याचा संयोग.\n*   **metabolic:** उच्च ट्रिग्लिसराइड्स (627) आणि उच्च HbA1c.\n*   **hypothyroid:** TSH कमी आणि Free T4 जास्त असल्याने थायरॉइडची क्रिया कमी झालेली आहे (हायपोथायरॉइडिझम).\n*   **iron_def:** MCV जास्त (109) असूनही WBC कमी आहे, ज्यामुळे लोह-अभाव किंवा इतर समस्या शक्य आहे.\n\n**हे काय दर्शवते (What this means):**\nआपल्याला थायरॉइडची समस्या आहे. TSH कमी आणि Free T4 जास्त असल्याने, थायरॉइड हार्मोन जास्त जात आहे, ज्यामुळे शरीराची कार्यक्षमता कमी होऊ शकते. तसेच, शर्करा नियंत्रणात नाही (HbA1c जास्त आहे). लाल रक्त कणिकांचे आकार मोठे झाले आहेत (MCV जास्त), ज्यामुळे शरीरात लोह (Iron) किंवा B12 ची कमतरता असू शकते. ट्रिग्लिसराइड्स खूप जास्त आहेत, ज्याचे धोका आहे.\n\n**काय करावे (What to do next):**\n1.  **डॉक्टरांना दाखवा:** हे रिपोर्ट एखाद्या आरोग्य तज्ज्ञांना दाखवा.\n2.  **थायरॉइड उपचार:** थायरॉइडची समस्या दुरुस्तीसाठी डॉक्टरांचा सल्ला घ्या.\n3.  **शर्करा नियंत्रण:** शर्करा नियंत्रणात आणण्यासाठी आहार आणि जीवनशैली बदल करा.\n4.  **पुन्हा तपासणी:** लोह, B12 आणि थायरॉइड हार्मोनची पुन्हा तपासणी करावी.\n\n**अस्वीकरण:** ही माहिती फक्त माहितीसाठी आहे; तज्ज्ञ डॉक्टरांचा सल्ला घ्या.",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.1,
+        "pred": 3.1,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 398,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 109,
+        "pred": 109.0,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 87,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.98,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 44,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 14,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 135,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 26,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 13,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.4,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 147,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 82,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 36,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "low",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 627,
+        "pred": 627,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.17,
+        "pred": 0.17,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 2.12,
+        "pred": 2.12,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 82.1,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.9,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": null,
+        "status_ok": false
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "hyperthyroid",
+       "prediabetes"
+      ],
+      "extra_patterns": [
+       "diabetes",
+       "hypothyroid",
+       "iron_def"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h009",
+   "lang": "en",
+   "language": "English",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "(The patient is a 50-year-old man.) Analyse the following medical report: flag abnormal values and any concerning combinations. Language: English.\n\n```\nPUSHPAK CLINICAL LABORATORY\nJaipur | Ph: 032-85444895\nReg. No: 99852649 | Age: 50\nLab No: PU/25/838960\nBarcode: 9565466205\n\nHAEMOGRAM\nTest\nResult\nUnit\nReference\nHb\n16.1\ng/dL\n13.0 - 17.0\nWhite Blood Cell Count\n10000\ncells/µL\n3872 to 11236\nPLT\n3.38\nlakh/cumm\n1.5 to 4.1\nMean Corpuscular Volume\n97.4\nfL\n80.0 to 100.0\nBLOOD SUGAR\nTest\nResult\nUnit\nReference\nBlood Sugar (Fasting)\n331\nmg/dl\n70 to 99\nGlycated Haemoglobin\n11.1\n%\n4.0 to 5.6\nRENAL FUNCTION TEST\nTest\nResult\nUnit\nReference\nCreatinine\n1.42\nmg/dL\n0.69 to 1.28\nB. Urea\n25\nmg/dl\n15-47\nBlood Urea Nitrogen\n18\nmg/dl\n7-20\nNa+\n162\nmmol/L\n127-144\nK+\n3.7\nmEq/L\n3.5 to 5.1\nLIVER FUNCTION TEST (LFT)\nTest\nResult\nUnit\nReference\nALT (SGPT)\n36\nU/l\n< 40\nSGOT\n19\nIU/L\n< 40\nTotal Bilirubin\n0.8\nmg/dl\nUp to 1.2\nLIPID PROFILE\nTest\nResult\nUnit\nReference\nTotal Cholesterol\n185\nmg/dl\nUp to 199\nLDL-C\n124\nmg/dl\n< 129\nSerum Triglycerides\n109\nmg/dl\n0 - 149\nThyroid Panel\nTest\nResult\nUnit\nReference\nTSH Ultrasensitive\n0.38\nuIU/mL\n0.40 to 4.50\nF.T4\n1.82\nng/dL\n0.80 to 1.80\nIRON STUDIES / VITAMINS\nTest\nResult\nUnit\nReference\nFERRITIN\n364.7\nng/mL\n30.0 to 400.0\nVITAMIN B12\n505\npg/ml\n200 - 900\nVit D Total\n80.3\nng/ml\n30.0-100.0\nOTHERS\nTest\nResult\nUnit\nReference\nC-Reactive Protein\n2.1\nmg/L\nUp to 5.0\nUric Acid\n7.6\nmg/dL\n3.4 to 7.0\nResults relate only to the sample tested.\n```",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 16.1,
+     "wbc": 10,
+     "plt": 338,
+     "mcv": 97.4,
+     "fbs": 331,
+     "hba1c": 11.1,
+     "creat": 1.42,
+     "urea": 25,
+     "bun": 18,
+     "na": 162,
+     "k": 3.7,
+     "alt": 36,
+     "ast": 19,
+     "bili": 0.8,
+     "chol": 185,
+     "ldl": 124,
+     "tg": 109,
+     "tsh": 0.38,
+     "ft4": 1.82,
+     "ferritin": 364.7,
+     "b12": 505,
+     "vitd": 80.3,
+     "crp": 2.1,
+     "uric": 7.6
+    },
+    "abnormal": {
+     "fbs": "high",
+     "hba1c": "high",
+     "creat": "high",
+     "na": "critical_high",
+     "tsh": "low",
+     "ft4": "high",
+     "uric": "high"
+    },
+    "patterns": [
+     "critical:na",
+     "diabetes",
+     "hyperthyroid",
+     "gout_kidney"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 009",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**urgent**\n\n### Results outside the reference range\n*   **Hb**: 16.1 g/dL (High)\n*   **WBC**: 10,000 cells/µL (High)\n*   **PLT**: 3.38 lakh/cumm (High)\n*   **MCV**: 97.4 fL (High)\n*   **FBS**: 331 mg/dL (Critical High)\n*   **HbA1c**: 11.1% (Critical High)\n*   **Creatinine**: 1.42 mg/dL (High)\n*   **Na+**: 162 mmol/L (Critical High)\n*   **Uric Acid**: 7.6 mg/dL (High)\n\n### Results that matter together\n*   **diabetes**: Fasting blood sugar (331 mg/dL) and HbA1c (11.1%) are critically elevated, indicating severe, uncontrolled diabetes.\n*   **kidney_potassium**: Elevated creatinine (1.42 mg/dL) suggests reduced kidney function, which is dangerous given the critically high sodium (162 mmol/L).\n*   **dehydration**: The combination of extremely high blood sugar, high sodium, and high uric acid strongly suggests severe dehydration.\n*   **pancytopenia**: While WBC and PLT are high, the MCV is also high; however, the extreme hyperglycemia and hypernatremia are the most immediate life-threatening patterns.\n\n### What this means\nThe patient is in a critical condition due to **severe, uncontrolled diabetes** causing profound dehydration and electrolyte imbalance. The blood sugar level of 331 mg/dL and HbA1c of 11.1% indicate that the body is not managing glucose effectively, likely leading to osmotic diuresis (loss of water and salts). The sodium level of 162 mmol/L is dangerously high and can cause confusion, seizures, or coma. The elevated creatinine indicates that the kidneys are struggling to filter waste and balance electrolytes under this stress. The high uric acid may be exacerbated by dehydration. This is a medical emergency requiring immediate hospitalization.\n\n### What to do next\n**Seek emergency medical attention immediately.** Do not wait for follow-up appointments. The patient needs immediate intravenous fluids to correct dehydration and electrolyte imbalances, insulin therapy to manage blood sugar, and close monitoring of kidney function and sodium levels in a hospital setting.\n\n### Disclaimer\n*This analysis is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Always seek the advice of a qualified healthcare provider with any questions regarding a medical condition.*",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.1,
+        "pred": 16.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 10,
+        "pred": 10000,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 338,
+        "pred": 3.38,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 97.4,
+        "pred": 97.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 331,
+        "pred": 331,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "critical_high",
+        "status_ok": false
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 11.1,
+        "pred": 11.1,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "critical_high",
+        "status_ok": false
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.42,
+        "pred": 1.42,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 25,
+        "pred": 25,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 18,
+        "pred": 18,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 162,
+        "pred": 162,
+        "value_ok": true,
+        "gold_status": "critical_high",
+        "pred_status": "critical_high",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 3.7,
+        "pred": 3.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 19,
+        "pred": 19,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 185,
+        "pred": 185,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 124,
+        "pred": 124,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 109,
+        "pred": 109,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.38,
+        "pred": 0.38,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.82,
+        "pred": 1.82,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 364.7,
+        "pred": 364.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 505,
+        "pred": 505,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 80.3,
+        "pred": 80.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.1,
+        "pred": 2.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 7.6,
+        "pred": 7.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "hdl"
+      ],
+      "missing_patterns": [
+       "critical:na",
+       "gout_kidney",
+       "hyperthyroid"
+      ],
+      "extra_patterns": [
+       "dehydration",
+       "kidney_potassium"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h012",
+   "lang": "mr",
+   "language": "Marathi",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "हा लॅब रिपोर्ट मराठीत समजावून सांगा. Use male reference ranges.\n\nReport:\nNeelgiri Diagnostics\nThane | Ph: 048-29380649\nPatient ID: 68675338    Age: 77 Yrs\nBarcode: 6736462156\nRef. By: Dr. A. Khan\nCollected: 2025-05-12 09:26\nLab No: NE/12/453830\n\nHAEMOGRAM\nTest\nResult\nUnit\nReference\nHaemoglobin\n16.6\ng/dl\n13.0-17.0\nTotal WBC Count\n10.0\n10^3/uL\n4.0-11.0\nPlatelet Count\n2.34\nlakhs/cu mm\n1.5-4.1\nMean Corpuscular Volume\n89.4\nfL\n80.0 - 100.0\nBLOOD SUGAR\nTest\nResult\nUnit\nReference\nBlood Sugar (Fasting)\n80\nmg/dl\n70 to 99\nHBA1C\n5.4\n%\n3.8-5.6\nKFT\nTest\nResult\nUnit\nReference\nCREATININE\n1.28\nmg/dL\nM: 0.70-1.30 / F: 0.60-1.10\nUrea\n43\nmg/dL\n15 - 45\nB.U.N.\n12\nmg/dl\n7 to 20\nSodium\n142\nmEq/L\n135 - 145\nK+\n5.0\nmmol/L\n3.5 to 5.1\nLFT\nTest\nResult\nUnit\nReference\nS.G.P.T.\n36\nU/L\n< 40\nAspartate Aminotransferase\n36\nU/L\n< 42\nSerum Bilirubin (Total)\n1.0\nmg/dl\n< 1.2\nLIPIDS\nTest\nResult\nUnit\nReference\nT. Cholesterol\n153\nmg/dL\nUp to 199\nLDL Cholesterol\n113\nmg/dl\nUp to 129\nHDL-C\n63\nmg/dL\n>= 40\nTriglycerides\n67\nmg/dl\nUp to 149\nThyroid Panel\nTest\nResult\nUnit\nReference\nTSH Ultrasensitive\n0.84\nmIU/L\n0.40 to 4.50\nF.T4\n0.98\nng/dL\n0.80-1.80\nVitamin Profile\nTest\nResult\nUnit\nReference\nSerum Ferritin\n272.0\nng/mL\n29.0 - 418.0\nVit. B12\n540\npg/mL\n200 - 900\nINFLAMMATORY MARKERS\nTest\nResult\nUnit\nReference\nCRP (Quantitative)\n3.9\nmg/L\n0 - 4.9\nS. Uric Acid\n6.9\nmg/dl\n3.4 to 7.0\nPage 1 of 1\nDr. A. Khan, MD (Pathology)",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 16.6,
+     "wbc": 10,
+     "plt": 234,
+     "mcv": 89.4,
+     "fbs": 80,
+     "hba1c": 5.4,
+     "creat": 1.28,
+     "urea": 43,
+     "bun": 12,
+     "na": 142,
+     "k": 5,
+     "alt": 36,
+     "ast": 36,
+     "bili": 1,
+     "chol": 153,
+     "ldl": 113,
+     "hdl": 63,
+     "tg": 67,
+     "tsh": 0.84,
+     "ft4": 0.98,
+     "ferritin": 272,
+     "b12": 540,
+     "crp": 3.9,
+     "uric": 6.9
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Held-out report 012",
+   "outputs": {
+    "base_with_format": {
+     "text": "हे लॅब रिपोर्टचे विश्लेषण खालीलप्रमाणे आहे:\n\n**निष्कर्ष (Verdict):** review\n**असामान्य निकाल (Results outside the reference range):**\n*   Platelet Count: 2.34 (कमी - Low)\n**सहसांबंधित निकाल (Results that matter together):**\n*   kidney_potassium (किडनीचे कार्य आणि पोटॅशियमची पातळी)\n**हे काय दर्शवते (What this means):**\nरिपोर्टमध्ये प्लेटलेट्सची संख्या थोडी कमी आढळली आहे, जे कमी प्लेटलेट सिंड्रोम (Thrombocytopenia) दर्शवू शकते. इतर मूळ रक्त पेशींची संख्या (Hb आणि WBC) सामान्य आहे. पोटॅशियमची पातळी (5.0) वरच्या मर्यादेच्या जवळ आहे, परंतु ती पूर्णपणे सामान्य आहे. किडनीचे मूळ (Creatinine आणि Urea) सामान्य आहेत. रक्तशर्करा, थायरायड आणि लिव्हरचे मूळ सर्व सामान्य आहेत. यात कोणताही गंभीर संसर्ग किंवा मेटाबोलिक सिंड्रोमचा लक्षणात्मक पुरावा नाही.\n**काय करावे (What to do next):**\nडॉक्टरांना प्लेटलेट्सची कमी संख्या आणि पोटॅशियमची पातळी पाहून लक्ष्य ठेवावी लागेल. जर प्लेटलेट्सचा प्रमाण खूप कमी असेल तर अतिरिक्त तपासणी (Further investigation) आवश्यक असू शकते. सामान्यतः हे काही आहार बदलांमुळे किंवा हार्मोनल बदलांमुळे होऊ शकते. डॉक्टरांचा सल्ला घेणे आवश्यक आहे.\n**अस्वीकरण:** ही माहिती फक्त माहितीसाठी आहे आणि वैद्यकीय सल्ला देण्यासाठी नाही; कृपया योग्य डॉक्टरांचा सल्ला घ्या.",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 16.6,
+        "pred": 16.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 10,
+        "pred": 10.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 234,
+        "pred": 2.34,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "low",
+        "status_ok": false
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 89.4,
+        "pred": 89.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 80,
+        "pred": 80,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.4,
+        "pred": 5.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.28,
+        "pred": 1.28,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 43,
+        "pred": 43,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 142,
+        "pred": 142,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5,
+        "pred": 5.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 1,
+        "pred": 1.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 153,
+        "pred": 153,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 113,
+        "pred": 113,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 63,
+        "pred": 63,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.84,
+        "pred": 0.84,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.98,
+        "pred": 0.98,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 272,
+        "pred": 272.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 540,
+        "pred": 540,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 6.9,
+        "pred": 6.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "kidney_potassium"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h015",
+   "lang": "en",
+   "language": "English",
+   "layout": "vertical cells",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "Explain my test results in plain English and mention anything I should discuss with a doctor.\n\nReport:\nShubh Diagnostic Centre\nNagpur | Ph: 065-42089043\nName: Mrs. Mary Fernandes\nAge: 78 Years\nSex: Female\nRef. By: Dr. A. Patil\n\nCOMPLETE BLOOD COUNT (CBC)\nTest\nResult\nUnit\nReference\nHb\n10.7\ng/dL\n12.0 - 15.5\nWhite Blood Cell Count\n8.8\nx10^9/L\n4.0-11.0\nPLATELET COUNT\n3.87\nLakhs/µL\n1.5-4.1\nMCV\n98.6\nfL\n80.0-100.0\nGLUCOSE\nTest\nResult\nUnit\nReference\nGlucose Fasting\n158\nmg/dl\n67-99\nHbA1c\n11.6\n%\n4.0-5.6\nKFT\nTest\nResult\nUnit\nReference\nS. Creatinine\n1.34\nmg/dl\n0.60-1.10\nBlood Urea\n27\nmg/dL\n15 - 45\nBUN\n13\nmg/dl\n7 - 20\nSodium\n145\nmEq/L\n135 to 145\nS. Potassium (K)\n4.0\nmEq/L\n3.5-5.1\nLFT\nTest\nResult\nUnit\nReference\nAlanine Aminotransferase\n12\nU/L\n0 - 40\nS.G.O.T.\n19\nU/L\nUp to 40\nBILIRUBIN TOTAL\n0.3\nmg/dl\n< 1.2\nLIPIDS\nTest\nResult\nUnit\nReference\nTotal Cholesterol\n146\nmg/dl\nUp to 199\nLDL\n72\nmg/dl\nUp to 129\nHDL-C\n60\nmg/dl\n>= 50\nTG\n128\nmg/dL\nUp to 149\nTHYROID PROFILE\nTest\nResult\nUnit\nReference\nThyroid Stimulating Hormone\n14.17\nmIU/L\n0.40-4.50\nFT4\n0.86\nng/dl\n0.79 - 1.79\nIRON STUDIES / VITAMINS\nTest\nResult\nUnit\nReference\nFERRITIN\n47.4\nng/ml\nM: 30.0-400.0 / F: 15.0-150.0\nCobalamin (B12)\n652\npg/ml\n200-900\n25 Hydroxy Vitamin D\n64.6\nng/mL\n30.0 - 100.0\nINFLAMMATORY MARKERS\nTest\nResult\nUnit\nReference\nCRP (Quantitative)\n2.5\nmg/L\nUp to 5.2\nS. Uric Acid\n2.9\nmg/dl\n2.4 - 6.0\nPage 1 of 1",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 10.7,
+     "wbc": 8.8,
+     "plt": 387,
+     "mcv": 98.6,
+     "fbs": 158,
+     "hba1c": 11.6,
+     "creat": 1.34,
+     "urea": 27,
+     "bun": 13,
+     "na": 145,
+     "k": 4,
+     "alt": 12,
+     "ast": 19,
+     "bili": 0.3,
+     "chol": 146,
+     "ldl": 72,
+     "hdl": 60,
+     "tg": 128,
+     "tsh": 14.17,
+     "ft4": 0.86,
+     "ferritin": 47.4,
+     "b12": 652,
+     "vitd": 64.6,
+     "crp": 2.5,
+     "uric": 2.9
+    },
+    "abnormal": {
+     "hb": "low",
+     "fbs": "high",
+     "hba1c": "high",
+     "creat": "high",
+     "tsh": "high"
+    },
+    "patterns": [
+     "renal_anemia",
+     "diabetes",
+     "subclinical_hypo"
+    ],
+    "verdict": "review"
+   },
+   "label": "Held-out report 015",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**urgent**\n\n### Results outside the reference range\n*   **Hb (Hemoglobin):** 10.7 g/dL (Low)\n*   **Glucose Fasting:** 158 mg/dL (High)\n*   **HbA1c:** 11.6% (Critical High)\n*   **S. Creatinine:** 1.34 mg/dL (High)\n*   **Sodium:** 145 mEq/L (High)\n*   **Thyroid Stimulating Hormone (TSH):** 14.17 mIU/L (High)\n*   **Ferritin:** 47.4 ng/mL (Low for Female)\n\n### Results that matter together\n*   **diabetes:** Fasting glucose and HbA1c are severely elevated, indicating uncontrolled diabetes.\n*   **kidney_potassium:** Creatinine is elevated, suggesting reduced kidney function.\n*   **iron_def:** Low ferritin in a female suggests iron deficiency, though hemoglobin is only mildly low.\n*   **hypothyroid:** High TSH with normal Free T4 indicates an underactive thyroid.\n\n### What this means\nYour blood sugar levels are very poorly controlled, with an HbA1c of 11.6%, which means your average blood sugar over the last three months has been dangerously high. This level of sugar can damage your kidneys, which is likely why your creatinine is slightly elevated. You also have signs of an underactive thyroid (high TSH) and low iron stores. While your white blood cell count and platelets are normal, your hemoglobin is low, likely due to the iron deficiency. Your sodium is at the upper limit of normal, which can happen with high blood sugar or dehydration.\n\n### What to do next\nYou need to see your doctor immediately to adjust your diabetes medication, as an HbA1c of 11.6% is a medical emergency if left untreated. Your doctor will likely need to check your kidney function more closely and may need to adjust your thyroid medication. Please discuss the high blood sugar and kidney markers with your doctor right away.\n\n***\n*Disclaimer: I am an AI assistant, not a doctor. This information is for educational purposes and does not replace professional medical advice, diagnosis, or treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 10.7,
+        "pred": 10.7,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8.8,
+        "pred": 8.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 387,
+        "pred": 3.87,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 98.6,
+        "pred": 98.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 158,
+        "pred": 158,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 11.6,
+        "pred": 11.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "critical_high",
+        "status_ok": false
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.34,
+        "pred": 1.34,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 27,
+        "pred": 27,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 13,
+        "pred": 13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 145,
+        "pred": 145,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4,
+        "pred": 4.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 19,
+        "pred": 19,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.3,
+        "pred": 0.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 146,
+        "pred": 146,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 72,
+        "pred": 72,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 60,
+        "pred": 60,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 128,
+        "pred": 128,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 14.17,
+        "pred": 14.17,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 0.86,
+        "pred": 0.86,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 47.4,
+        "pred": 47.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "low",
+        "status_ok": false
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 652,
+        "pred": 652,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 64.6,
+        "pred": 64.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.5,
+        "pred": 2.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 2.9,
+        "pred": 2.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [
+       "renal_anemia",
+       "subclinical_hypo"
+      ],
+      "extra_patterns": [
+       "hypothyroid",
+       "iron_def",
+       "kidney_potassium"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h018",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "doctor note",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "Report:\nOPD note, 5 Aug 2026. Neha Gill, 41/F. Labs from Sunrise Diagnostics. Complete Blood Count (Cbc): haemoglobin 90 g/L, tlc 8.0 x10^9/L, platelets 1,87,000 cells/µL, m.c.v. 94.5 fL. Blood Sugar: hba1c 4.1 %. Kidney Function Test (Kft): creatinine 1.26 mg/dL, bun 59 mg/dL, na+ 144 mmol/L, potassium 4.3 mmol/l. Liver Profile: sgpt 42 U/L, aspartate aminotransferase 861 IU/L, t. bilirubin 3.3 mg/dL. Lipids: total cholesterol 311 mg/dL, ldl 93 mg/dl, high density lipoprotein 60 mg/dL, tg 71 mg/dl. Thyroid Function Test: thyroid stimulating hormone 2.40 mIU/L. Vitamins & Iron: serum ferritin 108.2 ng/ml, vitamin b12 774 pg/ml, vit d total 32.9 ng/mL. Inflammatory Markers: c reactive protein 98.1 mg/L, uric acid 9.3 mg/dl. Review with reports.\n\nPlease analyse this report for me and answer in Hindi (हिंदी).",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 9,
+     "wbc": 8,
+     "plt": 187,
+     "mcv": 94.5,
+     "hba1c": 4.1,
+     "creat": 1.26,
+     "bun": 59,
+     "na": 144,
+     "k": 4.3,
+     "alt": 42,
+     "ast": 861,
+     "bili": 3.3,
+     "chol": 311,
+     "ldl": 93,
+     "hdl": 60,
+     "tg": 71,
+     "tsh": 2.4,
+     "ferritin": 108.2,
+     "b12": 774,
+     "vitd": 32.9,
+     "crp": 98.1,
+     "uric": 9.3
+    },
+    "abnormal": {
+     "hb": "low",
+     "creat": "high",
+     "bun": "high",
+     "alt": "high",
+     "ast": "high",
+     "bili": "high",
+     "chol": "high",
+     "crp": "high",
+     "uric": "high"
+    },
+    "patterns": [
+     "liver_jaundice",
+     "kidney",
+     "renal_anemia",
+     "gout_kidney"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 018",
+   "outputs": {
+    "base_with_format": {
+     "text": "यहाँ मरीज नेहा गिल के लैब रिपोर्ट का विश्लेषण दिया गया है:\n\n**निष्कर्ष (Verdict):** review\n**असामान्य मान (Results outside the reference range):**\n*   hemoglobin: low (90 g/L)\n*   aspartate aminotransferase (ast): high (861 U/L)\n*   total bilirubin (bili): high (3.3 mg/dL)\n*   total cholesterol (chol): high (311 mg/dL)\n*   c reactive protein (crp): high (98.1 mg/L)\n*   uric acid (uric): high (9.3 mg/dL)\n*   bun: high (59 mg/dL)\n\n**सहज संबंधित मान (Results that matter together):**\n*   liver_jaundice (ALT/AST और बिलिरुबिन बढ़ा हुआ है)\n*   kidney (क्रिएटिनिन और BUN बढ़े हुए हैं)\n*   gout_kidney (यूरिक एसिड बढ़ा हुआ है और कلى की फ़िल्टरेशन क्षमता कम है)\n*   infection (CRP बहुत अधिक है जो संक्रमण या सूजन का संकेत देता है)\n\n**यह क्या दर्शाता है (What this means):**\nमरीज में एक गंभीर लिवर क्षतिवृद्धि (जिसमें AST 861 तक पहुंच गया है) और पित्त के रंग (बिलिरुबिन) के बढ़ने का संकेत है। साथ ही, यूरिक एसिड और BUN में वृद्धि गंभीर गठिया (Gout) और कلى की समस्या (Kidney dysfunction) का संकेत देती है। CRP का स्तर 98.1 mg/L है, जो शरीर में एक गंभीर संक्रमण या तीव्र सूजन (Inflammation) को दर्शाता है। लोहमोम (Hemoglobin) 90 g/L है जो हल्का अनामिया (Anemia) है। चिकित्सा के लिए तुरंत लिवर और कلى के कारणों की जांच आवश्यक है।\n\n**अगला कदम (What to do next):**\nमरीज को तुरंत एक अंतर्गत रोग विशेषज्ञ (Internal Medicine Specialist) या हेपेटोलॉजिस्ट (Liver Specialist) के पास ले जाएं। रक्त परीक्षणों की पुनरावृत्ति और लिवर/कلى की इमेजिंग (Ultrasound) की आवश्यकता हो सकती है।\n\n**अस्वीकरण:** यह जानकारी केवल शिक्षा के उद्देश्य से है और चिकित्सा सलाह नहीं है। कृपया अपने डॉक्टर से संपर्क करें।",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 9,
+        "pred": 90,
+        "value_ok": false,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 8,
+        "pred": 8.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 187,
+        "pred": 187,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 94.5,
+        "pred": 94.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.1,
+        "pred": 4.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.26,
+        "pred": 1.26,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 59,
+        "pred": 59,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 144,
+        "pred": 144,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.3,
+        "pred": 4.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 42,
+        "pred": 42,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 861,
+        "pred": 861,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 3.3,
+        "pred": 3.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 311,
+        "pred": 311,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 93,
+        "pred": 93,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 60,
+        "pred": 60,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 71,
+        "pred": 71,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.4,
+        "pred": 2.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 108.2,
+        "pred": 108.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 774,
+        "pred": 774,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 32.9,
+        "pred": 32.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 98.1,
+        "pred": 98.1,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 9.3,
+        "pred": 9.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "urea"
+      ],
+      "missing_patterns": [
+       "renal_anemia"
+      ],
+      "extra_patterns": [
+       "infection"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h021",
+   "lang": "en",
+   "language": "English",
+   "layout": "doctor note",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "Go through this report and give me the LabLens summary in English. Use female reference ranges.\n\nOPD note, 09/09/2026. Pt ID 69015621, 55 yrs. Labs from Pushpak Health Labs. Blood Sugar: blood sugar (fasting) 85 mg/dl, glycated haemoglobin 5.1 %. Kft: serum creatinine 0.91 mg/dL. Lipid Profile: ldl-c 115 mg/dL, triglyceride 69 mg/dl. Review with reports.",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "fbs": 85,
+     "hba1c": 5.1,
+     "creat": 0.91,
+     "ldl": 115,
+     "tg": 69
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Held-out report 021",
+   "outputs": {
+    "base_with_format": {
+     "text": "### LabLens Summary\n\n**Verdict**: ok\n**Results outside the reference range**: None\n**Results that matter together**: None\n**What this means**: All reported values (Fasting Glucose, HbA1c, Creatinine, LDL, and Triglycerides) fall within normal limits for a 55-year-old female. There are no signs of diabetes, metabolic syndrome, or liver/kidney issues in this snapshot.\n**What to do next**: Continue routine health monitoring. Maintain a healthy diet and lifestyle.\n**Disclaimer**: This summary is for informational purposes only and does not replace professional medical advice.",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 85,
+        "pred": 85,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.1,
+        "pred": 5.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 0.91,
+        "pred": 0.91,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 115,
+        "pred": 115,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 69,
+        "pred": 69,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "alt",
+       "ast",
+       "b12",
+       "bili",
+       "bun",
+       "chol",
+       "crp",
+       "ferritin",
+       "ft4",
+       "hb",
+       "hdl",
+       "k",
+       "mcv",
+       "na",
+       "plt",
+       "tsh",
+       "urea",
+       "uric",
+       "vitd",
+       "wbc"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "h027",
+   "lang": "en",
+   "language": "English",
+   "layout": "doctor note",
+   "unseen_layout": true,
+   "source": "heldout",
+   "prompt": "Summarise this lab report for a patient, in English.\n\nReport:\nOPD note, 23/09/2026. Ms. Priya Banerjee, 23 yrs. Labs from Sanjivani Pathology Lab. Complete Blood Count (Cbc): hemoglobin 117 g/L, white blood cell count 4.7 x10^3/µL, mean corpuscular volume 100.5 fL. Glucose: glucose fasting 120 mg/dl, hba1c 5.6 %. Kidney Function Test (Kft): creatinine 4.18 mg/dL, b. urea 39 mg/dL, bun 6 mg/dL, sodium 137 mmol/L, serum potassium 5.4 mmol/l. Lft: sgot (ast) 15 U/L, bilirubin total 0.8 mg/dl. Lipid Profile: total cholesterol 146 mg/dL, ldl 70 mg/dl, hdl cholesterol 58 mg/dl, serum triglycerides 122 mg/dl. Thyroid Panel: tsh 3.78 µIU/mL, ft4 1.10 ng/dl. Vitamin Profile: ferritin 88.0 ng/ml, cobalamin (b12) 732 pg/ml, 25 hydroxy vitamin d 70.5 ng/ml. Others: c-reactive protein 79.3 mg/L, serum uric acid 2.6 mg/dl. Review with reports.",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 11.7,
+     "wbc": 4.7,
+     "mcv": 100.5,
+     "fbs": 120,
+     "hba1c": 5.6,
+     "creat": 4.18,
+     "urea": 39,
+     "bun": 6,
+     "na": 137,
+     "k": 5.4,
+     "ast": 15,
+     "bili": 0.8,
+     "chol": 146,
+     "ldl": 70,
+     "hdl": 58,
+     "tg": 122,
+     "tsh": 3.78,
+     "ft4": 1.1,
+     "ferritin": 88,
+     "b12": 732,
+     "vitd": 70.5,
+     "crp": 79.3,
+     "uric": 2.6
+    },
+    "abnormal": {
+     "hb": "low",
+     "mcv": "high",
+     "fbs": "high",
+     "creat": "critical_high",
+     "bun": "low",
+     "k": "high",
+     "crp": "high"
+    },
+    "patterns": [
+     "kidney_potassium",
+     "critical:creat",
+     "renal_anemia",
+     "b12_anemia",
+     "prediabetes"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 027",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**review**\n\n### Results outside the reference range\n*   **hemoglobin**: 117 g/L (Low; normal ~120–160 g/L)\n*   **creatinine**: 4.18 mg/dL (Critical High; normal ~0.6–1.2 mg/dL)\n*   **b. urea**: 39 mg/dL (High; normal ~15–30 mg/dL)\n*   **serum potassium**: 5.4 mmol/l (High; normal ~3.5–5.0 mmol/L)\n*   **c-reactive protein**: 79.3 mg/L (High; normal <0.3 mg/L)\n\n### Results that matter together\n*   **kidney_potassium**: Elevated creatinine and potassium suggest reduced kidney clearance.\n*   **kidney**: Elevated creatinine and urea indicate impaired kidney function.\n*   **infection**: Significantly elevated CRP suggests active inflammation or infection.\n*   **prediabetes**: Fasting glucose of 120 mg/dL is above the normal range (100–125 mg/dL).\n\n### What this means\nThe patient presents with signs of acute kidney injury (AKI) or severe renal impairment, evidenced by critically high creatinine and elevated potassium, which requires immediate medical attention. There is also a strong indication of an active infection or significant inflammation given the very high CRP. Additionally, the patient has mild anemia, borderline fasting glucose (prediabetes range), and electrolyte disturbances. The liver enzymes and thyroid function appear normal.\n\n### What to do next\nSeek immediate medical care for the critically high creatinine and potassium levels to rule out acute kidney injury, dehydration, or other serious causes. A urine test and further blood work are likely needed. Follow up with a physician regarding the infection/inflammation and the prediabetic glucose levels.\n\n### Disclaimer\nThis summary is for informational purposes only and does not constitute medical advice; please consult a qualified healthcare professional for diagnosis and treatment.",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.7,
+        "pred": 117,
+        "value_ok": false,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 4.7,
+        "pred": 4.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 100.5,
+        "pred": 100.5,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 120,
+        "pred": 120,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 4.18,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "critical_high",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 39,
+        "pred": 39,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 6,
+        "pred": 6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.4,
+        "pred": 5.4,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 15,
+        "pred": 15,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 146,
+        "pred": 146,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 70,
+        "pred": 70,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 58,
+        "pred": 58,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 122,
+        "pred": 122,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 3.78,
+        "pred": 3.78,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.1,
+        "pred": 1.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 88,
+        "pred": 88.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 732,
+        "pred": 732,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 70.5,
+        "pred": 70.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 79.3,
+        "pred": 79.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 2.6,
+        "pred": 2.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "alt",
+       "creatinine"
+      ],
+      "missing_patterns": [
+       "b12_anemia",
+       "critical:creat",
+       "renal_anemia"
+      ],
+      "extra_patterns": [
+       "infection",
+       "kidney"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h001",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "key value",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Here is my blood test report. What is abnormal and what does it mean? Please reply in Hindi.\n\n```\nNavjeevan Health Labs\nJaipur | Ph: 086-89690032\nPatient: Shri Mahesh Deshmukh        Age/Sex: 31 Y / M        Date: 07-01-2025\nRef. By: Dr. V. Shah\n\nComplete Blood Count\nTotal Leucocyte Count - 9.2 K/uL (Ref: 3.8-11.3)\nPLATELET COUNT - 372 x10^3/µL (Ref: 150 to 410)\nMean Corpuscular Volume - 90.4 fL (Ref: 80.0 to 100.0)\n\nDIABETES PROFILE\nFBS - 77 mg/dl (Ref: 70 to 99)\nGlycosylated Hemoglobin (HbA1c) - 4.9 % (Ref: 4.0 to 5.6)\n\nKFT\nSerum Creatinine - 1.26 mg/dL (Ref: 0.70-1.30)\nB.U.N. - 11 mg/dl (Ref: 7-20)\nSodium - 143 mmol/l (Ref: 135 - 145)\nSerum Potassium - 4.2 mEq/L (Ref: 3.5 to 5.1)\n\nLIVER FUNCTION TEST (LFT)\nALT (SGPT) - 34 IU/L (Ref: < 40)\nSGOT - 12 U/L (Ref: < 42)\nBILIRUBIN TOTAL - 0.6 mg/dl (Ref: Up to 1.2)\n\nLipid Profile\nSerum Cholesterol - 138 mg/dL (Ref: 0 - 199)\nLDL Cholesterol - 139 mg/dl (Ref: < 129)\nHigh Density Lipoprotein - 59 mg/dL (Ref: >= 40)\n\nThyroid Panel\nTSH Ultrasensitive - 0.35 uIU/mL (Ref: 0.40 - 4.50)\nFree Thyroxine (FT4) - 3.95 ng/dL (Ref: 0.80-1.80)\n\nVitamin Profile\nSerum Ferritin - 303.0 ng/mL (Ref: 30.0 to 400.0)\nCobalamin (B12) - 484 pg/ml (Ref: 200 to 900)\n25 Hydroxy Vitamin D - 75.3 ng/mL (Ref: 30.0 to 100.0)\n\nINFLAMMATORY MARKERS\nCRP - 4.7 mg/L (Ref: 0 - 5.0)\nS. Uric Acid - 3.9 mg/dl (Ref: 3.4-7.0)\n\nReported: 07-01-2025 15:54\n*** End of Report ***\n```",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "wbc": 9.2,
+     "plt": 372,
+     "mcv": 90.4,
+     "fbs": 77,
+     "hba1c": 4.9,
+     "creat": 1.26,
+     "bun": 11,
+     "na": 143,
+     "k": 4.2,
+     "alt": 34,
+     "ast": 12,
+     "bili": 0.6,
+     "chol": 138,
+     "ldl": 139,
+     "hdl": 59,
+     "tsh": 0.35,
+     "ft4": 3.95,
+     "ferritin": 303,
+     "b12": 484,
+     "vitd": 75.3,
+     "crp": 4.7,
+     "uric": 3.9
+    },
+    "abnormal": {
+     "ldl": "high",
+     "tsh": "low",
+     "ft4": "high"
+    },
+    "patterns": [
+     "hyperthyroid"
+    ],
+    "verdict": "review"
+   },
+   "label": "Held-out report 001",
+   "outputs": {
+    "base_with_format": {
+     "text": "यहाँ आपके लैब रिपोर्ट का हिंदी में विश्लेषण है:\n\n**निष्कर्ष (Verdict):** review\n**असामान्य मान (Results outside the reference range):**\n*   TSH: 0.35 (निम्न - low)\n*   FT4: 3.95 (उच्च - high)\n*   LDL: 139 (उच्च - high)\n\n**सहसंबंधित महत्वपूर्ण मान (Results that matter together):**\n*   hypothyroid (TSH कम और FT4 उच्च होना अक्सर 'Subclinical Hyperthyroidism' या 'Thyroid Toxicosis' की ओर इंगित करता है, हालांकि यह स्थिति व्यक्ति के इतिहास पर निर्भर करती है)।\n*   atherogenic (LDL थोड़ा उच्च है, जो हृदय रोग के जोखिम को बढ़ा सकता है)।\n\n**यह क्या दर्शाता है (What this means):**\nआपके रिपोर्ट में थायरॉइड के संकेत हैं जहाँ TSH कम और FT4 उच्च है। यह अक्सर थायरॉइड हार्मोन के अधिक उत्पादन या ग्रंथि में बदलाव का संकेत देता है। साथ ही, आपकी कुल कोलेस्ट्रॉल में 'बुरा' कोलेस्ट्रॉल (LDL) थोड़ा ऊपर है, जो दिल के लिए जोखिम बन सकता है। अन्य मान (जैसे शर्करा, क्रिएटिनिन, और प्लेटलेट्स) सामान्य सीमा में हैं।\n\n**अगला कदम (What to do next):**\nकृपया अपने डॉक्टर से मिलें ताकि थायरॉइड लेवल की पुष्टि की जा सके और कोलेस्ट्रॉल को नियंत्रित करने के लिए आवश्यक सलाह दी जा सके।\n\n**अस्वीकरण:** यह जानकारी केवल सामान्य जागरूकता के लिए है और चिकित्सा सलाह नहीं है। कृपया अपने चिकित्सक से संपर्क करें।",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 9.2,
+        "pred": 9.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 372,
+        "pred": 372,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 90.4,
+        "pred": 90.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 77,
+        "pred": 77,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.9,
+        "pred": 4.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.26,
+        "pred": 1.26,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 11,
+        "pred": 11,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.2,
+        "pred": 4.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 12,
+        "pred": 12,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.6,
+        "pred": 0.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 138,
+        "pred": 138,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 139,
+        "pred": 139,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 59,
+        "pred": 59,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.35,
+        "pred": 0.35,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 3.95,
+        "pred": 3.95,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 303,
+        "pred": 303,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 484,
+        "pred": 484,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 75.3,
+        "pred": 75.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 4.7,
+        "pred": 4.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "hb",
+       "tg",
+       "urea"
+      ],
+      "missing_patterns": [
+       "hyperthyroid"
+      ],
+      "extra_patterns": [
+       "atherogenic",
+       "hypothyroid"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h002",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "table aligned",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Please analyse this report for me and answer in Hindi.\n\nNavjeevan Diagnostic Centre\nKolhapur | Ph: 081-74598817\nPatient: Mrs. Lakshmi Mehta        Age/Sex: 18 Y / F        Date: 2025-09-26\nBarcode: 1446063697\nCollected: 2025-09-26 07:34\n\nHAEM0GRAM\nTest                     Result     Unit          Bio1ogical Ref. Interval\nHemoglobin               11.4       g/dL          12.0 to 15.5\nWBC Count                3.9        x10³/µL       4.0-11.0\nPlatelet C0unt           1.4        lakhs/cu mm   1.5 - 4.1\nMean Corpuscular Volume  86.8       fL            80.0-100.0\n\nDIABETES PROFILE\nTest                     Result     Unit          Biological Ref. Interval\nGlucose Fasting          88         mg/dl         70 to 99\nHBA1C                    5.2        %             4.0 to 5.6\n\nRenal Profile with Electrolytes\nTest                     Result     Unit          Biological Ref. Interval\nS. Creatinine            1.68       mg/dL         M: 0.70-1.30 / F: 0.60-1.10\nUrea 20 mg/dL 15 to 45\nB.U.N. 78 mg/dl 7-20\nS. Sodium (Na)           145        mmol/l        135-145\nS. Potassium (K)         5.9        mmol/l        3.5-5.1\n\nLiver Profile\nTest                     Result     Unit          Biological Ref. Interval\nALT (SGPT)               130        IU/L          < 40\nSGOT                     637        U/l           Up to 41\nBILIRUBIN TOTAL          0.3        mg/dl         Up to 1.2\n\nLIPIDS\nTcst Result Unit Biological Ref. Interval\nT. Cholesterol           137        mg/dl         Up to 199\nLDL Cholesterol          241        mg/dL         0 - 129\nHDL Cholesterol 65 mg/dL >= 50\nSerum Triglycerides 82 mg/dL Up to 149\n\nTHYROID PROFILE\nTest                     Result     Unit          Biological Ref. Interval\nTSH (3rd Generation) 2.47 µIU/mL 0.40-4.50\nF.T4                     1.79       ng/dL         0.80 to 1.80\n\nIRON STUDIES / VITAMINS\nTest Result Unit Biological Ref. Interval\nFERRITIN                 107.2      ng/ml         15.0 - 150.0\nVit. B12                 505        pg/ml         190-946\n\nINFLAMMATORY MARKERS\nTest                     Result     Unit          Biological Ref. Interval\nS. Uric Acid 5.0 mg/dl M: 3.4-7.0 / F: 2.4-6.0\n\nPage 1 of 1\nClinical correlation is advised.\nReported: 2025-09-26 13:23",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 11.4,
+     "wbc": 3.9,
+     "plt": 140,
+     "mcv": 86.8,
+     "fbs": 88,
+     "hba1c": 5.2,
+     "creat": 1.68,
+     "urea": 20,
+     "bun": 78,
+     "na": 145,
+     "k": 5.9,
+     "alt": 130,
+     "ast": 637,
+     "bili": 0.3,
+     "chol": 137,
+     "ldl": 241,
+     "hdl": 65,
+     "tg": 82,
+     "tsh": 2.47,
+     "ft4": 1.79,
+     "ferritin": 107.2,
+     "b12": 505,
+     "uric": 5
+    },
+    "abnormal": {
+     "hb": "low",
+     "wbc": "low",
+     "plt": "low",
+     "creat": "high",
+     "bun": "high",
+     "k": "high",
+     "alt": "high",
+     "ast": "high",
+     "ldl": "high"
+    },
+    "patterns": [
+     "pancytopenia",
+     "kidney_potassium",
+     "liver_enzymes",
+     "kidney",
+     "renal_anemia"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 002",
+   "outputs": {
+    "base_with_format": {
+     "text": "यहाँ आपके लैब रिपोर्ट का हिंदी में विश्लेषण दिया गया है:\n\n**निष्कर्ष (Verdict):** review\n**असामान्य मान (Results outside the reference range):**\n*   हीमोग्लोबिन (hb): कम (Low) - 11.4 g/dL\n*   WBC (wbc): कम (Low) - 3.9 ×10³/µL\n*   प्लेटलेट्स (plt): कम (Low) - 1.4 lakhs/cu mm\n*   क्रिएटिनिन (creat): कम (Low) - 1.68 mg/dL (महिलाओं के लिए सीमा 0.60-1.10 है, लेकिन यह रिपोर्ट में लिखा गया है; सामान्यतः यह कम होना सुरक्षित माना जाता है, फिर भी इसे नोट किया गया है)\n*   पोटेशियम (k): ऊँचा (High) - 5.9 mmol/L\n*   एल्ट (alt): ऊँचा (High) - 130 IU/L\n*   एसटी (ast): बहुत अधिक (Critical High) - 637 U/L\n*   लोड कोलेस्ट्रोल (ldl): बहुत अधिक (Critical High) - 241 mg/dL\n\n**सहजैविकता वाले परिणाम (Results that matter together):**\n*   pancytopenia (रक्त के सभी घटकों में कमता)\n*   kidney_potassium (किडनी की फिल्टरेशन क्षमता कम होने के साथ पोटेशियम बढ़ना)\n*   liver_jaundice (एनजाइम और बिलिरुबिन में असामान्यता - यहाँ बिलिरुबिन सामान्य है, लेकिन एनजाइम बहुत बढ़े हैं)\n*   liver_enzymes (लिवर एनजाइम में वृद्धि)\n*   atherogenic (कोलेस्ट्रोल पैटर्न जो हृदय जोखिम से जुड़ा है)\n\n**यह क्या दर्शाता है (What this means):**\nरिपोर्ट में लिवर के एनजाइम (AST और ALT) बहुत अधिक हैं, जो लिवर की गंभीर क्षति या विषाक्तता (जैसे विषाक्त दवाओं का सेवन, एल्कोहल या वायरल इन्फेक्शन) का संकेत दे सकते हैं। पोटेशियम (K) का स्तर ऊँचा है, जो किडनी की समस्या या दवाओं के कारण हो सकता है। रक्त के सभी घटकों (हीमोग्लोबिन, WBC, प्लेटलेट्स) कम हैं, जो 'पैनसाइटोपनिया' कहलाता है और यह गंभीर स्थिति हो सकती है। लोड कोलेस्ट्रोल बहुत अधिक है जो हृदय रोग का जोखिम बढ़ाता है।\n\n**अगला कदम (What to do next):**\nतुरंत डॉक्टर से संपर्क करें। लिवर एनजाइम और पोटेशियम के स्तर को देखते हुए आपकी तुरंत जाँच और उपचार की आवश्यकता हो सकती है। किसी भी दवा या खाद्य पदार्थों का सेवन रोकें और डॉक्टर की सलाह के बिना कुछ न करें।\n\n**अस्वीकरण:** यह जानकारी केवल शिक्षा के उद्देश्य से है और चिकित्सा सलाह नहीं है। कृपया अपने डॉक्टर से संपर्क करें।",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.4,
+        "pred": 11.4,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 140,
+        "pred": 1.4,
+        "value_ok": false,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 86.8,
+        "pred": 86.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 88,
+        "pred": 88,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5.2,
+        "pred": 5.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.68,
+        "pred": 1.68,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "low",
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 20,
+        "pred": 20,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 78,
+        "pred": 78,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 145,
+        "pred": 145,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.9,
+        "pred": 5.9,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 130,
+        "pred": 130,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 637,
+        "pred": 637,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "critical_high",
+        "status_ok": false
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.3,
+        "pred": 0.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 241,
+        "pred": 241,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "critical_high",
+        "status_ok": false
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 65,
+        "pred": 65,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 82,
+        "pred": 82,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 2.47,
+        "pred": 2.47,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.79,
+        "pred": 1.79,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 107.2,
+        "pred": 107.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 505,
+        "pred": 505,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 5,
+        "pred": 5.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "crp",
+       "vitd"
+      ],
+      "missing_patterns": [
+       "kidney",
+       "renal_anemia"
+      ],
+      "extra_patterns": [
+       "atherogenic",
+       "liver_jaundice"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h004",
+   "lang": "en",
+   "language": "English",
+   "layout": "whatsapp",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Report:\n*Sunrise Clinical Laboratory - Report*\nPatient: Ms. Rekha Shaikh        Age/Sex: 38 Y / F        Date: 6 Nov 2026\n6 Nov 2026\n\n*CBC*\nHb - 15.0 g/dl\nWhite Blood Cell Count - 5700 /cumm\nPLT - 2,62,000 /cumm\nMCV - 86.4 fL\n*Vitamin Profile*\nFerritin - 77.0 ng/mL\nVit. B12 - 201 pg/ml\nVit D Total - 88.5 ng/ml\n\nSent from my phone\n\nAnalyse the following medical report: flag abnormal values and any concerning combinations. Language: English.",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 15,
+     "wbc": 5.7,
+     "plt": 262,
+     "mcv": 86.4,
+     "ferritin": 77,
+     "b12": 201,
+     "vitd": 88.5
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Held-out report 004",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**ok**\n\n### Results outside the reference range\nNone. All reported values fall within normal reference ranges for an adult female.\n*   **Hemoglobin (Hb):** 15.0 g/dL (Normal: ~12.0–16.0 g/dL)\n*   **White Blood Cells (WBC):** 5700/µL (Normal: ~4.5–11.0 ×10³/µL)\n*   **Platelets (PLT):** 262,000/µL (Normal: ~150,000–450,000 ×10³/µL)\n*   **MCV:** 86.4 fL (Normal: ~80–100 fL)\n*   **Ferritin:** 77.0 ng/mL (Normal: ~15–150 ng/mL)\n*   **Vitamin B12:** 201 pg/mL (Normal: ~200–900 pg/mL)\n*   **Vitamin D:** 88.5 ng/mL (Normal: >30 ng/mL)\n\n### Results that matter together\nNo concerning combinations are present. The complete blood count (CBC) shows normal red blood cell, white blood cell, and platelet counts with normal cell size (MCV). Vitamin levels are adequate.\n\n### What this means\nThe patient's blood work indicates a healthy status with no signs of anemia, infection, inflammation, or vitamin deficiencies. The hemoglobin level is on the higher side of normal but well within the safe range.\n\n### What to do next\nNo immediate action is required. Continue with regular health screenings as advised by your physician.\n\n### Disclaimer\n*This analysis is for informational purposes only and does not constitute medical advice, diagnosis, or treatment. Please consult a qualified healthcare professional for any medical concerns.*",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 15,
+        "pred": 15.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 5.7,
+        "pred": 5.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 262,
+        "pred": 262.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 86.4,
+        "pred": 86.4,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 77,
+        "pred": 77.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 201,
+        "pred": 201,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 88.5,
+        "pred": 88.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "h005",
+   "lang": "en",
+   "language": "English",
+   "layout": "whatsapp",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Here is my blood test report. What is abnormal and what does it mean? Please reply in English.\n\n```\n*Trinetra Path Lab - Report*\nPT NAME : VINOD SHAH   52Y/M\n05/11/2026\n\n*Complete Blood Count*\nHGB - 11.7 g/dL\nTotal Leukocyte Count - 3.8 10^3/uL\nPLT - 83 x10³/µL\nM.C.V. - 119.5 fL\n*DIABETES PROFILE*\nFBS - 84 mg/dl\nHbA1c - 3.9 %\n*KIDNEY FUNCTION TEST (KFT)*\nCreatinine - 1.34 mg/dL\nUrea - 51 mg/dl\nSodium - 158 mmol/l\nK+ - 4.5 mEq/L\n*Liver Profile*\nSGPT - 28 U/L\nAST (SGOT) - 30 IU/L\n*LIPID PROFILE*\nT. Cholesterol - 143 mg/dL\nLDL - 125 mg/dl\nHDL - 69 mg/dL\nTG - 65 mg/dL\n*THYROID FUNCTION TEST*\nTSH - 3.20 mIU/L\nFT4 - 1.80 ng/dl\n*VITAMINS & IRON*\nFerritin - 337.3 ng/mL\nVitamin B12 - 134 pg/ml\nVit D Total - 37.6 ng/ml\n*Special Chemistry*\nC Reactive Protein - 0.9 mg/L\nUric Acid - 5.6 mg/dL\n\nSent from my phone\n```",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "hb": 11.7,
+     "wbc": 3.8,
+     "plt": 83,
+     "mcv": 119.5,
+     "fbs": 84,
+     "hba1c": 3.9,
+     "creat": 1.34,
+     "urea": 51,
+     "na": 158,
+     "k": 4.5,
+     "alt": 28,
+     "ast": 30,
+     "chol": 143,
+     "ldl": 125,
+     "hdl": 69,
+     "tg": 65,
+     "tsh": 3.2,
+     "ft4": 1.8,
+     "ferritin": 337.3,
+     "b12": 134,
+     "vitd": 37.6,
+     "crp": 0.9,
+     "uric": 5.6
+    },
+    "abnormal": {
+     "hb": "low",
+     "wbc": "low",
+     "plt": "low",
+     "mcv": "high",
+     "hba1c": "low",
+     "creat": "high",
+     "urea": "high",
+     "na": "high",
+     "b12": "low"
+    },
+    "patterns": [
+     "pancytopenia",
+     "kidney",
+     "renal_anemia",
+     "b12_anemia"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 005",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**review**\n\n### Results outside the reference range\n*   **Hemoglobin (hb):** 11.7 g/dL (Low; Reference: ~13.0–17.0 for men)\n*   **White Blood Cells (wbc):** 3.8 ×10³/µL (Low; Reference: ~4.5–11.0)\n*   **Platelets (plt):** 83 ×10³/µL (Low; Reference: ~150–450)\n*   **MCV:** 119.5 fL (High; Reference: ~80–100)\n*   **Creatinine:** 1.34 mg/dL (High; Reference: ~0.7–1.3)\n*   **Urea:** 51 mg/dL (High; Reference: ~15–50)\n*   **Sodium (na):** 158 mmol/L (High; Reference: ~135–145)\n\n### Results that matter together\n*   **pancytopenia:** Low counts across red cells (Hb), white cells, and platelets.\n*   **kidney_potassium:** Elevated kidney markers (creatinine, urea) with normal potassium.\n*   **dehydration:** High sodium combined with elevated kidney markers suggests fluid loss.\n*   **iron_def:** High MCV (macrocytosis) alongside low hemoglobin suggests a mixed picture, possibly macrocytic anemia or nutritional deficiency, though B12 is low-normal.\n\n### What this means\nThe report shows signs of **pancytopenia** (low blood counts in all three lines), which can be caused by bone marrow suppression, viral infections, or nutritional deficiencies. The **high MCV** indicates large red blood cells, often seen in vitamin B12/folate issues or liver conditions, but your B12 is borderline low.\n\nThere is a clear picture of **dehydration** and **mild kidney strain**, evidenced by high sodium, elevated creatinine, and high urea. This is likely due to poor fluid intake or excessive sweating, especially given the high sodium level. The liver enzymes are normal, ruling out acute liver damage.\n\n### What to do next\n1.  **Hydration:** Drink plenty of water immediately to help flush out the excess sodium and improve kidney function. Avoid salt.\n2.  **Medical Consultation:** You need to see a doctor immediately to investigate the cause of pancytopenia. They may order a blood smear, vitamin B12/folate levels, and potentially a bone marrow biopsy if the low counts persist.\n3.  **Monitor:** Recheck kidney function and blood counts after hydration and medical evaluation.\n\n### Disclaimer\n*This information is for educational purposes only and does not constitute medical advice. Please consult a qualified healthcare professional for diagnosis and treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 11.7,
+        "pred": 11.7,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 3.8,
+        "pred": 3.8,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 83,
+        "pred": 83,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 119.5,
+        "pred": 119.5,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 84,
+        "pred": 84,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 3.9,
+        "pred": 3.9,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.34,
+        "pred": 1.34,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 51,
+        "pred": 51,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 158,
+        "pred": 158,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 4.5,
+        "pred": 4.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 28,
+        "pred": 28,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 30,
+        "pred": 30,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 125,
+        "pred": 125,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 69,
+        "pred": 69,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 65,
+        "pred": 65,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 3.2,
+        "pred": 3.2,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 1.8,
+        "pred": 1.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 337.3,
+        "pred": 337.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 134,
+        "pred": 134,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 37.6,
+        "pred": 37.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 0.9,
+        "pred": 0.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "bili"
+      ],
+      "missing_patterns": [
+       "b12_anemia",
+       "kidney",
+       "renal_anemia"
+      ],
+      "extra_patterns": [
+       "dehydration",
+       "iron_def",
+       "kidney_potassium"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h007",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "table aligned",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "What does this report say about my health? Answer in Hindi (हिंदी), in simple words.\n\nAmrut Health Labs\nThane | Ph: 036-20487055\nName: Suresh Verma\nAge: 51 Years\nSex: Male\nRef. By: Dr. V. Verma\nLab No: AM/25/188505\n\nGLUCOSE\nTest                            Result     Unit          Biological Ref. Interval\nFBS                             98         mg/dL         69 to 99\nGlycosylated Hemoglobin (HbA1c) 4.6        %             4.0 - 5.6\n\nLiver Profile\nTest                            Result     Unit          Biological Ref. Interval\nALT (SGPT)                      11         U/l           < 40\nAspartate Aminotransferase      30         U/L           Up to 40\nSerum Bilirubin (Total)         0.6        mg/dL         < 1.2\n\nLipid Profile\nTest                            Result     Unit          Biological Ref. Interval\nTotal Cholesterol               198        mg/dL         0 - 206\nLDL-C                           92         mg/dl         Up to 130\nHDL                             79         mg/dL         >= 39\nSerum Triglycerides             103        mg/dl         0 - 149\n\nResults relate only to the sample tested.\nReported: 23 Apr 2025 18:38",
+   "gold": {
+    "sex": "M",
+    "values": {
+     "fbs": 98,
+     "hba1c": 4.6,
+     "alt": 11,
+     "ast": 30,
+     "bili": 0.6,
+     "chol": 198,
+     "ldl": 92,
+     "hdl": 79,
+     "tg": 103
+    },
+    "abnormal": {},
+    "patterns": [],
+    "verdict": "ok"
+   },
+   "label": "Held-out report 007",
+   "outputs": {
+    "base_with_format": {
+     "text": "यहाँ आपके लैब रिपोर्ट का हिंदी में सरल विश्लेषण है:\n\n**निष्कर्ष (Verdict):**\nआपके रिपोर्ट में कोई भी गंभीर समस्या नहीं है। आपकी स्वास्थ्य स्थिति **सामान्य (OK)** है।\n\n**संख्याओं का विश्लेषण (Results outside the reference range):**\nरिपोर्ट में दी गई सभी संख्याएं सामान्य सीमा के भीतर हैं।\n- **FBS (रक्त में शुगर):** 98 mg/dL (सामान्य सीमा: 69-99)। यह थोड़ा ऊपर है लेकिन पूरी तरह सामान्य है।\n- **HbA1c:** 4.6% (सामान्य सीमा: 4.0-5.6)। यह बहुत अच्छा है।\n- **लिवर एंजाइम (ALT/AST):** 11 और 30 (सामान्य सीमा: 40 से कम)। दोनों सामान्य हैं।\n- **बिलिरुबिन:** 0.6 mg/dL (सामान्य)।\n- **कोलेस्ट्रोल:** कुल कोलेस्ट्रोल 198, LDL 92, HDL 79, और ट्राइग्लिसराइड्स 103। सभी मान सामान्य सीमा के भीतर हैं।\n\n**संयुक्त महत्वपूर्ण परिणाम (Results that matter together):**\nआपके रक्त के सभी मुख्य पैरामीटर (शुगर, लिवर, और कोलेस्ट्रोल) एक साथ सामान्य स्तर पर हैं। इससे यह पता चलता है कि आपका मेटाबॉलिज्म (शरीर की रासायनिक प्रक्रिया) ठीक चल रहा है।\n\n**यह क्या दर्शाता है (What this means):**\nआपके शरीर में कोई संक्रमण, लिवर की समस्या या रक्त शुगर का गंभीर असंतुलन नहीं है। आपकी कोलेस्ट्रोल स्तर अच्छी है जो हृदय स्वास्थ्य के लिए अच्छी बात है।\n\n**अगला कदम (What to do next):**\n- अपनी आदतों को बनाए रखें।\n- नियमित रूप से (हर 6-12 महीने में) रक्त परीक्षण करवाते रहें ताकि यह सुनिश्चित हो सके कि संख्याएं सामान्य रहें।\n- यदि आप व्यायाम करते हैं, तो इसे जारी रखें।\n\n**चेतावनी:**\nयह जानकारी केवल सामान्य ज्ञान के लिए है और डॉक्टर की सलाह का विकल्प नहीं है।",
+     "check": {
+      "valid": true,
+      "verdict": "ok",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 98,
+        "pred": 98,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 4.6,
+        "pred": 4.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 11,
+        "pred": 11,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 30,
+        "pred": 30,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.6,
+        "pred": 0.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 198,
+        "pred": 198,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 92,
+        "pred": 92,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 79,
+        "pred": 79,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 103,
+        "pred": 103,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "b12",
+       "bun",
+       "creat",
+       "crp",
+       "ferritin",
+       "ft4",
+       "hb",
+       "k",
+       "mcv",
+       "na",
+       "plt",
+       "tsh",
+       "urea",
+       "uric",
+       "vitd",
+       "wbc"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": []
+     }
+    }
+   }
+  },
+  {
+   "id": "h008",
+   "lang": "hi",
+   "language": "Hindi",
+   "layout": "hindi headers",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Report:\nPratiksha Diagnostic Centre\nनाम: Farah Pawar   आयु/लिंग: 47 वर्ष / महिला\nदिनांक: 07-08-2026\n\nरक्त गणना (CBC)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nHEMOGLOBIN | 10.1 | g/dL | 11.6 to 16.1\nPlatelet Count | 384 | 10^3/uL | 145 to 426\nMCV | 103.8 | fL | 77.0-104.2\n\nरक्त शर्करा (Blood Sugar)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nBlood Sugar (Fasting) | 278 | mg/dl | 70-99\nGlycated Haemoglobin | 11.8 | % | 4.0 to 5.6\n\nकिडनी जांच (KFT)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nCreatinine | 1.00 | mg/dL | 0.60 - 1.10\nUrea | 107 | mg/dl | 15-45\nBUN | 16 | mg/dl | 7-20\nS. Sodium (Na) | 148 | mmol/l | 135-145\nSerum Potassium | 4.8 | mmol/l | 3.5 to 5.1\n\nलिवर जांच (LFT)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nS.G.P.T. | 11 | U/l | < 40\nT. Bilirubin | 1.1 | mg/dL | < 1.3\n\nलिपिड प्रोफाइल\nजांच | परिणाम | इकाई | संदर्भ सीमा\nTotal Cholesterol | 195 | mg/dL | 0 - 199\nLDL-C | 60 | mg/dl | < 131\nHDL | 30 | mg/dL | >= 50\nSerum Triglycerides | 141 | mg/dL | 0 - 156\n\nथायरॉइड जांच\nजांच | परिणाम | इकाई | संदर्भ सीमा\nThyroid Stimulating Hormone | 1.27 | µIU/mL | 0.40-4.50\nFree Thyroxine (FT4) | 1.13 | ng/dL | 0.80 - 1.80\n\nविटामिन और आयरन\nजांच | परिणाम | इकाई | संदर्भ सीमा\nSerum Ferritin | 75.1 | ng/mL | M: 30.0-400.0 / F: 15.0-150.0\nCobalamin (B12) | 119 | pg/mL | 193 to 939\n25-OH Vitamin D | 98.7 | ng/mL | 30.0 - 100.0\n\nअन्य जांच\nजांच | परिणाम | इकाई | संदर्भ सीमा\nCRP | 2.0 | mg/L | Up to 4.9\nUric Acid | 1.9 | mg/dL | M: 3.4-7.0 / F: 2.4-6.0\n\n*** End of Report ***\nClinical correlation is advised.\n\nमेरी रिपोर्ट देखकर बताइए कि क्या ठीक नहीं है। जवाब हिंदी में दें।",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 10.1,
+     "plt": 384,
+     "mcv": 103.8,
+     "fbs": 278,
+     "hba1c": 11.8,
+     "creat": 1,
+     "urea": 107,
+     "bun": 16,
+     "na": 148,
+     "k": 4.8,
+     "alt": 11,
+     "bili": 1.1,
+     "chol": 195,
+     "ldl": 60,
+     "hdl": 30,
+     "tg": 141,
+     "tsh": 1.27,
+     "ft4": 1.13,
+     "ferritin": 75.1,
+     "b12": 119,
+     "vitd": 98.7,
+     "crp": 2,
+     "uric": 1.9
+    },
+    "abnormal": {
+     "hb": "low",
+     "mcv": "high",
+     "fbs": "high",
+     "hba1c": "high",
+     "urea": "high",
+     "na": "high",
+     "hdl": "low",
+     "b12": "low",
+     "uric": "low"
+    },
+    "patterns": [
+     "b12_anemia",
+     "diabetes",
+     "dehydration"
+    ],
+    "verdict": "review"
+   },
+   "label": "Held-out report 008",
+   "outputs": {
+    "base_with_format": {
+     "text": "नमस्ते फराह जी, आपकी रक्त परीक्षण रिपोर्ट का विश्लेषण नीचे दिया गया है:\n\n**निष्कर्ष (Verdict):**\nआपकी रिपोर्ट में कुछ महत्वपूर्ण असामान्यताएं हैं जो तुरंत ध्यान की आवश्यकता दर्शाती हैं। सबसे बड़ी समस्या आपकी रक्त शर्करा (Diabetes) और उच्च यूरिया (Kidney) स्तरों में है।\n\n**संदर्भ सीमा से बाहर वाले परिणाम (Results outside the reference range):**\n*   **Hemoglobin (hb):** 10.1 g/dL (संकेत: कम, Low) - *नोट: महिलाओं के लिए 11.6 से कम होना कम रक्त शर्करा का संकेत है।*\n*   **Fasting Blood Sugar (fbs):** 278 mg/dL (संकेत: बहुत अधिक, Critical High) - *डायबिटीज रेंज में है।*\n*   **HbA1c:** 11.8% (संकेत: बहुत अधिक, Critical High) - *डायबिटीज रेंज में है।*\n*   **Urea:** 107 mg/dL (संकेत: बहुत अधिक, Critical High) - *किडनी फिल्टरेशन संकेत।*\n*   **Sodium (na):** 148 mmol/L (संकेत: थोड़ा अधिक, High) - *मर्यादित सीमा से ऊपर।*\n*   **HDL:** 30 mg/dL (संकेत: कम, Low) - *हृदय स्वास्थ्य के लिए कम।*\n*   **Vitamin D (vitd):** 98.7 ng/mL (संकेत: थोड़ा कम, Low) - *सीमा के बहुत करीब है।*\n*   **B12:** 119 pg/mL (संकेत: कम, Low) - *महिलाओं के लिए कम।*\n*   **MCV:** 103.8 fL (संकेत: अधिक, High) - *मegaloblastic anemia संकेत।*\n\n**संयुक्त रूप से महत्वपूर्ण परिणाम (Results that matter together):**\n*   **diabetes:** रक्त शर्करा और HbA1c दोनों बहुत उच्च हैं।\n*   **kidney_potassium:** यूरिया बहुत उच्च है, जो किडनी की कार्यक्षमता को संदिग्ध बनाता है (हालांकि पोटेशियम सामान्य है)।\n*   **iron_def:** Hb कम है लेकिन MCV उच्च है, जो अक्सर B12 या फोलेट की कमी से जुड़ा होता है (B12 भी कम है)।\n*   **prediabetes:** (यद्यपि fbs बहुत उच्च है, यह स्पष्ट रूप से डायबिटीज है)।\n\n**यह क्या दर्शाता है (What this means):**\nफराह जी, आपकी रिपोर्ट **डायबिटीज** और **किडनी की समस्या** का गंभीर संकेत देती है। आपकी रक्त शर्करा (278 mg/dL) और HbA1c (11.8%) अत्यधिक उच्च हैं, जो लंबे समय तक अनदेखा होने पर न्यूरोलॉजिकल और रक्त संबंधी जटिलताओं का कारण बन सकती हैं। यूरिया (107 mg/dL) बहुत उच्च है, जो किडनी फिल्टरेशन में कमी या द्रव रetention का संकेत दे सकता है। साथ ही, आपकी B12 और फोलेट की कमी (B12 119, MCV उच्च) के कारण आपकी एरिथ्रोसाइट्स बड़ी (Megaloblastic) हो रही हैं, जो रक्त की कमी को बढ़ावा देती है।\n\n**अगला कदम (What to do next):**\n1.  **तुरंत डॉक्टर से संपर्क करें:** एक इन्टरनेल मीडिसिन या एंडोक्राइनोलॉजिस्ट को दिखाएं।\n2.  **डायबिटीज मनेजमेंट:** आपकी रक्त शर्करा को नियंत्रित करने के लिए तुरंत दवाओं और आहार में बदलाव की आवश्यकता हो सकती है।\n3.  **किडनी फंक्शन टेस्ट:** यूरिया और क्रिएटिनिन के स्तर को पुष्ट करने के लिए किडनी फंक्शन टेस्ट (KFT) और यूरिन टेस्ट करें।\n4.  **पोषण सुधार:** B12 और फोलेट की कमी को ठीक करने के लिए विटामिन सप्लीमेंटेशन शुरू करें।\n5.  **डायलिसिस की जांच:** यूरिया स्तर को देखते हुए किडनी फंक्शन की गंभीरता की जांच करनी होगी।\n\n**अस्वीकरण:** यह जानकारी केवल शिक्षा के उद्देश्य से है और चिकित्सा सलाह नहीं है। कृपया अपने डॉक्टर से संपर्क करें।",
+     "check": {
+      "valid": false
+     }
+    }
+   }
+  },
+  {
+   "id": "h010",
+   "lang": "en",
+   "language": "English",
+   "layout": "table flags",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "Summarise this lab report for a patient, in English.\n\n---\nNAVJEEVAN DIAGNOSTIC CENTRE\nPatna | Ph: 049-36757442\nName: Mrs. Jyoti Das\nAge: 65 Years\nSex: Female\nCollected: 19 Jul 2025 10:38\nBarcode: 5499157123\n\nCOMPLETE BLOOD COUNT (CBC)\nInvestigation              Observed Value   Flag   Unit          Reference Range\nHemoglobin                 14.7                    g/dL          12.0-15.5\nTotal Leukocyte Count      6.8                     x10^3/µL      3.8-10.8\n  Method: Enzymatic\nPlatelet Count             354                     K/uL          142 to 424\nMCV (Mean Corpuscular Volume)120.3            H      fL            79.8 - 99.6\n\nGLUCOSE\nInvestigation              Observed Value   Flag   Unit          Reference Range\nGlycated Haemoglobin       5.0                     %             4.0-5.6\n\nRenal Profile with Electrolytes\nInvestigation              Observed Value   Flag   Unit          Reference Range\nCreatinine                 1.12             H      mg/dl         M: 0.70-1.30 / F: 0.60-1.10\nB. Urea                    44                      mg/dL         15-45\nB.U.N.                     13                      mg/dL         7 - 20\nSerum Sodium               143                     mmol/l        135 - 145\nS. Potassium (K)           5.6              H      mmol/l        3.5 - 5.1\n\nLFT\nInvestigation              Observed Value   Flag   Unit          Reference Range\nSGPT                       15                      IU/L          < 40\nAspartate Aminotransferase 33                      U/l           0 - 40\n  Method: Enzymatic\nBilirubin Total            0.8                     mg/dl         0 - 1.3\n\nLIPIDS\nInvestigation              Observed Value   Flag   Unit          Reference Range\nT. Cholesterol             132                     mg/dL         < 199\n  Method: ECLIA\nLDL Cholesterol            73                      mg/dl         Up to 129\nHigh Density Lipoprotein   67                      mg/dL         > 50\nTriglycerides              106                     mg/dL         Up to 149\n\nTHYROID PROFILE\nInvestigation              Observed Value   Flag   Unit          Reference Range\nTSH                        4.10                    mIU/L         0.40-4.50\n  Method: ECLIA\n\nVITAMINS & IRON\nInvestigation              Observed Value   Flag   Unit          Reference Range\nSerum Ferritin             129.8                   ng/mL         15.0-150.0\n  Method: Ion selective electrode\nVit. B12                   600                     pg/mL         200 - 900\nVitamin D (25-OH)          38.5                    ng/mL         30.0 - 100.0\n\nINFLAMMATORY MARKERS\nInvestigation              Observed Value   Flag   Unit          Reference Range\nCRP                        2.5                     mg/L          < 4.9\nS. Uric Acid               3.3                     mg/dl         2.4 - 6.0\n  Method: CLIA\n\nClinical correlation is advised.\nDr. A. Banerjee, MD (Pathology)\n---",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 14.7,
+     "wbc": 6.8,
+     "plt": 354,
+     "mcv": 120.3,
+     "hba1c": 5,
+     "creat": 1.12,
+     "urea": 44,
+     "bun": 13,
+     "na": 143,
+     "k": 5.6,
+     "alt": 15,
+     "ast": 33,
+     "bili": 0.8,
+     "chol": 132,
+     "ldl": 73,
+     "hdl": 67,
+     "tg": 106,
+     "tsh": 4.1,
+     "ferritin": 129.8,
+     "b12": 600,
+     "vitd": 38.5,
+     "crp": 2.5,
+     "uric": 3.3
+    },
+    "abnormal": {
+     "mcv": "high",
+     "creat": "high",
+     "k": "high"
+    },
+    "patterns": [
+     "kidney_potassium"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 010",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**Review**\n\n### Results outside the reference range\n*   **MCV**: 120.3 fL (High; Ref: 79.8–99.6)\n*   **Creatinine**: 1.12 mg/dL (High for Female; Ref: 0.60–1.10)\n*   **Potassium (K)**: 5.6 mmol/L (High; Ref: 3.5–5.1)\n\n### Results that matter together\n*   **kidney_potassium**: Elevated creatinine alongside high potassium suggests reduced kidney clearance or early renal strain.\n*   **iron_def**: Macrocytosis (high MCV) with normal iron studies (ferritin and B12) may indicate early iron deficiency or other causes of macrocytosis, though not definitive without further history.\n\n### What this means\nThe patient has mild macrocytosis (large red blood cells), which can be seen in aging, vitamin B12/folate issues (though levels are normal here), or liver changes. There is a concerning combination of slightly elevated creatinine and high potassium, indicating potential early kidney stress or reduced filtration ability. The rest of the profile, including blood sugar, liver enzymes, and thyroid function, is within normal limits.\n\n### What to do next\nConsult a physician to evaluate the elevated potassium and creatinine, possibly checking kidney function further and reviewing medications that might affect potassium levels. A repeat CBC and electrolytes in a few weeks may be needed to monitor the trend.\n\n### Disclaimer\nThis summary is for informational purposes only and does not replace professional medical advice.",
+     "check": {
+      "valid": true,
+      "verdict": "review",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 14.7,
+        "pred": 14.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.8,
+        "pred": 6.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "plt",
+        "name": "Platelets",
+        "gold": 354,
+        "pred": 354,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 120.3,
+        "pred": 120.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 5,
+        "pred": 5.0,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.12,
+        "pred": null,
+        "value_ok": false,
+        "gold_status": "high",
+        "pred_status": null,
+        "status_ok": false
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 44,
+        "pred": 44,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bun",
+        "name": "BUN",
+        "gold": 13,
+        "pred": 13,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 143,
+        "pred": 143,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 5.6,
+        "pred": 5.6,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 15,
+        "pred": 15,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 33,
+        "pred": 33,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.8,
+        "pred": 0.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 132,
+        "pred": 132,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 73,
+        "pred": 73,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 106,
+        "pred": 106,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 4.1,
+        "pred": 4.1,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 129.8,
+        "pred": 129.8,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 600,
+        "pred": 600,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 38.5,
+        "pred": 38.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 2.5,
+        "pred": 2.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 3.3,
+        "pred": 3.3,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "creatinine"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "iron_def"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h011",
+   "lang": "en",
+   "language": "English",
+   "layout": "hindi headers",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "What does this report say about my health? Answer in English, in simple words.\n\nReport:\nPratiksha Diagnostic Centre\nनाम: Mrs. Pooja Iyer   आयु: 75 वर्ष\nदिनांक: 07/03/2026\n\nरक्त शर्करा (Blood Sugar)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nFasting Plasma Glucose | 215 | mg/dl | 70 - 99\nHbA1c | 7.3 | % | 4.0-5.6\n\nलिवर जांच (LFT)\nजांच | परिणाम | इकाई | संदर्भ सीमा\nAlanine Aminotransferase | 228 | IU/L | Up to 40\nSGOT (AST) | 37 | IU/L | Up to 40\nTotal Bilirubin | 8.0 | mg/dL | Up to 1.2\n\nलिपिड प्रोफाइल\nजांच | परिणाम | इकाई | संदर्भ सीमा\nSerum Cholesterol | 193 | mg/dl | Up to 206\nLow Density Lipoprotein | 97 | mg/dL | 0 - 129\nHDL Cholesterol | 81 | mg/dL | > 50\nSerum Triglycerides | 67 | mg/dL | Up to 149\n\nReported: 07/03/2026 13:54\nDr. B. Das, MD (Pathology)\nPage 1 of 1\n*** End of Report ***",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "fbs": 215,
+     "hba1c": 7.3,
+     "alt": 228,
+     "ast": 37,
+     "bili": 8,
+     "chol": 193,
+     "ldl": 97,
+     "hdl": 81,
+     "tg": 67
+    },
+    "abnormal": {
+     "fbs": "high",
+     "hba1c": "high",
+     "alt": "high",
+     "bili": "high"
+    },
+    "patterns": [
+     "liver_jaundice",
+     "diabetes"
+    ],
+    "verdict": "urgent"
+   },
+   "label": "Held-out report 011",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**urgent**\n\n### Results outside the reference range\n*   **Fasting Plasma Glucose (fbs):** 215 mg/dL (High)\n*   **HbA1c (hba1c):** 7.3% (High)\n*   **Alanine Aminotransferase (alt):** 228 U/L (High)\n*   **Total Bilirubin (bili):** 8.0 mg/dL (High)\n\n### Results that matter together\n*   **diabetes:** High blood sugar and HbA1c indicate uncontrolled diabetes.\n*   **liver_jaundice:** High liver enzymes combined with very high bilirubin suggest significant liver stress or damage.\n\n### What this means\nThe report shows three main issues:\n1.  **Diabetes:** Your blood sugar is very high, indicating that diabetes is not well-controlled.\n2.  **Liver Damage:** The liver enzymes are more than 5 times the normal limit, and bilirubin is extremely high. This is a serious sign of liver injury or failure and requires immediate medical attention.\n3.  **Cholesterol:** Your cholesterol is slightly elevated, which is a risk factor for heart disease, but the liver and sugar issues are the most critical right now.\n\n### What to do next\nYou need to see a doctor immediately (today or tomorrow). Do not wait for a routine appointment. Tell the doctor about the high sugar and the very high liver numbers so they can check your liver function and adjust your diabetes treatment.\n\n***\n*Disclaimer: I am an AI, not a doctor. This information is for educational purposes and does not replace professional medical advice, diagnosis, or treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": true,
+      "values": [
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 215,
+        "pred": 215,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 7.3,
+        "pred": 7.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 228,
+        "pred": 228,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 37,
+        "pred": 37,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 8,
+        "pred": 8.0,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 193,
+        "pred": 193,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 97,
+        "pred": 97,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 81,
+        "pred": 81,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 67,
+        "pred": 67,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "b12",
+       "bun",
+       "creat",
+       "crp",
+       "ferritin",
+       "ft4",
+       "hb",
+       "k",
+       "mcv",
+       "na",
+       "plt",
+       "tsh",
+       "urea",
+       "uric",
+       "vitd",
+       "wbc"
+      ],
+      "missing_patterns": [],
+      "extra_patterns": [
+       "atherogenic"
+      ]
+     }
+    }
+   }
+  },
+  {
+   "id": "h013",
+   "lang": "en",
+   "language": "English",
+   "layout": "table aligned",
+   "unseen_layout": false,
+   "source": "heldout",
+   "prompt": "This is my daughter's report. What do these numbers mean? Please answer in English.\n\nReport:\nLOTUS HEALTH LABS\nAurangabad | Ph: 093-57611122\nPatient: Smt. Anita Kulkarni        Age/Sex: 43 Y / F        Date: 09/11/2025\nLab No: LO/25/527367\nCollected: 09/11/2025 11:37\n\nCOMPLETE BLOOD COUNT (CBC)\nTest                        Result     Unit          Biological Ref. Interval\nHemoglobin                  14.9       g/dL          12.0-15.5\nTotal Leucocyte Count       6,700      /cumm         4,000 - 11,000\nMCV (Mean Corpuscular Volume)75.6       fL            80.0-100.0\n\nGLUCOSE\nTest                        Result     Unit          Biological Ref. Interval\nFasting Blood Sugar         92         mg/dl         70-99\nHBA1C                       13.2       %             3.9 to 5.7\n\nKIDNEY FUNCTION TEST (KFT)\nTest                        Result     Unit          Biological Ref. Interval\nCreatinine                  1.45       mg/dl         0.60-1.10\nSerum Urea                  34         mg/dL         15-45\nS. Sodium (Na)              140        mEq/L         130-148\nSerum Potassium             3.6        mEq/L         3.5 to 5.1\n\nLiver Profile\nTest                        Result     Unit          Biological Ref. Interval\nSGPT (ALT)                  36         IU/L          < 42\nAspartate Aminotransferase  39         U/l           0 - 42\nBilirubin Total             0.5        mg/dl         0 - 1.2\n\nLipid Profile\nTest                        Result     Unit          Biological Ref. Interval\nTotal Cholesterol           137        mg/dL         Up to 200\nLow Density Lipoprotein     126        mg/dL         < 135\nHDL-C                       24         mg/dL         > 50\nTriglyceride                376        mg/dl         0 - 149\n\nTHYROID PROFILE\nTest                        Result     Unit          Biological Ref. Interval\nTSH Ultrasensitive          0.24       uIU/mL        0.38-4.56\nFree Thyroxine (FT4)        2.48       ng/dl         0.80-1.80\n\nIRON STUDIES / VITAMINS\nTest                        Result     Unit          Biological Ref. Interval\nFerritin                    98.9       ng/ml         14.9 to 153.0\nVit. B12                    887        pg/ml         200 - 900\nVitamin D (25-OH)           99.7       ng/ml         30.0 to 100.0\n\nOTHERS\nTest                        Result     Unit          Biological Ref. Interval\nC-Reactive Protein          4.5        mg/L          Up to 5.2\nS. Uric Acid                8.3        mg/dl         2.4-6.1\n\n*** End of Report ***\nDr. N. Shaikh, MD (Pathology)\nPage 1 of 1",
+   "gold": {
+    "sex": "F",
+    "values": {
+     "hb": 14.9,
+     "wbc": 6.7,
+     "mcv": 75.6,
+     "fbs": 92,
+     "hba1c": 13.2,
+     "creat": 1.45,
+     "urea": 34,
+     "na": 140,
+     "k": 3.6,
+     "alt": 36,
+     "ast": 39,
+     "bili": 0.5,
+     "chol": 137,
+     "ldl": 126,
+     "hdl": 24,
+     "tg": 376,
+     "tsh": 0.24,
+     "ft4": 2.48,
+     "ferritin": 98.9,
+     "b12": 887,
+     "vitd": 99.7,
+     "crp": 4.5,
+     "uric": 8.3
+    },
+    "abnormal": {
+     "mcv": "low",
+     "hba1c": "high",
+     "creat": "high",
+     "hdl": "low",
+     "tg": "high",
+     "tsh": "low",
+     "ft4": "high",
+     "uric": "high"
+    },
+    "patterns": [
+     "metabolic",
+     "hyperthyroid",
+     "prediabetes",
+     "gout_kidney"
+    ],
+    "verdict": "review"
+   },
+   "label": "Held-out report 013",
+   "outputs": {
+    "base_with_format": {
+     "text": "### Verdict\n**urgent**\n\n### Results outside the reference range\n*   **HbA1c**: 13.2% (High; Ref: 3.9–5.7%)\n*   **Creatinine**: 1.45 mg/dL (High; Ref: 0.60–1.10)\n*   **MCV**: 75.6 fL (Low; Ref: 80.0–100.0)\n*   **HDL Cholesterol**: 24 mg/dL (Low; Ref: >50)\n*   **Triglycerides**: 376 mg/dL (High; Ref: 0–149)\n*   **TSH**: 0.24 mIU/L (Low; Ref: 0.38–4.56)\n*   **Vitamin D**: 99.7 ng/mL (High; Ref: 30.0–100.0)\n*   **Uric Acid**: 8.3 mg/dL (High; Ref: 2.4–6.1)\n\n### Results that matter together\n*   **diabetes**: Fasting blood sugar is normal, but HbA1c is critically high (13.2%), indicating severe, uncontrolled long-term hyperglycemia.\n*   **kidney**: Elevated creatinine suggests reduced kidney function, which may be exacerbated by the high blood sugar.\n*   **metabolic**: High triglycerides, low HDL, and elevated uric acid suggest a strong metabolic syndrome profile.\n*   **hypothyroid**: Low TSH with high Free T4 indicates the thyroid is overactive (hyperthyroidism), not underactive.\n*   **iron_def**: Low MCV with normal/high ferritin suggests a mixed picture, possibly thalassemia trait or ineffective erythropoiesis due to diabetes/kidney issues, rather than simple iron deficiency.\n\n### What this means\nYour daughter's report shows a **critical situation**. The HbA1c of 13.2% indicates she has had very high blood sugar for the past 3 months, which is dangerous and can lead to acute complications like diabetic ketoacidosis (DKA) or kidney damage. The elevated creatinine (1.45) confirms that her kidneys are struggling, likely due to the uncontrolled diabetes. Additionally, she is in a state of **hyperthyroidism** (low TSH, high T4), which can worsen blood sugar control and heart strain. The high uric acid and triglycerides further increase the risk of heart disease and kidney stones. While her hemoglobin is low, her ferritin is normal, suggesting the low red cell size might be related to the chronic illness or a genetic trait rather than just lack of iron.\n\n### What to do next\n**Seek immediate medical attention.** This level of HbA1c requires hospital evaluation for insulin management and blood sugar stabilization. Do not wait for a routine appointment. She needs urgent blood sugar control to protect her kidneys and prevent acute complications. A doctor will likely need to check ketones in her blood or urine immediately.\n\n***\n*Disclaimer: I am an AI, not a doctor. This information is for educational purposes and does not replace professional medical advice, diagnosis, or treatment.*",
+     "check": {
+      "valid": true,
+      "verdict": "urgent",
+      "verdict_ok": false,
+      "values": [
+       {
+        "key": "hb",
+        "name": "Hemoglobin",
+        "gold": 14.9,
+        "pred": 14.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "wbc",
+        "name": "White blood cells (WBC)",
+        "gold": 6.7,
+        "pred": 6700,
+        "value_ok": false,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "mcv",
+        "name": "MCV (red cell size)",
+        "gold": 75.6,
+        "pred": 75.6,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "fbs",
+        "name": "Fasting glucose",
+        "gold": 92,
+        "pred": 92,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hba1c",
+        "name": "HbA1c",
+        "gold": 13.2,
+        "pred": 13.2,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "creat",
+        "name": "Creatinine",
+        "gold": 1.45,
+        "pred": 1.45,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "urea",
+        "name": "Blood urea",
+        "gold": 34,
+        "pred": 34,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "na",
+        "name": "Sodium",
+        "gold": 140,
+        "pred": 140,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "k",
+        "name": "Potassium",
+        "gold": 3.6,
+        "pred": 3.6,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "alt",
+        "name": "ALT (SGPT)",
+        "gold": 36,
+        "pred": 36,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ast",
+        "name": "AST (SGOT)",
+        "gold": 39,
+        "pred": 39,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "bili",
+        "name": "Total bilirubin",
+        "gold": 0.5,
+        "pred": 0.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "chol",
+        "name": "Total cholesterol",
+        "gold": 137,
+        "pred": 137,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "ldl",
+        "name": "LDL cholesterol",
+        "gold": 126,
+        "pred": 126,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "hdl",
+        "name": "HDL cholesterol",
+        "gold": 24,
+        "pred": 24,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "tg",
+        "name": "Triglycerides",
+        "gold": 376,
+        "pred": 376,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       },
+       {
+        "key": "tsh",
+        "name": "TSH",
+        "gold": 0.24,
+        "pred": 0.24,
+        "value_ok": true,
+        "gold_status": "low",
+        "pred_status": "low",
+        "status_ok": true
+       },
+       {
+        "key": "ft4",
+        "name": "Free T4",
+        "gold": 2.48,
+        "pred": 2.48,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "normal",
+        "status_ok": false
+       },
+       {
+        "key": "ferritin",
+        "name": "Ferritin",
+        "gold": 98.9,
+        "pred": 98.9,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "b12",
+        "name": "Vitamin B12",
+        "gold": 887,
+        "pred": 887,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "vitd",
+        "name": "Vitamin D (25-OH)",
+        "gold": 99.7,
+        "pred": 99.7,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "high",
+        "status_ok": false
+       },
+       {
+        "key": "crp",
+        "name": "CRP",
+        "gold": 4.5,
+        "pred": 4.5,
+        "value_ok": true,
+        "gold_status": "normal",
+        "pred_status": "normal",
+        "status_ok": true
+       },
+       {
+        "key": "uric",
+        "name": "Uric acid",
+        "gold": 8.3,
+        "pred": 8.3,
+        "value_ok": true,
+        "gold_status": "high",
+        "pred_status": "high",
+        "status_ok": true
+       }
+      ],
+      "extra_values": [
+       "plt"
+      ],
+      "missing_patterns": [
+       "gout_kidney",
+       "hyperthyroid",
+       "prediabetes"
+      ],
+      "extra_patterns": [
+       "diabetes",
+       "hypothyroid",
+       "iron_def",
+       "kidney"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

@@ -8,6 +8,7 @@ import { getHealth } from "@/lib/api";
 const NAV = [
   { href: "/", label: "Check a report" },
   { href: "/how-it-works", label: "How it works" },
+  { href: "/model", label: "Our model" },
 ];
 
 /** The product in miniature: a reference band and one value sitting above it. */
@@ -50,7 +51,7 @@ export default function Header() {
               key={n.href}
               href={n.href}
               aria-current={active ? "page" : undefined}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+              className={`rounded-full px-3 py-2 text-sm font-semibold transition-colors sm:px-4 ${
                 active ? "bg-ink text-white" : "text-slate hover:bg-well hover:text-ink"
               }`}
             >
