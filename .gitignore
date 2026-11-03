@@ -29,3 +29,7 @@ design
 # Media: voice-over drafts and the raw recording stay local; the compressed demo is in docs/
 *.mp3
 /Lablens.mp4
+
+# Round 2 training: checkpoints are large; the run log is the training-process evidence, so keep it
+backend/train/checkpoints/
+!backend/train/runs.log
