@@ -176,5 +176,11 @@ Full tables (`gold` is the rules engine itself, as a sanity check; `adapted` is 
 - The model has not been clinically validated. Its reference ranges are typical adult values, and labs differ.
 - The rules engine stays the source of truth: the app recomputes every flag from the extracted values and shows
   any disagreement.
+- Known output flaws outside the checked JSON block, found when reviewing the demo outputs:
+  - The emergency line often names the wrong numbers: "call 108 or 108" (and once in Hindi "108 या 109") instead of
+    "108 or 112", in 38 of 105 answers. The training data is correct, so this is a small-model copying error. The
+    LabLens app's emergency box is fixed text, not model output.
+  - Free-text explanations can contain factual slips, especially in Hindi and Marathi. For example, one Marathi answer
+    describes sodium as a sugar. Values, flags and patterns are what the rules engine verifies; explanation text is not.
 - It never prescribes medicines or doses. Urgent findings are escalated with "see a doctor today; call 108 or 112".
 - The Hindi and Marathi section headings and fixed sentences come from templates, not yet reviewed by a native speaker. The explanations come from the LabLens library built with Adaption Adaptive Data.
